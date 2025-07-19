@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -57,6 +58,7 @@
     --gradient-primary: linear-gradient(135deg, hsl(184, 100%, 50%), hsl(184, 100%, 60%));
     --gradient-surface: linear-gradient(135deg, hsl(210, 50%, 8%), hsl(210, 30%, 12%));
     --shadow-glow: 0 0 40px hsl(184, 100%, 50%, 0.3);
+    --shadow-glow-subtle: 0 0 40px hsl(184, 100%, 50%, 0.1);
     --shadow-card: 0 10px 30px -10px hsl(0, 0%, 0%, 0.5);
     
     /* Animation & Transitions */
@@ -122,8 +124,13 @@
   }
 
   .card-bridge-interactive {
-    @apply card-bridge hover:border-primary/30 hover:shadow-glow/20
+    @apply card-bridge hover:border-primary/30
            transform hover:-translate-y-1 transition-all duration-300;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-bridge-interactive:hover {
+    box-shadow: var(--shadow-glow-subtle);
   }
 
   /* Gradient Text */
