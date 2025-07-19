@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
@@ -17,21 +18,34 @@ interface HeaderProps {
 
 const Header = ({ isLoggedIn = false }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
 
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navigationLinks = isLoggedIn ? [
     { label: "Descobrir Eventos", path: "/eventos" },
-    { label: "Meus Eventos", path: "/meus-eventos" },
-    { label: "Criar um Evento", path: "/criar-evento" }
+    { label: "Criar um Evento", path: "/criar-evento" },
+    { label: "Minhas Conexões", path: "/minhas-conexoes" }
   ] : [
     { label: "Como Funciona", path: "#como-funciona" },
     { label: "Para Organizadores", path: "#organizadores" }
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-card-border bg-card/80 backdrop-blur-sm">
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      isScrolled ? 'header-scrolled' : 'bg-transparent'
+    }`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
@@ -78,7 +92,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/conexoes" className="flex items-center cursor-pointer">
+                  <Link to="/minhas-conexoes" className="flex items-center cursor-pointer">
                     <Users className="mr-2 h-4 w-4" />
                     Minhas Conexões
                   </Link>

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -71,6 +72,7 @@ export default {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-surface': 'var(--gradient-surface)',
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-black-royal': 'linear-gradient(to bottom, #000000 0%, #001eff 100%)',
 			},
 			boxShadow: {
 				'glow': 'var(--shadow-glow)',
