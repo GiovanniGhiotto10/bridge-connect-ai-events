@@ -87,7 +87,7 @@ const MyConnections = () => {
       
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold text-gradient-primary mb-8">
+          <h1 className="text-4xl font-black text-white uppercase mb-8 text-center">
             Minhas Conexões e Agenda
           </h1>
 
@@ -199,7 +199,7 @@ const MyConnections = () => {
                 <div className="lg:col-span-2">
                   <Card className="card-bridge">
                     <CardHeader>
-                      <CardTitle>Calendário</CardTitle>
+                      <CardTitle className="text-white font-poppins font-black uppercase">Calendário</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <Calendar
@@ -215,7 +215,7 @@ const MyConnections = () => {
                 <div className="space-y-4">
                   <Card className="card-bridge">
                     <CardHeader>
-                      <CardTitle className="text-lg">Próximos Eventos</CardTitle>
+                      <CardTitle className="text-lg text-white font-poppins font-black uppercase">Próximos Eventos</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div className="flex items-center space-x-3 p-3 rounded-lg bg-muted/50">

@@ -52,7 +52,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
           <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
             <span className="text-primary-foreground font-bold text-lg">B</span>
           </div>
-          <span className="text-xl font-bold text-gradient-primary">Bridge</span>
+          <span className="text-xl font-bold text-white">Bridge</span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -21,6 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				inter: ['Inter', 'sans-serif'],
+				poppins: ['Poppins', 'sans-serif'],
 				sans: ['Inter', 'sans-serif'],
 			},
 			colors: {
@@ -76,6 +77,7 @@ export default {
 			},
 			boxShadow: {
 				'glow': 'var(--shadow-glow)',
+				'glow-subtle': 'var(--shadow-glow-subtle)',
 				'card': 'var(--shadow-card)',
 			},
 			borderRadius: {
