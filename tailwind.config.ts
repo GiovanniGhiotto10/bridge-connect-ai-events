@@ -73,7 +73,7 @@ export default {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-surface': 'var(--gradient-surface)',
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'gradient-black-royal': 'linear-gradient(to bottom, #000000 0%, #001eff 100%)',
+				'gradient-dark-blue': 'linear-gradient(180deg, #0a0e27 0%, #1e3a8a 100%)',
 			},
 			boxShadow: {
 				'glow': 'var(--shadow-glow)',
