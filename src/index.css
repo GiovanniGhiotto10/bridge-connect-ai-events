@@ -6,35 +6,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Bridge Platform Design System - Dark Blue Gradient Theme */
+/* Bridge Platform Design System - Dark Blue to Black Gradient Theme */
 
 @layer base {
   :root {
-    /* Bridge Brand Colors - Dark Blue Gradient Theme */
-    --background: 220 100% 4%;  /* Dark navy blue base */
+    /* Bridge Brand Colors - Dark Blue to Black Gradient Theme */
+    --background: 220 100% 8%;  /* Dark blue base */
     --foreground: 0 0% 92%;  /* Light gray text (#EAEAEA) */
 
     /* Card and Surface Colors */
-    --card: 220 100% 8%;  /* Slightly lighter navy for cards */
+    --card: 220 80% 12%;  /* Dark blue for cards */
     --card-foreground: 0 0% 92%;
-    --card-border: 220 50% 15%;
+    --card-border: 220 60% 18%;
 
     /* Interactive Elements - WHITE as primary color */
     --primary: 0 0% 100%;  /* White */
-    --primary-foreground: 220 100% 4%;  /* Dark navy text on white */
+    --primary-foreground: 220 100% 8%;  /* Dark blue text on white */
     --primary-glow: 270 30% 90%;  /* Lavender glow */
     
     /* Secondary Actions */
-    --secondary: 220 50% 20%;
+    --secondary: 220 60% 25%;
     --secondary-foreground: 0 0% 92%;
     
     /* Muted Elements */
-    --muted: 220 30% 15%;
+    --muted: 220 40% 20%;
     --muted-foreground: 0 0% 60%;
     
     /* Accent for Highlights - WHITE */
     --accent: 0 0% 100%;
-    --accent-foreground: 220 100% 4%;
+    --accent-foreground: 220 100% 8%;
     
     /* Status Colors */
     --success: 142 76% 36%;
@@ -45,21 +45,21 @@
     --destructive-foreground: 0 0% 98%;
 
     /* Form Elements */
-    --border: 220 30% 20%;
-    --input: 220 30% 18%;
+    --border: 220 40% 25%;
+    --input: 220 40% 22%;
     --input-foreground: 0 0% 92%;
     --ring: 0 0% 100%;
 
     /* Popover and Dialog */
-    --popover: 220 50% 10%;
+    --popover: 220 60% 15%;
     --popover-foreground: 0 0% 92%;
 
     /* Bridge Specific Design Tokens */
     --gradient-primary: linear-gradient(135deg, hsl(0, 0%, 100%), hsl(0, 0%, 90%));
-    --gradient-surface: linear-gradient(135deg, hsl(220, 50%, 8%), hsl(220, 30%, 12%));
+    --gradient-surface: linear-gradient(135deg, hsl(220, 60%, 12%), hsl(220, 40%, 8%));
     --shadow-glow: 0 0 40px hsl(270, 30%, 90%, 0.3);
     --shadow-glow-subtle: 0 0 20px hsl(270, 30%, 90%, 0.1);
-    --shadow-card: 0 10px 30px -10px hsl(220, 100%, 2%, 0.5);
+    --shadow-card: 0 10px 30px -10px hsl(220, 100%, 4%, 0.6);
     
     /* Animation & Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -76,8 +76,8 @@
 
   body {
     @apply font-inter text-foreground;
-    /* Dark blue gradient background matching the first image */
-    background: linear-gradient(180deg, #0a0e27 0%, #1e3a8a 100%);
+    /* Vibrant dark blue to black gradient background for entire site */
+    background: linear-gradient(180deg, #1e40af 0%, #000000 100%);
     min-height: 100vh;
   }
 
