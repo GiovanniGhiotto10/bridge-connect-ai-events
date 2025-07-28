@@ -1,17 +1,15 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   Users, 
-  TrendingUp, 
   Calendar,
   Brain,
   Target,
-  Sparkles,
   ArrowRight,
-  CheckCircle,
-  Quote
+  CheckCircle
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -27,8 +25,7 @@ const Index = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
               <h1 className="text-5xl lg:text-7xl font-bold text-gradient-primary mb-6 leading-tight">
-                Eventos que Criam Conexões.{" "}
-                <span className="text-foreground">Conexões que Geram Resultados.</span>
+                ENCONTRE AS PESSOAS CERTAS EM CADA EVENTO.
               </h1>
               <p className="text-xl lg:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
                 Use a Inteligência Artificial da Bridge para encontrar as pessoas certas em cada evento. 
@@ -68,45 +65,14 @@ const Index = () => {
               </h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <Card className="card-bridge-interactive text-center group">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                    <Target className="h-8 w-8 text-primary-foreground" />
-                  </div>
-                  <div className="text-4xl font-bold text-gradient-primary mb-2">+ de 85%</div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3">Match Assertivo</h3>
-                  <p className="text-muted-foreground">
-                    Nossa IA gera compatibilidades com alta precisão baseada em perfis e objetivos.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="card-bridge-interactive text-center group">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                    <TrendingUp className="h-8 w-8 text-primary-foreground" />
-                  </div>
-                  <div className="text-4xl font-bold text-gradient-primary mb-2">40%</div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3">Aumento em Retenção</h3>
-                  <p className="text-muted-foreground">
-                    Participantes satisfeitos voltam aos seus eventos com mais frequência.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="card-bridge-interactive text-center group">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                    <Calendar className="h-8 w-8 text-primary-foreground" />
-                  </div>
-                  <div className="text-4xl font-bold text-gradient-primary mb-2">Milhares</div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3">Reuniões Agendadas</h3>
-                  <p className="text-muted-foreground">
-                    Facilitamos reuniões que impulsionam negócios e criam parcerias duradouras.
-                  </p>
-                </CardContent>
-              </Card>
+            <div className="max-w-4xl mx-auto">
+              <div className="animate-fade-in-up">
+                <img 
+                  src="/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png" 
+                  alt="Networking inteligente em eventos" 
+                  className="w-full h-auto rounded-lg shadow-card"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -172,7 +138,7 @@ const Index = () => {
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-4">Descubra seus Matches</h3>
                   <p className="text-muted-foreground">
-                    Receba uma lista com a porcentagem de compatibilidade e inicie conversas estratégicas.
+                    Envie convites, agende reuniões e construa relacionamentos que geram valor se conectando com as pessoas certas
                   </p>
                 </div>
               </div>
@@ -233,7 +199,7 @@ const Index = () => {
                   <div className="card-bridge p-8 animate-scale-in">
                     <div className="flex items-center gap-4 mb-6">
                       <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
-                        <Sparkles className="h-6 w-6 text-primary-foreground" />
+                        <Target className="h-6 w-6 text-primary-foreground" />
                       </div>
                       <div>
                         <h3 className="font-bold text-foreground">Match IA</h3>
@@ -268,41 +234,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Testimonial Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-12">
-                Networking que Faz as Pessoas Voltarem
-              </h2>
-              
-              <Card className="card-bridge relative overflow-hidden">
-                <CardContent className="p-12">
-                  <Quote className="h-12 w-12 text-primary/30 mx-auto mb-6" />
-                  <blockquote className="text-xl lg:text-2xl text-foreground font-medium leading-relaxed mb-8">
-                    "Pela primeira vez, fui a um evento e saí com três reuniões que se tornaram parcerias. 
-                    Com a Bridge, a sensação não é de sorte, é de eficiência."
-                  </blockquote>
-                  
-                  <div className="flex items-center justify-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold">MR</span>
-                    </div>
-                    <div className="text-left">
-                      <div className="font-semibold text-foreground">Marina Rodrigues</div>
-                      <div className="text-sm text-muted-foreground">CEO, TechStart Solutions</div>
-                    </div>
-                  </div>
-                </CardContent>
-                
-                {/* Background decoration */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-16 translate-x-16"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary/10 rounded-full translate-y-12 -translate-x-12"></div>
-              </Card>
-            </div>
-          </div>
-        </section>
-
         {/* Final CTA Section */}
         <section className="py-20 bg-gradient-surface border-t border-card-border">
           <div className="container mx-auto px-4">
@@ -324,10 +255,6 @@ const Index = () => {
                   <ArrowRight className="ml-3 h-6 w-6" />
                 </Link>
               </Button>
-              
-              <p className="text-sm text-muted-foreground mt-6">
-                Sem compromisso. Cancele quando quiser.
-              </p>
             </div>
           </div>
         </section>
