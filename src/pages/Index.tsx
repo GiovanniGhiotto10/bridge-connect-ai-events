@@ -220,46 +220,46 @@ const Index = () => {
                     
                     {/* Neon Connecting Lines - Only on large screens */}
                     <div className="hidden lg:block absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
-                      {/* Connection 1: Top-left block to center (right side to left side) */}
+                      {/* Connection 1: Top-left block RIGHT SIDE to center LEFT SIDE */}
                       <div 
                         className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" 
                         style={{ 
-                          top: 'calc(-4rem + 3rem)', // Aligned with top-left block middle
-                          right: 'calc(50% + 12rem)', // Start from right side of left column
-                          width: '12rem', // Length to reach center block
+                          top: 'calc(-4rem + 3rem)', // Middle of top-left block
+                          left: 'calc(-12rem)', // Start from right side of left column
+                          width: '12rem', // Length to reach center block left side
                           boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
                         }}
                       ></div>
                       
-                      {/* Connection 2: Bottom-left block to center (right side to left side) */}
+                      {/* Connection 2: Bottom-left block RIGHT SIDE to center LEFT SIDE */}
                       <div 
                         className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" 
                         style={{ 
-                          bottom: 'calc(-4rem + 3rem)', // Aligned with bottom-left block middle
-                          right: 'calc(50% + 12rem)', // Start from right side of left column
-                          width: '12rem', // Length to reach center block
+                          bottom: 'calc(-4rem + 3rem)', // Middle of bottom-left block
+                          left: 'calc(-12rem)', // Start from right side of left column
+                          width: '12rem', // Length to reach center block left side
                           boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
                         }}
                       ></div>
                       
-                      {/* Connection 3: Top-right block to center (left side to right side) */}
+                      {/* Connection 3: Top-right block LEFT SIDE to center RIGHT SIDE */}
                       <div 
                         className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" 
                         style={{ 
-                          top: 'calc(-4rem + 3rem)', // Aligned with top-right block middle
-                          left: 'calc(50% + 12rem)', // Start from left side of right column
-                          width: '12rem', // Length to reach center block
+                          top: 'calc(-4rem + 3rem)', // Middle of top-right block
+                          right: 'calc(-12rem)', // Start from left side of right column
+                          width: '12rem', // Length to reach center block right side
                           boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
                         }}
                       ></div>
                       
-                      {/* Connection 4: Bottom-right block to center (left side to right side) */}
+                      {/* Connection 4: Bottom-right block LEFT SIDE to center RIGHT SIDE */}
                       <div 
                         className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" 
                         style={{ 
-                          bottom: 'calc(-4rem + 3rem)', // Aligned with bottom-right block middle
-                          left: 'calc(50% + 12rem)', // Start from left side of right column
-                          width: '12rem', // Length to reach center block
+                          bottom: 'calc(-4rem + 3rem)', // Middle of bottom-right block
+                          right: 'calc(-12rem)', // Start from left side of right column
+                          width: '12rem', // Length to reach center block right side
                           boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
                         }}
                       ></div>
