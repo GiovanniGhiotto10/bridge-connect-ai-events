@@ -167,7 +167,7 @@ const Index = () => {
                   {/* Left Column - Two blocks */}
                   <div className="space-y-8">
                     {/* Top Left Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative">
+                    <div className="card-bridge p-6 animate-scale-in relative" id="networking-block">
                       <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="networking-title">
                         NETWORKING SEM ESFORÇO PARA PARTICIPANTES
                       </h3>
@@ -177,7 +177,7 @@ const Index = () => {
                     </div>
                     
                     {/* Bottom Left Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" style={{ animationDelay: '0.2s' }}>
+                    <div className="card-bridge p-6 animate-scale-in relative" style={{ animationDelay: '0.2s' }} id="personalization-block">
                       <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="personalization-title">
                         OPÇÕES DE PERSONALIZAÇÃO PARA ORGANIZADORES
                       </h3>
@@ -189,7 +189,7 @@ const Index = () => {
 
                   {/* Center Block - MATCH IA */}
                   <div className="relative lg:my-8">
-                    <div className="card-bridge p-8 animate-scale-in relative z-10" style={{ animationDelay: '0.4s' }}>
+                    <div className="card-bridge p-8 animate-scale-in relative z-10" style={{ animationDelay: '0.4s' }} id="match-ia-block">
                       <div className="flex items-center gap-4 mb-6">
                         <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
                           <Target className="h-6 w-6 text-primary-foreground" />
@@ -218,42 +218,58 @@ const Index = () => {
                       </div>
                     </div>
                     
-                    {/* Neon Connecting Lines - Hidden on mobile */}
-                    <div className="hidden lg:block absolute inset-0 pointer-events-none">
-                      {/* Line to top-left */}
-                      <div className="absolute top-4 left-0 w-20 h-0.5 bg-gradient-to-l from-[#001eff] to-transparent" 
-                           style={{ 
-                             boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50',
-                             transform: 'translateX(-100%) translateY(-50px)'
-                           }}></div>
+                    {/* Neon Connecting Lines - Only on large screens */}
+                    <div className="hidden lg:block absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
+                      {/* Connection 1: Top-left block to center (right side to left side) */}
+                      <div 
+                        className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" 
+                        style={{ 
+                          top: 'calc(-4rem + 3rem)', // Aligned with top-left block middle
+                          right: 'calc(50% + 12rem)', // Start from right side of left column
+                          width: '12rem', // Length to reach center block
+                          boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
+                        }}
+                      ></div>
                       
-                      {/* Line to bottom-left */}
-                      <div className="absolute bottom-4 left-0 w-20 h-0.5 bg-gradient-to-l from-[#001eff] to-transparent" 
-                           style={{ 
-                             boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50',
-                             transform: 'translateX(-100%) translateY(50px)'
-                           }}></div>
+                      {/* Connection 2: Bottom-left block to center (right side to left side) */}
+                      <div 
+                        className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" 
+                        style={{ 
+                          bottom: 'calc(-4rem + 3rem)', // Aligned with bottom-left block middle
+                          right: 'calc(50% + 12rem)', // Start from right side of left column
+                          width: '12rem', // Length to reach center block
+                          boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
+                        }}
+                      ></div>
                       
-                      {/* Line to top-right */}
-                      <div className="absolute top-4 right-0 w-20 h-0.5 bg-gradient-to-r from-[#001eff] to-transparent" 
-                           style={{ 
-                             boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50',
-                             transform: 'translateX(100%) translateY(-50px)'
-                           }}></div>
+                      {/* Connection 3: Top-right block to center (left side to right side) */}
+                      <div 
+                        className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" 
+                        style={{ 
+                          top: 'calc(-4rem + 3rem)', // Aligned with top-right block middle
+                          left: 'calc(50% + 12rem)', // Start from left side of right column
+                          width: '12rem', // Length to reach center block
+                          boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
+                        }}
+                      ></div>
                       
-                      {/* Line to bottom-right */}
-                      <div className="absolute bottom-4 right-0 w-20 h-0.5 bg-gradient-to-r from-[#001eff] to-transparent" 
-                           style={{ 
-                             boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50',
-                             transform: 'translateX(100%) translateY(50px)'
-                           }}></div>
+                      {/* Connection 4: Bottom-right block to center (left side to right side) */}
+                      <div 
+                        className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" 
+                        style={{ 
+                          bottom: 'calc(-4rem + 3rem)', // Aligned with bottom-right block middle
+                          left: 'calc(50% + 12rem)', // Start from left side of right column
+                          width: '12rem', // Length to reach center block
+                          boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
+                        }}
+                      ></div>
                     </div>
                   </div>
 
                   {/* Right Column - Two blocks */}
                   <div className="space-y-8">
                     {/* Top Right Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" style={{ animationDelay: '0.6s' }}>
+                    <div className="card-bridge p-6 animate-scale-in relative" style={{ animationDelay: '0.6s' }} id="community-block">
                       <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="community-title">
                         COMUNIDADE ENGAJADA E DE ALTO VALOR
                       </h3>
@@ -263,7 +279,7 @@ const Index = () => {
                     </div>
                     
                     {/* Bottom Right Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" style={{ animationDelay: '0.8s' }}>
+                    <div className="card-bridge p-6 animate-scale-in relative" style={{ animationDelay: '0.8s' }} id="analytics-block">
                       <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="analytics-title">
                         ANALYTICS E INSIGHTS EM TEMPO REAL
                       </h3>
