@@ -1,19 +1,13 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
-  Search, 
   MapPin, 
   Calendar, 
-  Users, 
-  Clock,
   ChevronRight,
   Star,
-  Filter,
   Brain,
   Briefcase,
   Palette,
@@ -101,62 +95,54 @@ const allEvents = [
   {
     id: 6,
     title: "Tech Meetup - DevOps",
-    description: "Discussões técnicas sobre DevOps e infraestrutura",
+    description: "Discussões técnicas sobre DevOps e infraestrutura cloud",
     date: "2025-04-15",
     time: "18:00",
     location: "Recife, PE",
     capacity: 100,
     attendees: 67,
     image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=300&h=300&fit=crop&crop=center",
-    logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=60&h=60&fit=crop&crop=center",
     tags: ["DevOps", "Tecnologia", "Meetup"],
-    featured: false,
-    price: "Gratuito"
+    featured: false
   },
   {
     id: 7,
     title: "Workshop UX/UI",
-    description: "Aprenda os fundamentos do design de interface",
+    description: "Aprenda os fundamentos do design de interface moderna",
     date: "2025-04-18",
     time: "14:00",
     location: "São Paulo, SP",
     capacity: 50,
     attendees: 32,
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=300&fit=crop&crop=center",
-    logo: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=60&h=60&fit=crop&crop=center",
     tags: ["Design", "UX/UI", "Workshop"],
-    featured: false,
-    price: "R$ 150"
+    featured: false
   },
   {
     id: 8,
     title: "Networking Empreendedor",
-    description: "Conecte-se com outros empreendedores",
+    description: "Conecte-se com outros empreendedores inovadores",
     date: "2025-04-22",
     time: "19:00",
     location: "Rio de Janeiro, RJ",
     capacity: 80,
     attendees: 45,
     image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=300&h=300&fit=crop&crop=center",
-    logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=60&h=60&fit=crop&crop=center",
     tags: ["Networking", "Empreendedorismo"],
-    featured: false,
-    price: "R$ 30"
+    featured: false
   },
   {
     id: 9,
     title: "Palestra IA & Futuro",
-    description: "O impacto da inteligência artificial no mercado",
+    description: "O impacto da inteligência artificial no mercado de trabalho",
     date: "2025-04-25",
     time: "16:00",
     location: "Belo Horizonte, MG",
     capacity: 200,
     attendees: 134,
     image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=300&h=300&fit=crop&crop=center",
-    logo: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=60&h=60&fit=crop&crop=center",
     tags: ["IA", "Tecnologia", "Futuro"],
-    featured: false,
-    price: "Gratuito"
+    featured: false
   }
 ];
 
@@ -188,9 +174,6 @@ const categories = [
 ];
 
 const DiscoverEvents = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [locationFilter, setLocationFilter] = useState("");
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('pt-BR', {
@@ -199,17 +182,6 @@ const DiscoverEvents = () => {
       year: 'numeric'
     });
   };
-
-  const filteredEvents = allEvents.filter(event => {
-    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         event.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesLocation = locationFilter === "" ||
-                           event.location.toLowerCase().includes(locationFilter.toLowerCase());
-    
-    return matchesSearch && matchesLocation;
-  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -224,38 +196,6 @@ const DiscoverEvents = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Encontre eventos onde nossa IA conecta você com pessoas que compartilham seus interesses e objetivos.
           </p>
-        </div>
-
-        {/* Search and Filters */}
-        <div className="max-w-4xl mx-auto mb-12 animate-scale-in">
-          <Card className="card-bridge">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input
-                    placeholder="Buscar por evento, tema ou palavra-chave..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 bg-input border-border text-input-foreground"
-                  />
-                </div>
-                <div className="flex-1 relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input
-                    placeholder="Filtrar por localização..."
-                    value={locationFilter}
-                    onChange={(e) => setLocationFilter(e.target.value)}
-                    className="pl-10 bg-input border-border text-input-foreground"
-                  />
-                </div>
-                <Button variant="outline" className="btn-bridge-outline">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Mais Filtros
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Featured Events Carousel */}
@@ -281,27 +221,18 @@ const DiscoverEvents = () => {
                   <img
                     src={event.image}
                     alt={event.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 scale-90"
                   />
-                  {/* Event Logo Overlay */}
-                  <div className="absolute top-3 right-3">
-                    <img
-                      src={event.logo}
-                      alt={`${event.title} logo`}
-                      className="w-12 h-12 rounded-full object-cover border-2 border-white/80 shadow-lg"
-                    />
-                  </div>
-                  <div className="absolute top-3 left-3">
-                    <Badge variant="secondary" className="bg-card/80 text-card-foreground text-xs">
-                      {event.price}
-                    </Badge>
-                  </div>
                 </div>
                 
                 <CardContent className="p-4">
-                  <h3 className="text-sm font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                  <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
                     {event.title}
                   </h3>
+                  
+                  <p className="text-sm text-muted-foreground mb-3 line-clamp-1">
+                    {event.description}
+                  </p>
                   
                   <div className="space-y-1 mb-3">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -345,7 +276,7 @@ const DiscoverEvents = () => {
             {categories.map((category) => {
               const IconComponent = category.icon;
               return (
-                <Link key={category.id} to={`/todos-eventos?categoria=${category.name.toLowerCase()}`}>
+                <Link key={category.id} to={`/todos-eventos?categoria=${encodeURIComponent(category.name)}`}>
                   <Card className="card-bridge-interactive group cursor-pointer">
                     <CardContent className="p-8 text-center">
                       <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${category.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
