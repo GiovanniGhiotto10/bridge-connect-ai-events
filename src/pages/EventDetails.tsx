@@ -1,4 +1,3 @@
-
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -178,7 +177,7 @@ const EventDetails = () => {
                       <p className="text-sm text-muted-foreground">Data e Hora</p>
                       <p className="text-foreground font-medium">
                         {formatDate(event.date)}
-                        {'endDate' in event && event.endDate && ` - ${formatDate(event.endDate)}`}
+                        {event.id === 1 && event.endDate && ` - ${formatDate(event.endDate)}`}
                       </p>
                       <p className="text-foreground font-medium">{event.time}</p>
                     </div>
