@@ -226,38 +226,6 @@ const DiscoverEvents = () => {
           </p>
         </div>
 
-        {/* Search and Filters */}
-        <div className="max-w-4xl mx-auto mb-12 animate-scale-in">
-          <Card className="card-bridge">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input
-                    placeholder="Buscar por evento, tema ou palavra-chave..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 bg-input border-border text-input-foreground"
-                  />
-                </div>
-                <div className="flex-1 relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input
-                    placeholder="Filtrar por localização..."
-                    value={locationFilter}
-                    onChange={(e) => setLocationFilter(e.target.value)}
-                    className="pl-10 bg-input border-border text-input-foreground"
-                  />
-                </div>
-                <Button variant="outline" className="btn-bridge-outline">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Mais Filtros
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Featured Events Carousel */}
         <section className="mb-16">
           <div className="flex items-center gap-3 mb-8 justify-center">
@@ -281,27 +249,18 @@ const DiscoverEvents = () => {
                   <img
                     src={event.image}
                     alt={event.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-[180px] object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  {/* Event Logo Overlay */}
-                  <div className="absolute top-3 right-3">
-                    <img
-                      src={event.logo}
-                      alt={`${event.title} logo`}
-                      className="w-12 h-12 rounded-full object-cover border-2 border-white/80 shadow-lg"
-                    />
-                  </div>
-                  <div className="absolute top-3 left-3">
-                    <Badge variant="secondary" className="bg-card/80 text-card-foreground text-xs">
-                      {event.price}
-                    </Badge>
-                  </div>
                 </div>
                 
                 <CardContent className="p-4">
-                  <h3 className="text-sm font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                  <h3 className="text-base font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">
                     {event.title}
                   </h3>
+                  
+                  <p className="text-sm text-muted-foreground mb-3 line-clamp-1">
+                    {event.description}
+                  </p>
                   
                   <div className="space-y-1 mb-3">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -344,8 +303,9 @@ const DiscoverEvents = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => {
               const IconComponent = category.icon;
+              const categoryParam = encodeURIComponent(category.name.toLowerCase());
               return (
-                <Link key={category.id} to={`/todos-eventos?categoria=${category.name.toLowerCase()}`}>
+                <Link key={category.id} to={`/todos-eventos?categoria=${categoryParam}`}>
                   <Card className="card-bridge-interactive group cursor-pointer">
                     <CardContent className="p-8 text-center">
                       <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${category.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>

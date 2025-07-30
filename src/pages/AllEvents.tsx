@@ -10,8 +10,7 @@ import {
   MapPin, 
   Calendar, 
   ChevronLeft,
-  ChevronRight,
-  Filter
+  ChevronRight
 } from "lucide-react";
 import {
   Select,
@@ -167,8 +166,17 @@ const AllEvents = () => {
   useEffect(() => {
     const categoryParam = searchParams.get('categoria');
     if (categoryParam) {
-      const formattedCategory = categoryParam.replace(/\b\w/g, l => l.toUpperCase());
-      setCategoryFilter(formattedCategory);
+      // Convert URL param back to display format
+      const categoryMap: { [key: string]: string } = {
+        'tecnologia & ia': 'Tecnologia & IA',
+        'negócios & finanças': 'Negócios & Finanças',
+        'design & criatividade': 'Design & Criatividade',
+        'saúde & bem-estar': 'Saúde & Bem-estar'
+      };
+      
+      const decodedCategory = decodeURIComponent(categoryParam);
+      const displayCategory = categoryMap[decodedCategory] || decodedCategory;
+      setCategoryFilter(displayCategory);
     }
   }, [searchParams]);
 
@@ -225,7 +233,7 @@ const AllEvents = () => {
         <div className="mb-12">
           <Card className="card-bridge">
             <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Category Filter */}
                 <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                   <SelectTrigger className="bg-input border-border text-input-foreground">
@@ -261,12 +269,6 @@ const AllEvents = () => {
                     className="pl-10 bg-input border-border text-input-foreground"
                   />
                 </div>
-
-                {/* More Filters Button */}
-                <Button variant="outline" className="btn-bridge-outline">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Mais Filtros
-                </Button>
               </div>
 
               {/* Results Count */}
@@ -299,14 +301,6 @@ const AllEvents = () => {
                       alt={event.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
-                    {/* Event Logo Overlay */}
-                    <div className="absolute top-3 right-3">
-                      <img
-                        src={event.logo}
-                        alt={`${event.title} logo`}
-                        className="w-12 h-12 rounded-full object-cover border-2 border-white/80 shadow-lg"
-                      />
-                    </div>
                     <div className="absolute top-3 left-3">
                       <Badge variant="secondary" className="bg-card/80 text-card-foreground text-xs">
                         {event.price}
