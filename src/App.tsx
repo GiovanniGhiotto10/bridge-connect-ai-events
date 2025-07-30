@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import CreateEvent from "./pages/CreateEvent";
 import DiscoverEvents from "./pages/DiscoverEvents";
+import EventDetails from "./pages/EventDetails";
 import MyConnections from "./pages/MyConnections";
 import NotFound from "./pages/NotFound";
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/criar-evento" element={<CreateEvent />} />
           <Route path="/eventos" element={<DiscoverEvents />} />
+          <Route path="/evento/:id" element={<EventDetails />} />
           <Route path="/minhas-conexoes" element={<MyConnections />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

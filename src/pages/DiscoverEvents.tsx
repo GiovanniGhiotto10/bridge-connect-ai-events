@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,11 @@ import {
   Clock,
   ChevronRight,
   Star,
-  Filter
+  Filter,
+  Brain,
+  Briefcase,
+  Palette,
+  Heart
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -28,7 +33,7 @@ const featuredEvents = [
     location: "São Paulo, SP",
     capacity: 500,
     attendees: 234,
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+    logo: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=200&h=200&fit=crop&crop=center",
     tags: ["IA", "Tecnologia", "Inovação"],
     featured: true,
     price: "Gratuito"
@@ -42,7 +47,7 @@ const featuredEvents = [
     location: "Rio de Janeiro, RJ",
     capacity: 150,
     attendees: 89,
-    image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7",
+    logo: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=200&h=200&fit=crop&crop=center",
     tags: ["Startups", "Networking", "Investimentos"],
     featured: true,
     price: "R$ 50"
@@ -106,6 +111,33 @@ const allEvents = [
     tags: ["DevOps", "Tecnologia", "Meetup"],
     featured: false,
     price: "Gratuito"
+  }
+];
+
+const categories = [
+  {
+    id: 1,
+    name: "TECNOLOGIA & IA",
+    icon: Brain,
+    color: "from-blue-500 to-purple-600"
+  },
+  {
+    id: 2,
+    name: "NEGÓCIOS & FINANÇAS",
+    icon: Briefcase,
+    color: "from-green-500 to-teal-600"
+  },
+  {
+    id: 3,
+    name: "DESIGN & CRIATIVIDADE",
+    icon: Palette,
+    color: "from-pink-500 to-rose-600"
+  },
+  {
+    id: 4,
+    name: "SAÚDE & BEM-ESTAR",
+    icon: Heart,
+    color: "from-red-500 to-orange-600"
   }
 ];
 
@@ -208,20 +240,17 @@ const DiscoverEvents = () => {
                 })
                 .map((event) => (
                 <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
+                  <div className="relative h-48 overflow-hidden" style={{ backgroundColor: '#1a2a6c' }}>
+                    <div className="flex items-center justify-center h-full">
+                      <img
+                        src={event.logo}
+                        alt={`${event.title} logo`}
+                        className="w-24 h-24 object-contain"
+                      />
+                    </div>
                     <div className="absolute top-4 left-4">
                       <Badge className="bg-primary text-primary-foreground">
                         Destaque
-                      </Badge>
-                    </div>
-                    <div className="absolute top-4 right-4">
-                      <Badge variant="secondary" className="bg-card/80 text-card-foreground">
-                        {event.price}
                       </Badge>
                     </div>
                   </div>
@@ -230,9 +259,6 @@ const DiscoverEvents = () => {
                     <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                       {event.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-2">
-                      {event.description}
-                    </p>
                     
                     <div className="space-y-3 mb-4">
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -245,22 +271,6 @@ const DiscoverEvents = () => {
                         <MapPin className="h-4 w-4" />
                         {event.location}
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Users className="h-4 w-4" />
-                        {event.attendees}/{event.capacity} participantes
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {event.tags.map((tag) => (
-                        <Badge
-                          key={tag}
-                          variant="outline"
-                          className="text-xs border-primary/20 text-primary"
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
                     </div>
 
                     <Button className="btn-bridge-primary w-full group" asChild>
@@ -277,7 +287,7 @@ const DiscoverEvents = () => {
         )}
 
         {/* All Events */}
-        <section>
+        <section className="mb-16">
           <h2 className="text-2xl font-bold text-foreground mb-8">
             Próximos Eventos ({nonFeaturedEvents.length})
           </h2>
@@ -355,6 +365,33 @@ const DiscoverEvents = () => {
               ))}
             </div>
           )}
+        </section>
+
+        {/* Categories Section */}
+        <section>
+          <h2 className="text-2xl font-bold text-foreground mb-8">
+            CATEGORIAS
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categories.map((category) => {
+              const IconComponent = category.icon;
+              return (
+                <Card key={category.id} className="card-bridge-interactive group cursor-pointer" asChild>
+                  <Link to={`/eventos?categoria=${category.name.toLowerCase()}`}>
+                    <CardContent className="p-8 text-center">
+                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${category.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                        <IconComponent className="h-8 w-8 text-white" />
+                      </div>
+                      <h3 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors uppercase tracking-wider">
+                        {category.name}
+                      </h3>
+                    </CardContent>
+                  </Link>
+                </Card>
+              );
+            })}
+          </div>
         </section>
       </main>
 
