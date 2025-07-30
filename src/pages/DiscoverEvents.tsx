@@ -17,11 +17,11 @@ import {
   Brain,
   Briefcase,
   Palette,
-  Heart,
-  ChevronLeft
+  Heart
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import FeaturedEventsCarousel from "@/components/FeaturedEventsCarousel";
 
 // Mock event data
 const featuredEvents = [
@@ -140,166 +140,6 @@ const categories = [
     color: "from-red-500 to-orange-600"
   }
 ];
-
-// Carousel Component
-const FeaturedEventsCarousel = ({ events }: { events: typeof featuredEvents }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Auto-rotation effect
-  useEffect(() => {
-    if (!isHovered) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % events.length);
-      }, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [isHovered, events.length]);
-
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + events.length) % events.length);
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % events.length);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-  const getSlideStyle = (index: number) => {
-    const diff = index - currentIndex;
-    const totalSlides = events.length;
-    
-    // Handle circular positioning
-    let position = diff;
-    if (diff > totalSlides / 2) position = diff - totalSlides;
-    if (diff < -totalSlides / 2) position = diff + totalSlides;
-    
-    const isCenter = position === 0;
-    const isAdjacent = Math.abs(position) === 1;
-    
-    let transform = `translateX(${position * 280}px)`;
-    let scale = isCenter ? 1 : isAdjacent ? 0.8 : 0.6;
-    let zIndex = isCenter ? 10 : isAdjacent ? 5 : 1;
-    let opacity = isCenter ? 1 : isAdjacent ? 0.7 : 0.4;
-    
-    return {
-      transform: `${transform} scale(${scale})`,
-      zIndex,
-      opacity,
-      transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-    };
-  };
-
-  const currentEvent = events[currentIndex];
-
-  return (
-    <div 
-      className="relative py-16 overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Carousel Container */}
-      <div className="relative h-80 mb-12">
-        <div className="flex items-center justify-center h-full">
-          {events.map((event, index) => (
-            <div
-              key={event.id}
-              className="absolute cursor-pointer"
-              style={getSlideStyle(index)}
-              onClick={() => window.location.href = `/evento/${event.id}`}
-            >
-              <Card className="w-64 h-72 card-bridge-interactive group overflow-hidden">
-                <div 
-                  className="h-32 flex items-center justify-center"
-                  style={{ backgroundColor: '#1a2a6c' }}
-                >
-                  <img
-                    src={event.logo}
-                    alt={`${event.title} logo`}
-                    className="w-16 h-16 object-contain"
-                  />
-                </div>
-                <CardContent className="p-4 h-40 flex flex-col">
-                  <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                    {event.title}
-                  </h3>
-                  <div className="flex-1 flex flex-col justify-end">
-                    <div className="space-y-2 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        <span>{new Date(event.date).toLocaleDateString('pt-BR')}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MapPin className="h-3 w-3" />
-                        <span>{event.location}</span>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-        </div>
-
-        {/* Navigation Arrows */}
-        <button
-          onClick={goToPrevious}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-background/80 hover:bg-background text-foreground rounded-full flex items-center justify-center transition-all z-20 hover:scale-110"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <button
-          onClick={goToNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-background/80 hover:bg-background text-foreground rounded-full flex items-center justify-center transition-all z-20 hover:scale-110"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
-      </div>
-
-      {/* Dot Indicators */}
-      <div className="flex justify-center gap-2 mb-8">
-        {events.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              index === currentIndex 
-                ? 'bg-primary scale-110' 
-                : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Current Event Info */}
-      <div className="text-center max-w-2xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 uppercase tracking-wide">
-          {currentEvent.title} - {currentEvent.location.split(',')[1]?.trim() || currentEvent.location}
-        </h2>
-        <div className="flex items-center justify-center gap-6 text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4" />
-            <span>{currentEvent.location}</span>
-          </div>
-          <div className="hidden md:block w-px h-4 bg-muted-foreground/30" />
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4" />
-            <span>
-              {new Date(currentEvent.date).toLocaleDateString('pt-BR', {
-                weekday: 'long',
-                day: '2-digit',
-                month: 'long'
-              })} às {currentEvent.time}
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const DiscoverEvents = () => {
   const [searchTerm, setSearchTerm] = useState("");
