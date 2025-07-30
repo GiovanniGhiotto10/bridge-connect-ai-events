@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,7 +17,8 @@ import {
   Brain,
   Briefcase,
   Palette,
-  Heart
+  Heart,
+  ChevronLeft
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -51,11 +52,7 @@ const featuredEvents = [
     tags: ["Startups", "Networking", "Investimentos"],
     featured: true,
     price: "R$ 50"
-  }
-];
-
-const allEvents = [
-  ...featuredEvents,
+  },
   {
     id: 3,
     title: "Workshop de Design Thinking",
@@ -65,9 +62,9 @@ const allEvents = [
     location: "Belo Horizonte, MG",
     capacity: 80,
     attendees: 45,
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978",
+    logo: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=200&fit=crop&crop=center",
     tags: ["Design", "Workshop", "Metodologia"],
-    featured: false,
+    featured: true,
     price: "R$ 120"
   },
   {
@@ -79,9 +76,9 @@ const allEvents = [
     location: "Porto Alegre, RS",
     capacity: 200,
     attendees: 156,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+    logo: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=200&h=200&fit=crop&crop=center",
     tags: ["Marketing", "Digital", "PME"],
-    featured: false,
+    featured: true,
     price: "R$ 80"
   },
   {
@@ -93,11 +90,14 @@ const allEvents = [
     location: "Brasília, DF",
     capacity: 300,
     attendees: 178,
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998",
+    logo: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=200&h=200&fit=crop&crop=center",
     tags: ["Liderança", "Desenvolvimento", "Gestão"],
-    featured: false,
+    featured: true,
     price: "R$ 200"
-  },
+  }
+];
+
+const allEvents = [
   {
     id: 6,
     title: "Tech Meetup - DevOps",
@@ -141,6 +141,166 @@ const categories = [
   }
 ];
 
+// Carousel Component
+const FeaturedEventsCarousel = ({ events }: { events: typeof featuredEvents }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Auto-rotation effect
+  useEffect(() => {
+    if (!isHovered) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % events.length);
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isHovered, events.length]);
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev - 1 + events.length) % events.length);
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % events.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  const getSlideStyle = (index: number) => {
+    const diff = index - currentIndex;
+    const totalSlides = events.length;
+    
+    // Handle circular positioning
+    let position = diff;
+    if (diff > totalSlides / 2) position = diff - totalSlides;
+    if (diff < -totalSlides / 2) position = diff + totalSlides;
+    
+    const isCenter = position === 0;
+    const isAdjacent = Math.abs(position) === 1;
+    
+    let transform = `translateX(${position * 280}px)`;
+    let scale = isCenter ? 1 : isAdjacent ? 0.8 : 0.6;
+    let zIndex = isCenter ? 10 : isAdjacent ? 5 : 1;
+    let opacity = isCenter ? 1 : isAdjacent ? 0.7 : 0.4;
+    
+    return {
+      transform: `${transform} scale(${scale})`,
+      zIndex,
+      opacity,
+      transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    };
+  };
+
+  const currentEvent = events[currentIndex];
+
+  return (
+    <div 
+      className="relative py-16 overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Carousel Container */}
+      <div className="relative h-80 mb-12">
+        <div className="flex items-center justify-center h-full">
+          {events.map((event, index) => (
+            <div
+              key={event.id}
+              className="absolute cursor-pointer"
+              style={getSlideStyle(index)}
+              onClick={() => window.location.href = `/evento/${event.id}`}
+            >
+              <Card className="w-64 h-72 card-bridge-interactive group overflow-hidden">
+                <div 
+                  className="h-32 flex items-center justify-center"
+                  style={{ backgroundColor: '#1a2a6c' }}
+                >
+                  <img
+                    src={event.logo}
+                    alt={`${event.title} logo`}
+                    className="w-16 h-16 object-contain"
+                  />
+                </div>
+                <CardContent className="p-4 h-40 flex flex-col">
+                  <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                    {event.title}
+                  </h3>
+                  <div className="flex-1 flex flex-col justify-end">
+                    <div className="space-y-2 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        <span>{new Date(event.date).toLocaleDateString('pt-BR')}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <MapPin className="h-3 w-3" />
+                        <span>{event.location}</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+        </div>
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={goToPrevious}
+          className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-background/80 hover:bg-background text-foreground rounded-full flex items-center justify-center transition-all z-20 hover:scale-110"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          onClick={goToNext}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-background/80 hover:bg-background text-foreground rounded-full flex items-center justify-center transition-all z-20 hover:scale-110"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+      </div>
+
+      {/* Dot Indicators */}
+      <div className="flex justify-center gap-2 mb-8">
+        {events.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all ${
+              index === currentIndex 
+                ? 'bg-primary scale-110' 
+                : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Current Event Info */}
+      <div className="text-center max-w-2xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 uppercase tracking-wide">
+          {currentEvent.title} - {currentEvent.location.split(',')[1]?.trim() || currentEvent.location}
+        </h2>
+        <div className="flex items-center justify-center gap-6 text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <MapPin className="h-4 w-4" />
+            <span>{currentEvent.location}</span>
+          </div>
+          <div className="hidden md:block w-px h-4 bg-muted-foreground/30" />
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4" />
+            <span>
+              {new Date(currentEvent.date).toLocaleDateString('pt-BR', {
+                weekday: 'long',
+                day: '2-digit',
+                month: 'long'
+              })} às {currentEvent.time}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const DiscoverEvents = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
@@ -164,8 +324,6 @@ const DiscoverEvents = () => {
     
     return matchesSearch && matchesLocation;
   });
-
-  const nonFeaturedEvents = filteredEvents.filter(event => !event.featured);
 
   return (
     <div className="min-h-screen bg-background">
@@ -214,85 +372,23 @@ const DiscoverEvents = () => {
           </Card>
         </div>
 
-        {/* Featured Events */}
-        {featuredEvents.some(event => 
-          (searchTerm === "" || event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-           event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-           event.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))) &&
-          (locationFilter === "" || event.location.toLowerCase().includes(locationFilter.toLowerCase()))
-        ) && (
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <Star className="h-6 w-6 text-primary" />
-              <h2 className="text-2xl font-bold text-foreground">Em Destaque</h2>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {featuredEvents
-                .filter(event => {
-                  const matchesSearch = searchTerm === "" || 
-                    event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    event.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-                  const matchesLocation = locationFilter === "" ||
-                    event.location.toLowerCase().includes(locationFilter.toLowerCase());
-                  return matchesSearch && matchesLocation;
-                })
-                .map((event) => (
-                <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
-                  <div className="relative h-48 overflow-hidden" style={{ backgroundColor: '#1a2a6c' }}>
-                    <div className="flex items-center justify-center h-full">
-                      <img
-                        src={event.logo}
-                        alt={`${event.title} logo`}
-                        className="w-24 h-24 object-contain"
-                      />
-                    </div>
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-primary text-primary-foreground">
-                        Destaque
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {event.title}
-                    </h3>
-                    
-                    <div className="space-y-3 mb-4">
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Calendar className="h-4 w-4" />
-                        {formatDate(event.date)}
-                        <Clock className="h-4 w-4 ml-2" />
-                        {event.time}
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <MapPin className="h-4 w-4" />
-                        {event.location}
-                      </div>
-                    </div>
-
-                    <Button className="btn-bridge-primary w-full group" asChild>
-                      <Link to={`/evento/${event.id}`}>
-                        Ver Detalhes
-                        <ChevronRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* Featured Events Carousel */}
+        <section className="mb-16">
+          <div className="flex items-center gap-3 mb-8 justify-center">
+            <Star className="h-6 w-6 text-primary" />
+            <h2 className="text-2xl font-bold text-foreground">Em Destaque</h2>
+          </div>
+          
+          <FeaturedEventsCarousel events={featuredEvents} />
+        </section>
 
         {/* All Events */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-foreground mb-8">
-            Próximos Eventos ({nonFeaturedEvents.length})
+            Próximos Eventos ({filteredEvents.length})
           </h2>
           
-          {nonFeaturedEvents.length === 0 ? (
+          {filteredEvents.length === 0 ? (
             <Card className="card-bridge">
               <CardContent className="p-12 text-center">
                 <div className="text-muted-foreground">
@@ -304,11 +400,11 @@ const DiscoverEvents = () => {
             </Card>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {nonFeaturedEvents.map((event) => (
+              {filteredEvents.map((event) => (
                 <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
                   <div className="relative h-40 overflow-hidden">
                     <img
-                      src={'image' in event ? event.image : event.logo}
+                      src={event.image}
                       alt={event.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
