@@ -34,9 +34,9 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   }, []);
 
   const navigationLinks = isLoggedIn ? [
-    { label: "Descobrir Eventos", path: "/eventos" },
+    { label: "Descobrir", path: "/eventos" },
     { label: "Criar um Evento", path: "/criar-evento" },
-    { label: "Minhas Conexões", path: "/minhas-conexoes" }
+    { label: "Conexões", path: "/minhas-conexoes" }
   ] : [
     { label: "Como Funciona", path: "#como-funciona" },
     { label: "Para Organizadores", path: "#organizadores" }

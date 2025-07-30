@@ -107,8 +107,54 @@ const allEvents = [
     location: "Recife, PE",
     capacity: 100,
     attendees: 67,
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=300&h=300&fit=crop&crop=center",
+    logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=60&h=60&fit=crop&crop=center",
     tags: ["DevOps", "Tecnologia", "Meetup"],
+    featured: false,
+    price: "Gratuito"
+  },
+  {
+    id: 7,
+    title: "Workshop UX/UI",
+    description: "Aprenda os fundamentos do design de interface",
+    date: "2025-04-18",
+    time: "14:00",
+    location: "São Paulo, SP",
+    capacity: 50,
+    attendees: 32,
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=300&fit=crop&crop=center",
+    logo: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=60&h=60&fit=crop&crop=center",
+    tags: ["Design", "UX/UI", "Workshop"],
+    featured: false,
+    price: "R$ 150"
+  },
+  {
+    id: 8,
+    title: "Networking Empreendedor",
+    description: "Conecte-se com outros empreendedores",
+    date: "2025-04-22",
+    time: "19:00",
+    location: "Rio de Janeiro, RJ",
+    capacity: 80,
+    attendees: 45,
+    image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=300&h=300&fit=crop&crop=center",
+    logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=60&h=60&fit=crop&crop=center",
+    tags: ["Networking", "Empreendedorismo"],
+    featured: false,
+    price: "R$ 30"
+  },
+  {
+    id: 9,
+    title: "Palestra IA & Futuro",
+    description: "O impacto da inteligência artificial no mercado",
+    date: "2025-04-25",
+    time: "16:00",
+    location: "Belo Horizonte, MG",
+    capacity: 200,
+    attendees: 134,
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=300&h=300&fit=crop&crop=center",
+    logo: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=60&h=60&fit=crop&crop=center",
+    tags: ["IA", "Tecnologia", "Futuro"],
     featured: false,
     price: "Gratuito"
   }
@@ -222,85 +268,71 @@ const DiscoverEvents = () => {
           <FeaturedEventsCarousel events={featuredEvents} />
         </section>
 
-        {/* All Events */}
+        {/* Upcoming Events */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-foreground mb-8">
-            Próximos Eventos ({filteredEvents.length})
+            Próximos Eventos
           </h2>
           
-          {filteredEvents.length === 0 ? (
-            <Card className="card-bridge">
-              <CardContent className="p-12 text-center">
-                <div className="text-muted-foreground">
-                  <Search className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <h3 className="text-lg font-semibold mb-2">Nenhum evento encontrado</h3>
-                  <p>Tente ajustar seus filtros de busca ou explorar outras categorias.</p>
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredEvents.map((event) => (
-                <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
-                  <div className="relative h-40 overflow-hidden">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+            {allEvents.map((event) => (
+              <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
+                <div className="relative aspect-square overflow-hidden">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  {/* Event Logo Overlay */}
+                  <div className="absolute top-3 right-3">
                     <img
-                      src={event.image}
-                      alt={event.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      src={event.logo}
+                      alt={`${event.title} logo`}
+                      className="w-12 h-12 rounded-full object-cover border-2 border-white/80 shadow-lg"
                     />
-                    <div className="absolute top-3 right-3">
-                      <Badge variant="secondary" className="bg-card/80 text-card-foreground text-xs">
-                        {event.price}
-                      </Badge>
+                  </div>
+                  <div className="absolute top-3 left-3">
+                    <Badge variant="secondary" className="bg-card/80 text-card-foreground text-xs">
+                      {event.price}
+                    </Badge>
+                  </div>
+                </div>
+                
+                <CardContent className="p-4">
+                  <h3 className="text-sm font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                    {event.title}
+                  </h3>
+                  
+                  <div className="space-y-1 mb-3">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Calendar className="h-3 w-3" />
+                      {formatDate(event.date)}
+                    </div>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <MapPin className="h-3 w-3" />
+                      {event.location}
                     </div>
                   </div>
-                  
-                  <CardContent className="p-4">
-                    <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {event.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
-                      {event.description}
-                    </p>
-                    
-                    <div className="space-y-2 mb-3">
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Calendar className="h-3 w-3" />
-                        {formatDate(event.date)} • {event.time}
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <MapPin className="h-3 w-3" />
-                        {event.location}
-                      </div>
-                    </div>
 
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {event.tags.slice(0, 2).map((tag) => (
-                        <Badge
-                          key={tag}
-                          variant="outline"
-                          className="text-xs border-primary/20 text-primary"
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                      {event.tags.length > 2 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{event.tags.length - 2}
-                        </Badge>
-                      )}
-                    </div>
+                  <Button className="btn-bridge-primary w-full" size="sm" asChild>
+                    <Link to={`/evento/${event.id}`}>
+                      Ver Detalhes
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-                    <Button className="btn-bridge-primary w-full" size="sm" asChild>
-                      <Link to={`/evento/${event.id}`}>
-                        Ver Detalhes
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+          {/* Ver Todos Button */}
+          <div className="text-center">
+            <Button variant="outline" className="btn-bridge-outline px-8 py-3" asChild>
+              <Link to="/todos-eventos">
+                Ver todos
+                <ChevronRight className="h-4 w-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
         </section>
 
         {/* Categories Section */}
@@ -313,7 +345,7 @@ const DiscoverEvents = () => {
             {categories.map((category) => {
               const IconComponent = category.icon;
               return (
-                <Link key={category.id} to={`/eventos?categoria=${category.name.toLowerCase()}`}>
+                <Link key={category.id} to={`/todos-eventos?categoria=${category.name.toLowerCase()}`}>
                   <Card className="card-bridge-interactive group cursor-pointer">
                     <CardContent className="p-8 text-center">
                       <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${category.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>

@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,6 +9,7 @@ import DiscoverEvents from "./pages/DiscoverEvents";
 import EventDetails from "./pages/EventDetails";
 import MyConnections from "./pages/MyConnections";
 import NotFound from "./pages/NotFound";
+import AllEvents from "./pages/AllEvents";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/criar-evento" element={<CreateEvent />} />
           <Route path="/eventos" element={<DiscoverEvents />} />
+          <Route path="/todos-eventos" element={<AllEvents />} />
           <Route path="/evento/:id" element={<EventDetails />} />
           <Route path="/minhas-conexoes" element={<MyConnections />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

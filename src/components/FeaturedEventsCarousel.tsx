@@ -1,7 +1,5 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   MapPin, 
@@ -74,37 +72,74 @@ const FeaturedEventsCarousel = ({ events }: FeaturedEventsCarouselProps) => {
     >
       {/* Main Carousel */}
       <div className="relative mb-6">
-        <div className="relative h-80 md:h-96 overflow-hidden rounded-lg">
-          {/* Carousel Images */}
-          <div 
-            className="flex transition-transform duration-500 ease-in-out h-full"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {events.map((event) => (
-              <div
-                key={event.id}
-                className="flex-shrink-0 w-full h-full relative"
-              >
-                <img
-                  src={`https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=400&fit=crop&crop=center`}
-                  alt={event.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              </div>
-            ))}
+        <div className="relative h-80 md:h-96 overflow-hidden">
+          {/* Carousel Images with Partial Side Views */}
+          <div className="flex items-center justify-center h-full">
+            {events.map((event, index) => {
+              const isActive = index === currentIndex;
+              const isPrev = index === (currentIndex - 1 + events.length) % events.length;
+              const isNext = index === (currentIndex + 1) % events.length;
+              const isVisible = isActive || isPrev || isNext;
+
+              if (!isVisible) return null;
+
+              let transformClass = '';
+              let zIndexClass = '';
+              let opacityClass = '';
+              let scaleClass = '';
+
+              if (isActive) {
+                transformClass = 'translate-x-0';
+                zIndexClass = 'z-20';
+                opacityClass = 'opacity-100';
+                scaleClass = 'scale-100';
+              } else if (isPrev) {
+                transformClass = '-translate-x-32';
+                zIndexClass = 'z-10';
+                opacityClass = 'opacity-60';
+                scaleClass = 'scale-90';
+              } else if (isNext) {
+                transformClass = 'translate-x-32';
+                zIndexClass = 'z-10';
+                opacityClass = 'opacity-60';
+                scaleClass = 'scale-90';
+              }
+
+              return (
+                <div
+                  key={event.id}
+                  className={`absolute transition-all duration-500 ease-in-out ${transformClass} ${zIndexClass} ${opacityClass} ${scaleClass}`}
+                >
+                  {isActive ? (
+                    <Link to={`/evento/${event.id}`} className="block">
+                      <img
+                        src={`https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop&crop=center`}
+                        alt={event.title}
+                        className="w-[600px] h-80 md:h-96 object-cover rounded-lg cursor-pointer hover:opacity-95 transition-opacity"
+                      />
+                    </Link>
+                  ) : (
+                    <img
+                      src={`https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop&crop=center`}
+                      alt={event.title}
+                      className="w-[600px] h-80 md:h-96 object-cover rounded-lg"
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-all z-10 backdrop-blur-sm"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-all z-30 backdrop-blur-sm"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-all z-10 backdrop-blur-sm"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-all z-30 backdrop-blur-sm"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
@@ -130,15 +165,6 @@ const FeaturedEventsCarousel = ({ events }: FeaturedEventsCarouselProps) => {
             <span className="text-lg">{currentEvent.location}</span>
           </div>
         </div>
-
-        <Button 
-          className="btn-bridge-primary px-8 py-3 text-lg" 
-          asChild
-        >
-          <Link to={`/evento/${currentEvent.id}`}>
-            Ver Detalhes
-          </Link>
-        </Button>
       </div>
 
       {/* Dot Indicators */}
