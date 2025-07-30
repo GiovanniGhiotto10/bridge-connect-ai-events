@@ -1,14 +1,17 @@
+
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   Search, 
   MapPin, 
   Calendar, 
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Filter
 } from "lucide-react";
 import {
   Select,
@@ -146,10 +149,10 @@ const allEvents = [
 
 const categories = [
   "Todas as categorias",
-  "TECNOLOGIA & IA",
-  "NEGÓCIOS & FINANÇAS", 
-  "DESIGN & CRIATIVIDADE",
-  "SAÚDE & BEM-ESTAR"
+  "Tecnologia & IA",
+  "Negócios & Finanças", 
+  "Design & Criatividade",
+  "Saúde & Bem-estar"
 ];
 
 const AllEvents = () => {
@@ -164,7 +167,8 @@ const AllEvents = () => {
   useEffect(() => {
     const categoryParam = searchParams.get('categoria');
     if (categoryParam) {
-      setCategoryFilter(categoryParam);
+      const formattedCategory = categoryParam.replace(/\b\w/g, l => l.toUpperCase());
+      setCategoryFilter(formattedCategory);
     }
   }, [searchParams]);
 
@@ -221,7 +225,7 @@ const AllEvents = () => {
         <div className="mb-12">
           <Card className="card-bridge">
             <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {/* Category Filter */}
                 <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                   <SelectTrigger className="bg-input border-border text-input-foreground">
@@ -257,6 +261,12 @@ const AllEvents = () => {
                     className="pl-10 bg-input border-border text-input-foreground"
                   />
                 </div>
+
+                {/* More Filters Button */}
+                <Button variant="outline" className="btn-bridge-outline">
+                  <Filter className="h-4 w-4 mr-2" />
+                  Mais Filtros
+                </Button>
               </div>
 
               {/* Results Count */}
