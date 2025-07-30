@@ -18,7 +18,7 @@ import Footer from "@/components/layout/Footer";
 
 // Mock event details data
 const eventDetails = {
-  1: {
+  "1": {
     id: 1,
     title: "Summit de Inovação e IA 2025",
     bannerImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
@@ -36,7 +36,7 @@ const eventDetails = {
     tags: ["IA", "Tecnologia", "Inovação"],
     isUserRegistered: true
   },
-  2: {
+  "2": {
     id: 2,
     title: "Networking para Startups",
     bannerImage: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&h=600&fit=crop",
@@ -89,7 +89,7 @@ const mockMatches = [
 
 const EventDetails = () => {
   const { id } = useParams<{ id: string }>();
-  const event = eventDetails[id as keyof typeof eventDetails];
+  const event = id ? eventDetails[id as keyof typeof eventDetails] : null;
 
   if (!event) {
     return (
@@ -178,7 +178,7 @@ const EventDetails = () => {
                       <p className="text-sm text-muted-foreground">Data e Hora</p>
                       <p className="text-foreground font-medium">
                         {formatDate(event.date)}
-                        {event.endDate && ` - ${formatDate(event.endDate)}`}
+                        {'endDate' in event && event.endDate && ` - ${formatDate(event.endDate)}`}
                       </p>
                       <p className="text-foreground font-medium">{event.time}</p>
                     </div>

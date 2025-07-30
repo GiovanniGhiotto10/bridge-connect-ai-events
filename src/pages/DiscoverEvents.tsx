@@ -308,7 +308,7 @@ const DiscoverEvents = () => {
                 <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
                   <div className="relative h-40 overflow-hidden">
                     <img
-                      src={event.image}
+                      src={'image' in event ? event.image : event.logo}
                       alt={event.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
@@ -377,8 +377,8 @@ const DiscoverEvents = () => {
             {categories.map((category) => {
               const IconComponent = category.icon;
               return (
-                <Card key={category.id} className="card-bridge-interactive group cursor-pointer" asChild>
-                  <Link to={`/eventos?categoria=${category.name.toLowerCase()}`}>
+                <Link key={category.id} to={`/eventos?categoria=${category.name.toLowerCase()}`}>
+                  <Card className="card-bridge-interactive group cursor-pointer">
                     <CardContent className="p-8 text-center">
                       <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${category.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
                         <IconComponent className="h-8 w-8 text-white" />
@@ -387,8 +387,8 @@ const DiscoverEvents = () => {
                         {category.name}
                       </h3>
                     </CardContent>
-                  </Link>
-                </Card>
+                  </Card>
+                </Link>
               );
             })}
           </div>
