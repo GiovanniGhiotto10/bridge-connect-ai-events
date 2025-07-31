@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -86,9 +85,8 @@ const CreateEvent = () => {
 
             {/* Right Column - Form */}
             <div className="space-y-6">
-              {/* Page Title and Visibility */}
-              <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-white">CRIAR EVENTO</h1>
+              {/* Visibility Dropdown - moved to top without title */}
+              <div className="flex justify-end items-center">
                 <VisibilityDropdown 
                   isPublic={eventData.isPublic}
                   onChange={(isPublic) => setEventData(prev => ({ ...prev, isPublic }))}

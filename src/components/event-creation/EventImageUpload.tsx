@@ -9,7 +9,7 @@ interface EventImageUploadProps {
 const EventImageUpload = ({ image, onImageClick }: EventImageUploadProps) => {
   return (
     <div 
-      className="aspect-square bg-gray-800 rounded-lg border-2 border-dashed border-gray-600 hover:border-blue-400 transition-colors cursor-pointer flex items-center justify-center group"
+      className="aspect-square w-80 h-80 bg-gray-800 rounded-lg border-2 border-dashed border-gray-600 hover:border-blue-400 transition-colors cursor-pointer flex items-center justify-center group mx-auto"
       onClick={onImageClick}
     >
       {image ? (

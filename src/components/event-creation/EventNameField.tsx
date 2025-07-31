@@ -18,7 +18,7 @@ const EventNameField = ({ name, onChange }: EventNameFieldProps) => {
       onClick={handleClick}
     >
       <div className="flex items-center gap-3">
-        <h2 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors flex-1">
+        <h2 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors flex-1">
           {name}
         </h2>
         <Edit3 className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity text-blue-400" />
