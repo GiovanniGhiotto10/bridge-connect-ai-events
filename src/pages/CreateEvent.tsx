@@ -17,11 +17,15 @@ import {
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import EventImageUpload from "@/components/event-creation/EventImageUpload";
+import EventNameField from "@/components/event-creation/EventNameField";
+import DateTimeSection from "@/components/event-creation/DateTimeSection";
+import EventOptionsSection from "@/components/event-creation/EventOptionsSection";
+import VisibilityDropdown from "@/components/dropdowns/VisibilityDropdown";
 import ImageUploadModal from "@/components/modals/ImageUploadModal";
 import CalendarModal from "@/components/modals/CalendarModal";
 import TimePickerModal from "@/components/modals/TimePickerModal";
 import DescriptionModal from "@/components/modals/DescriptionModal";
-import VisibilityDropdown from "@/components/dropdowns/VisibilityDropdown";
 
 const CreateEvent = () => {
   const navigate = useNavigate();
@@ -65,211 +69,67 @@ const CreateEvent = () => {
     navigate("/eventos");
   };
 
-  const formatDate = (date: string) => {
-    if (!date) return "Selecionar data";
-    return new Date(date).toLocaleDateString('pt-BR');
-  };
-
-  const formatTime = (time: string) => {
-    if (!time) return "Selecionar horário";
-    return time;
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-blue-900">
       <Header isLoggedIn={true} />
       
-      <main className="container mx-auto px-4 py-12">
-        <div className="max-w-7xl mx-auto">
-          {/* Page Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-white mb-4">
-              Criar Evento
-            </h1>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Left Column - Event Image */}
-            <div className="space-y-6">
-              <div 
-                className="aspect-video bg-gray-800 rounded-lg border-2 border-dashed border-gray-600 hover:border-blue-400 transition-colors cursor-pointer flex items-center justify-center group"
-                onClick={() => openModal('imageUpload')}
-              >
-                {eventData.image ? (
-                  <img src={eventData.image} alt="Event" className="w-full h-full object-cover rounded-lg" />
-                ) : (
-                  <div className="text-center">
-                    <ImageIcon className="h-16 w-16 text-gray-400 mx-auto mb-4 group-hover:text-blue-400 transition-colors" />
-                    <p className="text-gray-400 group-hover:text-blue-400 transition-colors">
-                      Clique para adicionar imagem do evento
-                    </p>
-                  </div>
-                )}
-              </div>
+            <div className="space-y-4">
+              <EventImageUpload
+                image={eventData.image}
+                onImageClick={() => openModal('imageUpload')}
+              />
             </div>
 
             {/* Right Column - Form */}
-            <div className="space-y-8">
-              {/* Visibility Toggle */}
-              <div className="flex justify-end">
+            <div className="space-y-6">
+              {/* Page Title and Visibility */}
+              <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-bold text-white">CRIAR EVENTO</h1>
                 <VisibilityDropdown 
                   isPublic={eventData.isPublic}
                   onChange={(isPublic) => setEventData(prev => ({ ...prev, isPublic }))}
                 />
               </div>
 
-              {/* Event Name */}
-              <div 
-                className="group cursor-pointer p-4 rounded-lg hover:bg-white/5 transition-colors"
-                onClick={() => {
-                  const name = prompt("Nome do evento:", eventData.name);
-                  if (name) setEventData(prev => ({ ...prev, name }));
-                }}
-              >
-                <h2 className="text-3xl font-bold text-white group-hover:text-blue-400 transition-colors flex items-center gap-3">
-                  {eventData.name}
-                  <Edit3 className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </h2>
-              </div>
+              {/* Event Name Field */}
+              <EventNameField
+                name={eventData.name}
+                onChange={(name) => setEventData(prev => ({ ...prev, name }))}
+              />
 
-              {/* Date and Time */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-white">Data e Horário</h3>
-                
-                {/* Start Date/Time */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div 
-                    className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-                    onClick={() => openModal('calendar', { dateType: 'start' })}
-                  >
-                    <Calendar className="h-5 w-5 text-blue-400" />
-                    <div>
-                      <p className="text-sm text-gray-400">Início</p>
-                      <p className="text-white">{formatDate(eventData.startDate)}</p>
-                    </div>
-                  </div>
-                  
-                  <div 
-                    className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-                    onClick={() => openModal('timePicker', { timeType: 'start' })}
-                  >
-                    <Clock className="h-5 w-5 text-blue-400" />
-                    <div>
-                      <p className="text-sm text-gray-400">Horário</p>
-                      <p className="text-white">{formatTime(eventData.startTime)}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* End Date/Time */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div 
-                    className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-                    onClick={() => openModal('calendar', { dateType: 'end' })}
-                  >
-                    <Calendar className="h-5 w-5 text-green-400" />
-                    <div>
-                      <p className="text-sm text-gray-400">Fim</p>
-                      <p className="text-white">{formatDate(eventData.endDate)}</p>
-                    </div>
-                  </div>
-                  
-                  <div 
-                    className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-                    onClick={() => openModal('timePicker', { timeType: 'end' })}
-                  >
-                    <Clock className="h-5 w-5 text-green-400" />
-                    <div>
-                      <p className="text-sm text-gray-400">Horário</p>
-                      <p className="text-white">{formatTime(eventData.endTime)}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Date and Time Section */}
+              <DateTimeSection
+                eventData={eventData}
+                onDateClick={(type) => openModal('calendar', { dateType: type })}
+                onTimeClick={(type) => openModal('timePicker', { timeType: type })}
+              />
 
               {/* Description */}
               <div 
-                className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+                className="flex items-center gap-3 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
                 onClick={() => openModal('description')}
               >
-                <Edit3 className="h-5 w-5 text-blue-400" />
-                <div className="flex-1">
-                  <p className="text-white">
-                    {eventData.description || "Adicionar Descrição"}
-                  </p>
-                  {eventData.description && (
-                    <p className="text-sm text-gray-400 mt-1">{eventData.description.substring(0, 100)}...</p>
-                  )}
-                </div>
+                <Edit3 className="h-4 w-4 text-blue-400" />
+                <span className="text-white text-sm">
+                  {eventData.description || "Adicionar Descrição"}
+                </span>
               </div>
 
-              {/* Event Options */}
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-white">Opções do Evento</h3>
-                
-                {/* Matchmaking IA - DESTAQUE */}
-                <div className="flex items-center justify-between p-6 rounded-lg border-2 border-blue-500 bg-blue-500/10">
-                  <div>
-                    <p className="text-white font-semibold flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-blue-400" />
-                      Ativar Matchmaking IA
-                    </p>
-                    <p className="text-sm text-gray-300 mt-1">
-                      Conecte automaticamente participantes com interesses similares
-                    </p>
-                  </div>
-                  <Switch
-                    checked={eventData.matchmakingEnabled}
-                    onCheckedChange={(checked) => setEventData(prev => ({ ...prev, matchmakingEnabled: checked }))}
-                    className="scale-125"
-                  />
-                </div>
-
-                {/* Tickets */}
-                <div 
-                  className="flex items-center justify-between p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-                  onClick={() => setEventData(prev => ({ ...prev, isFree: !prev.isFree }))}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                    <p className="text-white">Ingressos</p>
-                  </div>
-                  <p className="text-blue-400">{eventData.isFree ? "Gratuito" : "Pago"}</p>
-                </div>
-
-                {/* Approval Required */}
-                <div className="flex items-center justify-between p-4 rounded-lg border border-gray-700">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
-                    <p className="text-white">Exigir Aprovação</p>
-                  </div>
-                  <Switch
-                    checked={eventData.requiresApproval}
-                    onCheckedChange={(checked) => setEventData(prev => ({ ...prev, requiresApproval: checked }))}
-                  />
-                </div>
-
-                {/* Capacity */}
-                <div 
-                  className="flex items-center justify-between p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-                  onClick={() => {
-                    const capacity = prompt("Capacidade máxima:", eventData.capacity);
-                    if (capacity !== null) setEventData(prev => ({ ...prev, capacity }));
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <Users className="h-5 w-5 text-blue-400" />
-                    <p className="text-white">Capacidade</p>
-                  </div>
-                  <p className="text-blue-400">{eventData.capacity || "Definir limite"}</p>
-                </div>
-              </div>
+              {/* Event Options Section */}
+              <EventOptionsSection
+                eventData={eventData}
+                onChange={setEventData}
+              />
 
               {/* Create Button */}
-              <div className="pt-8">
+              <div className="pt-4">
                 <Button
                   onClick={handleSubmit}
-                  className="w-full py-6 text-lg font-semibold bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white border-none"
+                  className="w-full py-4 text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white border-none"
                 >
                   Criar Evento
                 </Button>
