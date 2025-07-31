@@ -1,12 +1,8 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
 import { 
   Calendar, 
@@ -14,42 +10,54 @@ import {
   MapPin, 
   Users, 
   Upload, 
-  X,
-  Plus
+  ChevronDown,
+  Edit3,
+  Image as ImageIcon,
+  Sparkles
 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ImageUploadModal from "@/components/modals/ImageUploadModal";
+import CalendarModal from "@/components/modals/CalendarModal";
+import TimePickerModal from "@/components/modals/TimePickerModal";
+import DescriptionModal from "@/components/modals/DescriptionModal";
+import VisibilityDropdown from "@/components/dropdowns/VisibilityDropdown";
 
 const CreateEvent = () => {
   const navigate = useNavigate();
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [customTag, setCustomTag] = useState("");
+  const [eventData, setEventData] = useState({
+    name: "Nome do Evento",
+    startDate: "",
+    startTime: "",
+    endDate: "",
+    endTime: "",
+    description: "",
+    isFree: true,
+    requiresApproval: false,
+    capacity: "",
+    isPublic: true,
+    matchmakingEnabled: true,
+    image: null as string | null
+  });
 
-  const predefinedTags = [
-    "Tecnologia", "Negócios", "Networking", "Startups", "Inovação",
-    "Marketing", "Vendas", "Design", "Produto", "Liderança",
-    "Empreendedorismo", "Investimentos", "IA & Machine Learning"
-  ];
+  const [modals, setModals] = useState({
+    imageUpload: false,
+    calendar: false,
+    timePicker: false,
+    description: false,
+    dateType: "" as "start" | "end",
+    timeType: "" as "start" | "end"
+  });
 
-  const addTag = (tag: string) => {
-    if (!selectedTags.includes(tag) && selectedTags.length < 5) {
-      setSelectedTags([...selectedTags, tag]);
-    }
+  const openModal = (modalName: string, extra?: any) => {
+    setModals(prev => ({ ...prev, [modalName]: true, ...extra }));
   };
 
-  const removeTag = (tag: string) => {
-    setSelectedTags(selectedTags.filter(t => t !== tag));
+  const closeModal = (modalName: string) => {
+    setModals(prev => ({ ...prev, [modalName]: false }));
   };
 
-  const addCustomTag = () => {
-    if (customTag.trim() && !selectedTags.includes(customTag.trim()) && selectedTags.length < 5) {
-      setSelectedTags([...selectedTags, customTag.trim()]);
-      setCustomTag("");
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     toast({
       title: "Evento Criado com Sucesso! 🎉",
       description: "Seu evento foi publicado e está disponível para participantes.",
@@ -57,290 +65,259 @@ const CreateEvent = () => {
     navigate("/eventos");
   };
 
+  const formatDate = (date: string) => {
+    if (!date) return "Selecionar data";
+    return new Date(date).toLocaleDateString('pt-BR');
+  };
+
+  const formatTime = (time: string) => {
+    if (!time) return "Selecionar horário";
+    return time;
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-blue-900">
       <Header isLoggedIn={true} />
       
       <main className="container mx-auto px-4 py-12">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Page Header */}
-          <div className="text-center mb-12 animate-fade-in-up">
-            <h1 className="text-4xl font-bold text-gradient-primary mb-4">
-              Conte-nos sobre o seu evento
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-white mb-4">
+              Criar Evento
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Crie um evento que conecta as pessoas certas. Nossa IA vai ajudar a gerar matches perfeitos entre os participantes.
-            </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Left Column - Event Details */}
-              <div className="space-y-6">
-                <Card className="card-bridge animate-scale-in">
-                  <CardHeader>
-                    <CardTitle className="text-xl text-foreground">Detalhes Essenciais</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    {/* Event Name */}
-                    <div className="space-y-2">
-                      <Label htmlFor="eventName" className="text-sm font-medium">
-                        Nome do Evento *
-                      </Label>
-                      <Input
-                        id="eventName"
-                        placeholder="Ex: Summit de Inovação e IA 2025"
-                        className="bg-input border-border text-input-foreground"
-                        required
-                      />
-                    </div>
-
-                    {/* Event Banner */}
-                    <div className="space-y-2">
-                      <Label className="text-sm font-medium">Banner do Evento</Label>
-                      <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors cursor-pointer">
-                        <Upload className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                        <p className="text-sm text-muted-foreground">
-                          Clique para fazer upload ou arraste uma imagem
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          PNG, JPG até 5MB. Recomendado: 1200x600px
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <div className="space-y-2">
-                      <Label htmlFor="description" className="text-sm font-medium">
-                        Descrição *
-                      </Label>
-                      <Textarea
-                        id="description"
-                        placeholder="Descreva seu evento, objetivos, agenda e o que os participantes podem esperar..."
-                        className="bg-input border-border text-input-foreground min-h-[120px]"
-                        required
-                      />
-                    </div>
-
-                    {/* Tags/Categories */}
-                    <div className="space-y-3">
-                      <Label className="text-sm font-medium">
-                        Categoria/Tema (máx. 5 tags)
-                      </Label>
-                      
-                      {/* Selected Tags */}
-                      {selectedTags.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {selectedTags.map((tag) => (
-                            <Badge
-                              key={tag}
-                              variant="secondary"
-                              className="bg-primary/10 text-primary border-primary/20"
-                            >
-                              {tag}
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                className="h-auto p-0 ml-2 hover:bg-transparent"
-                                onClick={() => removeTag(tag)}
-                              >
-                                <X className="h-3 w-3" />
-                              </Button>
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Predefined Tags */}
-                      <div className="flex flex-wrap gap-2">
-                        {predefinedTags.map((tag) => (
-                          <Badge
-                            key={tag}
-                            variant="outline"
-                            className={`cursor-pointer transition-colors ${
-                              selectedTags.includes(tag)
-                                ? "bg-primary/10 text-primary border-primary/20"
-                                : "hover:bg-muted"
-                            }`}
-                            onClick={() => addTag(tag)}
-                          >
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      {/* Custom Tag Input */}
-                      {selectedTags.length < 5 && (
-                        <div className="flex gap-2">
-                          <Input
-                            placeholder="Adicionar tag personalizada"
-                            value={customTag}
-                            onChange={(e) => setCustomTag(e.target.value)}
-                            className="bg-input border-border text-input-foreground"
-                            onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addCustomTag())}
-                          />
-                          <Button
-                            type="button"
-                            variant="outline"
-                            size="icon"
-                            onClick={addCustomTag}
-                            disabled={!customTag.trim()}
-                          >
-                            <Plus className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Right Column - Logistics */}
-              <div className="space-y-6">
-                <Card className="card-bridge animate-scale-in">
-                  <CardHeader>
-                    <CardTitle className="text-xl text-foreground">Logística e Configurações</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    {/* Date and Time */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="startDate" className="text-sm font-medium flex items-center gap-2">
-                          <Calendar className="h-4 w-4" />
-                          Data de Início *
-                        </Label>
-                        <Input
-                          id="startDate"
-                          type="date"
-                          className="bg-input border-border text-input-foreground"
-                          required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="startTime" className="text-sm font-medium flex items-center gap-2">
-                          <Clock className="h-4 w-4" />
-                          Horário *
-                        </Label>
-                        <Input
-                          id="startTime"
-                          type="time"
-                          className="bg-input border-border text-input-foreground"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="endDate" className="text-sm font-medium">
-                          Data de Término
-                        </Label>
-                        <Input
-                          id="endDate"
-                          type="date"
-                          className="bg-input border-border text-input-foreground"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="endTime" className="text-sm font-medium">
-                          Horário de Término
-                        </Label>
-                        <Input
-                          id="endTime"
-                          type="time"
-                          className="bg-input border-border text-input-foreground"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Location */}
-                    <div className="space-y-2">
-                      <Label htmlFor="location" className="text-sm font-medium flex items-center gap-2">
-                        <MapPin className="h-4 w-4" />
-                        Localização *
-                      </Label>
-                      <Input
-                        id="location"
-                        placeholder="Endereço completo ou 'Online'"
-                        className="bg-input border-border text-input-foreground"
-                        required
-                      />
-                    </div>
-
-                    {/* Capacity */}
-                    <div className="space-y-2">
-                      <Label htmlFor="capacity" className="text-sm font-medium flex items-center gap-2">
-                        <Users className="h-4 w-4" />
-                        Capacidade *
-                      </Label>
-                      <Input
-                        id="capacity"
-                        type="number"
-                        placeholder="100"
-                        min="1"
-                        className="bg-input border-border text-input-foreground"
-                        required
-                      />
-                    </div>
-
-                    {/* Settings Toggles */}
-                    <div className="space-y-4 pt-4 border-t border-card-border">
-                      <h3 className="font-medium text-foreground">Configurações do Evento</h3>
-                      
-                      <div className="space-y-4">
-                        {/* Free/Paid */}
-                        <div className="flex items-center justify-between">
-                          <div className="space-y-1">
-                            <Label className="text-sm font-medium">Evento Gratuito</Label>
-                            <p className="text-xs text-muted-foreground">
-                              Ative para evento gratuito, desative para pago
-                            </p>
-                          </div>
-                          <Switch defaultChecked />
-                        </div>
-
-                        {/* Public/Private */}
-                        <div className="flex items-center justify-between">
-                          <div className="space-y-1">
-                            <Label className="text-sm font-medium">Evento Público</Label>
-                            <p className="text-xs text-muted-foreground">
-                              Qualquer pessoa pode ver e se inscrever
-                            </p>
-                          </div>
-                          <Switch defaultChecked />
-                        </div>
-
-                        {/* Auto Approval */}
-                        <div className="flex items-center justify-between">
-                          <div className="space-y-1">
-                            <Label className="text-sm font-medium">Aprovação Automática</Label>
-                            <p className="text-xs text-muted-foreground">
-                              Inscrições são aprovadas automaticamente
-                            </p>
-                          </div>
-                          <Switch defaultChecked />
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <div className="flex justify-center pt-8">
-              <Button
-                type="submit"
-                size="lg"
-                className="btn-bridge-primary px-12 py-6 text-lg font-semibold"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Left Column - Event Image */}
+            <div className="space-y-6">
+              <div 
+                className="aspect-video bg-gray-800 rounded-lg border-2 border-dashed border-gray-600 hover:border-blue-400 transition-colors cursor-pointer flex items-center justify-center group"
+                onClick={() => openModal('imageUpload')}
               >
-                Publicar Evento
-              </Button>
+                {eventData.image ? (
+                  <img src={eventData.image} alt="Event" className="w-full h-full object-cover rounded-lg" />
+                ) : (
+                  <div className="text-center">
+                    <ImageIcon className="h-16 w-16 text-gray-400 mx-auto mb-4 group-hover:text-blue-400 transition-colors" />
+                    <p className="text-gray-400 group-hover:text-blue-400 transition-colors">
+                      Clique para adicionar imagem do evento
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
-          </form>
+
+            {/* Right Column - Form */}
+            <div className="space-y-8">
+              {/* Visibility Toggle */}
+              <div className="flex justify-end">
+                <VisibilityDropdown 
+                  isPublic={eventData.isPublic}
+                  onChange={(isPublic) => setEventData(prev => ({ ...prev, isPublic }))}
+                />
+              </div>
+
+              {/* Event Name */}
+              <div 
+                className="group cursor-pointer p-4 rounded-lg hover:bg-white/5 transition-colors"
+                onClick={() => {
+                  const name = prompt("Nome do evento:", eventData.name);
+                  if (name) setEventData(prev => ({ ...prev, name }));
+                }}
+              >
+                <h2 className="text-3xl font-bold text-white group-hover:text-blue-400 transition-colors flex items-center gap-3">
+                  {eventData.name}
+                  <Edit3 className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </h2>
+              </div>
+
+              {/* Date and Time */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-white">Data e Horário</h3>
+                
+                {/* Start Date/Time */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div 
+                    className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+                    onClick={() => openModal('calendar', { dateType: 'start' })}
+                  >
+                    <Calendar className="h-5 w-5 text-blue-400" />
+                    <div>
+                      <p className="text-sm text-gray-400">Início</p>
+                      <p className="text-white">{formatDate(eventData.startDate)}</p>
+                    </div>
+                  </div>
+                  
+                  <div 
+                    className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+                    onClick={() => openModal('timePicker', { timeType: 'start' })}
+                  >
+                    <Clock className="h-5 w-5 text-blue-400" />
+                    <div>
+                      <p className="text-sm text-gray-400">Horário</p>
+                      <p className="text-white">{formatTime(eventData.startTime)}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* End Date/Time */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div 
+                    className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+                    onClick={() => openModal('calendar', { dateType: 'end' })}
+                  >
+                    <Calendar className="h-5 w-5 text-green-400" />
+                    <div>
+                      <p className="text-sm text-gray-400">Fim</p>
+                      <p className="text-white">{formatDate(eventData.endDate)}</p>
+                    </div>
+                  </div>
+                  
+                  <div 
+                    className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+                    onClick={() => openModal('timePicker', { timeType: 'end' })}
+                  >
+                    <Clock className="h-5 w-5 text-green-400" />
+                    <div>
+                      <p className="text-sm text-gray-400">Horário</p>
+                      <p className="text-white">{formatTime(eventData.endTime)}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div 
+                className="flex items-center gap-3 p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+                onClick={() => openModal('description')}
+              >
+                <Edit3 className="h-5 w-5 text-blue-400" />
+                <div className="flex-1">
+                  <p className="text-white">
+                    {eventData.description || "Adicionar Descrição"}
+                  </p>
+                  {eventData.description && (
+                    <p className="text-sm text-gray-400 mt-1">{eventData.description.substring(0, 100)}...</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Event Options */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-white">Opções do Evento</h3>
+                
+                {/* Matchmaking IA - DESTAQUE */}
+                <div className="flex items-center justify-between p-6 rounded-lg border-2 border-blue-500 bg-blue-500/10">
+                  <div>
+                    <p className="text-white font-semibold flex items-center gap-2">
+                      <Sparkles className="h-5 w-5 text-blue-400" />
+                      Ativar Matchmaking IA
+                    </p>
+                    <p className="text-sm text-gray-300 mt-1">
+                      Conecte automaticamente participantes com interesses similares
+                    </p>
+                  </div>
+                  <Switch
+                    checked={eventData.matchmakingEnabled}
+                    onCheckedChange={(checked) => setEventData(prev => ({ ...prev, matchmakingEnabled: checked }))}
+                    className="scale-125"
+                  />
+                </div>
+
+                {/* Tickets */}
+                <div 
+                  className="flex items-center justify-between p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+                  onClick={() => setEventData(prev => ({ ...prev, isFree: !prev.isFree }))}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-green-400"></div>
+                    <p className="text-white">Ingressos</p>
+                  </div>
+                  <p className="text-blue-400">{eventData.isFree ? "Gratuito" : "Pago"}</p>
+                </div>
+
+                {/* Approval Required */}
+                <div className="flex items-center justify-between p-4 rounded-lg border border-gray-700">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
+                    <p className="text-white">Exigir Aprovação</p>
+                  </div>
+                  <Switch
+                    checked={eventData.requiresApproval}
+                    onCheckedChange={(checked) => setEventData(prev => ({ ...prev, requiresApproval: checked }))}
+                  />
+                </div>
+
+                {/* Capacity */}
+                <div 
+                  className="flex items-center justify-between p-4 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+                  onClick={() => {
+                    const capacity = prompt("Capacidade máxima:", eventData.capacity);
+                    if (capacity !== null) setEventData(prev => ({ ...prev, capacity }));
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <Users className="h-5 w-5 text-blue-400" />
+                    <p className="text-white">Capacidade</p>
+                  </div>
+                  <p className="text-blue-400">{eventData.capacity || "Definir limite"}</p>
+                </div>
+              </div>
+
+              {/* Create Button */}
+              <div className="pt-8">
+                <Button
+                  onClick={handleSubmit}
+                  className="w-full py-6 text-lg font-semibold bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white border-none"
+                >
+                  Criar Evento
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
+
+      {/* Modals */}
+      <ImageUploadModal
+        isOpen={modals.imageUpload}
+        onClose={() => closeModal('imageUpload')}
+        onImageSelect={(image) => {
+          setEventData(prev => ({ ...prev, image }));
+          closeModal('imageUpload');
+        }}
+      />
+      
+      <CalendarModal
+        isOpen={modals.calendar}
+        onClose={() => closeModal('calendar')}
+        onDateSelect={(date) => {
+          const field = modals.dateType === 'start' ? 'startDate' : 'endDate';
+          setEventData(prev => ({ ...prev, [field]: date }));
+          closeModal('calendar');
+        }}
+      />
+      
+      <TimePickerModal
+        isOpen={modals.timePicker}
+        onClose={() => closeModal('timePicker')}
+        onTimeSelect={(time) => {
+          const field = modals.timeType === 'start' ? 'startTime' : 'endTime';
+          setEventData(prev => ({ ...prev, [field]: time }));
+          closeModal('timePicker');
+        }}
+      />
+      
+      <DescriptionModal
+        isOpen={modals.description}
+        onClose={() => closeModal('description')}
+        description={eventData.description}
+        onSave={(description) => {
+          setEventData(prev => ({ ...prev, description }));
+          closeModal('description');
+        }}
+      />
 
       <Footer />
     </div>
