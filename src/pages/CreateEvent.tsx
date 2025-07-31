@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,15 @@ import ImageUploadModal from "@/components/modals/ImageUploadModal";
 import CalendarModal from "@/components/modals/CalendarModal";
 import TimePickerModal from "@/components/modals/TimePickerModal";
 import DescriptionModal from "@/components/modals/DescriptionModal";
+import TicketModal from "@/components/modals/TicketModal";
+import BatchModal from "@/components/modals/BatchModal";
+
+interface TicketBatch {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+}
 
 const CreateEvent = () => {
   const navigate = useNavigate();
@@ -36,11 +46,12 @@ const CreateEvent = () => {
     endTime: "",
     description: "",
     isFree: true,
-    requiresApproval: false,
+    ticketPrice: 0,
     capacity: "",
     isPublic: true,
     matchmakingEnabled: true,
-    image: null as string | null
+    image: null as string | null,
+    ticketBatches: [] as TicketBatch[]
   });
 
   const [modals, setModals] = useState({
@@ -48,6 +59,8 @@ const CreateEvent = () => {
     calendar: false,
     timePicker: false,
     description: false,
+    ticket: false,
+    batch: false,
     dateType: "" as "start" | "end",
     timeType: "" as "start" | "end"
   });
@@ -121,6 +134,8 @@ const CreateEvent = () => {
               <EventOptionsSection
                 eventData={eventData}
                 onChange={setEventData}
+                onTicketClick={() => openModal('ticket')}
+                onBatchClick={() => openModal('batch')}
               />
 
               {/* Create Button */}
@@ -174,6 +189,27 @@ const CreateEvent = () => {
         onSave={(description) => {
           setEventData(prev => ({ ...prev, description }));
           closeModal('description');
+        }}
+      />
+
+      <TicketModal
+        isOpen={modals.ticket}
+        onClose={() => closeModal('ticket')}
+        isFree={eventData.isFree}
+        ticketPrice={eventData.ticketPrice}
+        onSave={(isFree, ticketPrice) => {
+          setEventData(prev => ({ ...prev, isFree, ticketPrice }));
+          closeModal('ticket');
+        }}
+      />
+
+      <BatchModal
+        isOpen={modals.batch}
+        onClose={() => closeModal('batch')}
+        batches={eventData.ticketBatches}
+        onSave={(batches) => {
+          setEventData(prev => ({ ...prev, ticketBatches: batches }));
+          closeModal('batch');
         }}
       />
 

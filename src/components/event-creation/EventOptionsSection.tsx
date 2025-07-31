@@ -1,20 +1,36 @@
+
 import { Switch } from "@/components/ui/switch";
-import { Sparkles, Users } from "lucide-react";
+import { Sparkles, Users, Ticket } from "lucide-react";
 
 interface EventOptionsSectionProps {
   eventData: {
     matchmakingEnabled: boolean;
     isFree: boolean;
-    requiresApproval: boolean;
+    ticketPrice: number;
     capacity: string;
+    ticketBatches: Array<{
+      id: string;
+      name: string;
+      quantity: number;
+      price: number;
+    }>;
   };
   onChange: (updater: (prev: any) => any) => void;
+  onTicketClick: () => void;
+  onBatchClick: () => void;
 }
 
-const EventOptionsSection = ({ eventData, onChange }: EventOptionsSectionProps) => {
+const EventOptionsSection = ({ eventData, onChange, onTicketClick, onBatchClick }: EventOptionsSectionProps) => {
   const handleCapacityClick = () => {
     const capacity = prompt("Capacidade máxima:", eventData.capacity);
     if (capacity !== null) onChange(prev => ({ ...prev, capacity }));
+  };
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(price);
   };
 
   return (
@@ -44,26 +60,32 @@ const EventOptionsSection = ({ eventData, onChange }: EventOptionsSectionProps) 
         {/* Tickets */}
         <div 
           className="flex items-center justify-between p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-          onClick={() => onChange(prev => ({ ...prev, isFree: !prev.isFree }))}
+          onClick={onTicketClick}
         >
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-400"></div>
+            <Ticket className="h-4 w-4 text-blue-400" />
             <span className="text-white text-sm">Ingressos</span>
           </div>
-          <span className="text-blue-400 text-sm">{eventData.isFree ? "Gratuito" : "Pago"}</span>
+          <span className="text-blue-400 text-sm">
+            {eventData.isFree ? "Gratuito" : formatPrice(eventData.ticketPrice)}
+          </span>
         </div>
 
-        {/* Approval Required */}
-        <div className="flex items-center justify-between p-3 rounded-lg border border-gray-700">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
-            <span className="text-white text-sm">Exigir Aprovação</span>
+        {/* Virada de Lote - Only visible if tickets are paid */}
+        {!eventData.isFree && (
+          <div 
+            className="flex items-center justify-between p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+            onClick={onBatchClick}
+          >
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-purple-400"></div>
+              <span className="text-white text-sm">Virada de Lote</span>
+            </div>
+            <span className="text-blue-400 text-sm">
+              {eventData.ticketBatches.length > 0 ? `${eventData.ticketBatches.length} lotes` : "Configurar"}
+            </span>
           </div>
-          <Switch
-            checked={eventData.requiresApproval}
-            onCheckedChange={(checked) => onChange(prev => ({ ...prev, requiresApproval: checked }))}
-          />
-        </div>
+        )}
 
         {/* Capacity */}
         <div 
