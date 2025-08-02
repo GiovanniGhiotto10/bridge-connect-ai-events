@@ -22,6 +22,7 @@ import EventNameField from "@/components/event-creation/EventNameField";
 import DateTimeSection from "@/components/event-creation/DateTimeSection";
 import LocationSection from "@/components/event-creation/LocationSection";
 import EventOptionsSection from "@/components/event-creation/EventOptionsSection";
+import ThemeSelector from "@/components/event-creation/ThemeSelector";
 import VisibilityDropdown from "@/components/dropdowns/VisibilityDropdown";
 import ImageUploadModal from "@/components/modals/ImageUploadModal";
 import CalendarModal from "@/components/modals/CalendarModal";
@@ -41,6 +42,8 @@ interface TicketBatch {
 
 const CreateEvent = () => {
   const navigate = useNavigate();
+  const [selectedTheme, setSelectedTheme] = useState("default");
+  
   const [eventData, setEventData] = useState({
     name: "Nome do Evento",
     startDate: "",
@@ -90,15 +93,50 @@ const CreateEvent = () => {
     navigate("/eventos");
   };
 
+  const getThemeBackgroundColor = () => {
+    switch (selectedTheme) {
+      case "default":
+        return "#040A1A";
+      case "minimalist":
+        return "#1a1a1a";
+      case "vibrant":
+        return "#0f172a";
+      default:
+        return "#040A1A";
+    }
+  };
+
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#040A1A' }}>
+    <div className="min-h-screen" style={{ backgroundColor: getThemeBackgroundColor() }}>
       <Header isLoggedIn={true} />
       
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Left Column - Form */}
-            <div className="space-y-6">
+            {/* Left Column - Image and Theme Selection */}
+            <div className="space-y-8">
+              {/* Event Image */}
+              <div className="flex justify-center items-start" style={{ minHeight: "400px" }}>
+                <div className="flex flex-col items-center justify-center h-full">
+                  <EventImageUpload
+                    image={eventData.image}
+                    onImageClick={() => openModal('imageUpload')}
+                  />
+                </div>
+              </div>
+
+              {/* Theme Selector */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-white">ESCOLHER TEMA</h3>
+                <ThemeSelector
+                  selectedTheme={selectedTheme}
+                  onThemeSelect={setSelectedTheme}
+                />
+              </div>
+            </div>
+
+            {/* Right Column - Centralized Form */}
+            <div className="max-w-md mx-auto space-y-6">
               {/* Visibility Dropdown */}
               <div className="flex justify-end items-center">
                 <VisibilityDropdown 
@@ -108,57 +146,53 @@ const CreateEvent = () => {
               </div>
 
               {/* Event Name Field */}
-              <EventNameField
-                name={eventData.name}
-                onChange={(name) => setEventData(prev => ({ ...prev, name }))}
-              />
+              <div className="text-left">
+                <EventNameField
+                  name={eventData.name}
+                  onChange={(name) => setEventData(prev => ({ ...prev, name }))}
+                />
+              </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Date and Time Section */}
-                <div>
-                  <DateTimeSection
-                    eventData={eventData}
-                    onDateClick={(type) => openModal('calendar', { dateType: type })}
-                    onTimeClick={(type) => openModal('timePicker', { timeType: type })}
-                  />
-                  
-                  {/* Location Section */}
-                  <div className="mt-6">
-                    <LocationSection
-                      eventData={eventData}
-                      onLocationClick={(type) => openModal('location', { locationType: type })}
-                    />
-                  </div>
-                </div>
+              {/* Date and Time Section */}
+              <div className="text-left">
+                <DateTimeSection
+                  eventData={eventData}
+                  onDateClick={(type) => openModal('calendar', { dateType: type })}
+                  onTimeClick={(type) => openModal('timePicker', { timeType: type })}
+                />
+              </div>
 
-                {/* Right side - Event Image aligned with Date section */}
-                <div className="flex justify-start">
-                  <EventImageUpload
-                    image={eventData.image}
-                    onImageClick={() => openModal('imageUpload')}
-                  />
-                </div>
+              {/* Location Section */}
+              <div className="text-left">
+                <LocationSection
+                  eventData={eventData}
+                  onLocationClick={(type) => openModal('location', { locationType: type })}
+                />
               </div>
 
               {/* Description */}
-              <div 
-                className="flex items-center gap-3 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-                onClick={() => openModal('description')}
-              >
-                <Edit3 className="h-4 w-4 text-blue-400" />
-                <span className="text-white text-sm">
-                  {eventData.description || "Adicionar Descrição"}
-                </span>
+              <div className="text-left">
+                <div 
+                  className="flex items-center gap-3 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
+                  onClick={() => openModal('description')}
+                >
+                  <Edit3 className="h-4 w-4 text-blue-400" />
+                  <span className="text-white text-sm">
+                    {eventData.description || "Adicionar Descrição"}
+                  </span>
+                </div>
               </div>
 
               {/* Event Options Section */}
-              <EventOptionsSection
-                eventData={eventData}
-                onChange={setEventData}
-                onTicketClick={() => openModal('ticket')}
-                onBatchClick={() => openModal('batch')}
-                onCapacityClick={() => openModal('capacity')}
-              />
+              <div className="text-left">
+                <EventOptionsSection
+                  eventData={eventData}
+                  onChange={setEventData}
+                  onTicketClick={() => openModal('ticket')}
+                  onBatchClick={() => openModal('batch')}
+                  onCapacityClick={() => openModal('capacity')}
+                />
+              </div>
 
               {/* Create Button */}
               <div className="pt-4">
