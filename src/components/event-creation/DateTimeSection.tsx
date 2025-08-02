@@ -1,6 +1,4 @@
-
 import { Calendar, Clock } from "lucide-react";
-
 interface DateTimeSectionProps {
   eventData: {
     startDate: string;
@@ -11,28 +9,25 @@ interface DateTimeSectionProps {
   onDateClick: (type: 'start' | 'end') => void;
   onTimeClick: (type: 'start' | 'end') => void;
 }
-
-const DateTimeSection = ({ eventData, onDateClick, onTimeClick }: DateTimeSectionProps) => {
+const DateTimeSection = ({
+  eventData,
+  onDateClick,
+  onTimeClick
+}: DateTimeSectionProps) => {
   const formatDate = (date: string) => {
     if (!date) return "Selecionar data";
     return new Date(date).toLocaleDateString('pt-BR');
   };
-
   const formatTime = (time: string) => {
     if (!time) return "Selecionar horário";
     return time;
   };
-
-  return (
-    <div className="space-y-3">
-      <h3 className="text-lg font-semibold text-white">DATA E HORÁRIO</h3>
+  return <div className="space-y-3">
+      <h3 className="text-lg font-semibold text-white mx-[10px]">DATA E HORÁRIO</h3>
       
       {/* Start Date/Time */}
       <div className="grid grid-cols-2 gap-3">
-        <div 
-          className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-          onClick={() => onDateClick('start')}
-        >
+        <div onClick={() => onDateClick('start')} className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]">
           <Calendar className="h-4 w-4 text-blue-400" />
           <div>
             <p className="text-xs text-gray-400">Início</p>
@@ -40,10 +35,7 @@ const DateTimeSection = ({ eventData, onDateClick, onTimeClick }: DateTimeSectio
           </div>
         </div>
         
-        <div 
-          className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-          onClick={() => onTimeClick('start')}
-        >
+        <div onClick={() => onTimeClick('start')} className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]">
           <Clock className="h-4 w-4 text-blue-400" />
           <div>
             <p className="text-xs text-gray-400">Horário</p>
@@ -54,10 +46,7 @@ const DateTimeSection = ({ eventData, onDateClick, onTimeClick }: DateTimeSectio
 
       {/* End Date/Time */}
       <div className="grid grid-cols-2 gap-3">
-        <div 
-          className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-          onClick={() => onDateClick('end')}
-        >
+        <div onClick={() => onDateClick('end')} className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]">
           <Calendar className="h-4 w-4 text-green-400" />
           <div>
             <p className="text-xs text-gray-400">Fim</p>
@@ -65,10 +54,7 @@ const DateTimeSection = ({ eventData, onDateClick, onTimeClick }: DateTimeSectio
           </div>
         </div>
         
-        <div 
-          className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-          onClick={() => onTimeClick('end')}
-        >
+        <div onClick={() => onTimeClick('end')} className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]">
           <Clock className="h-4 w-4 text-green-400" />
           <div>
             <p className="text-xs text-gray-400">Horário</p>
@@ -76,8 +62,6 @@ const DateTimeSection = ({ eventData, onDateClick, onTimeClick }: DateTimeSectio
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default DateTimeSection;
