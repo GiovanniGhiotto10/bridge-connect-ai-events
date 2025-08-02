@@ -14,11 +14,11 @@ const EventNameField = ({ name, onChange }: EventNameFieldProps) => {
 
   return (
     <div 
-      className="group cursor-pointer p-4 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-gray-700"
+      className="group cursor-pointer p-3 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-gray-700"
       onClick={handleClick}
     >
       <div className="flex items-center gap-3">
-        <h2 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors flex-1">
+        <h2 className="text-3xl font-bold text-white group-hover:text-blue-400 transition-colors flex-1">
           {name}
         </h2>
         <Edit3 className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity text-blue-400" />

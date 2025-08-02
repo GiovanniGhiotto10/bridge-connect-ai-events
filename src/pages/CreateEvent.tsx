@@ -20,6 +20,7 @@ import Footer from "@/components/layout/Footer";
 import EventImageUpload from "@/components/event-creation/EventImageUpload";
 import EventNameField from "@/components/event-creation/EventNameField";
 import DateTimeSection from "@/components/event-creation/DateTimeSection";
+import LocationSection from "@/components/event-creation/LocationSection";
 import EventOptionsSection from "@/components/event-creation/EventOptionsSection";
 import VisibilityDropdown from "@/components/dropdowns/VisibilityDropdown";
 import ImageUploadModal from "@/components/modals/ImageUploadModal";
@@ -45,6 +46,9 @@ const CreateEvent = () => {
     endDate: "",
     endTime: "",
     description: "",
+    location: "",
+    city: "",
+    address: "",
     isFree: true,
     ticketPrice: 0,
     capacity: "",
@@ -82,23 +86,15 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-blue-900">
+    <div className="min-h-screen bg-gradient-to-b from-black to-blue-900">
       <Header isLoggedIn={true} />
       
       <main className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left Column - Event Image */}
-            <div className="space-y-4">
-              <EventImageUpload
-                image={eventData.image}
-                onImageClick={() => openModal('imageUpload')}
-              />
-            </div>
-
-            {/* Right Column - Form */}
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Left Column - Form */}
             <div className="space-y-6">
-              {/* Visibility Dropdown - moved to top without title */}
+              {/* Visibility Dropdown */}
               <div className="flex justify-end items-center">
                 <VisibilityDropdown 
                   isPublic={eventData.isPublic}
@@ -112,12 +108,32 @@ const CreateEvent = () => {
                 onChange={(name) => setEventData(prev => ({ ...prev, name }))}
               />
 
-              {/* Date and Time Section */}
-              <DateTimeSection
-                eventData={eventData}
-                onDateClick={(type) => openModal('calendar', { dateType: type })}
-                onTimeClick={(type) => openModal('timePicker', { timeType: type })}
-              />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Date and Time Section */}
+                <div>
+                  <DateTimeSection
+                    eventData={eventData}
+                    onDateClick={(type) => openModal('calendar', { dateType: type })}
+                    onTimeClick={(type) => openModal('timePicker', { timeType: type })}
+                  />
+                  
+                  {/* Location Section */}
+                  <div className="mt-6">
+                    <LocationSection
+                      eventData={eventData}
+                      onChange={setEventData}
+                    />
+                  </div>
+                </div>
+
+                {/* Right side - Event Image aligned with Date section */}
+                <div className="flex justify-start">
+                  <EventImageUpload
+                    image={eventData.image}
+                    onImageClick={() => openModal('imageUpload')}
+                  />
+                </div>
+              </div>
 
               {/* Description */}
               <div 
