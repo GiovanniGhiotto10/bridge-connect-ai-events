@@ -70,7 +70,7 @@ const EventOptionsSection = ({
         </div>
 
         {/* Virada de Lote - Only visible if tickets are paid */}
-        {!eventData.isFree && <div className="flex items-center justify-between p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all" onClick={onBatchClick}>
+        {!eventData.isFree && <div onClick={onBatchClick} className="flex items-center justify-between p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-purple-400"></div>
               <span className="text-white text-sm">Virada de Lote</span>
