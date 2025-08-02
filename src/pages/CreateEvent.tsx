@@ -107,7 +107,7 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: getThemeBackgroundColor() }}>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-blue-800">
       <Header isLoggedIn={true} />
       
       <main className="container mx-auto px-4 py-8">
