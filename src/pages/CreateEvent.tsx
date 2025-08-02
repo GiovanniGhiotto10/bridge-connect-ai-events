@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -5,10 +6,10 @@ import { Switch } from "@/components/ui/switch";
 import { toast } from "@/hooks/use-toast";
 import { Calendar, Clock, MapPin, Users, Upload, ChevronDown, Edit3, Image as ImageIcon, Sparkles } from "lucide-react";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import EventImageUpload from "@/components/event-creation/EventImageUpload";
 import EventNameField from "@/components/event-creation/EventNameField";
 import DateTimeSection from "@/components/event-creation/DateTimeSection";
+import LocationSection from "@/components/event-creation/LocationSection";
 import EventOptionsSection from "@/components/event-creation/EventOptionsSection";
 import VisibilityDropdown from "@/components/dropdowns/VisibilityDropdown";
 import ImageUploadModal from "@/components/modals/ImageUploadModal";
@@ -17,12 +18,16 @@ import TimePickerModal from "@/components/modals/TimePickerModal";
 import DescriptionModal from "@/components/modals/DescriptionModal";
 import TicketModal from "@/components/modals/TicketModal";
 import BatchModal from "@/components/modals/BatchModal";
+import CapacityModal from "@/components/modals/CapacityModal";
+import LocationModal from "@/components/modals/LocationModal";
+
 interface TicketBatch {
   id: string;
   name: string;
   quantity: number;
   price: number;
 }
+
 const CreateEvent = () => {
   const navigate = useNavigate();
   const [eventData, setEventData] = useState({
@@ -32,6 +37,8 @@ const CreateEvent = () => {
     endDate: "",
     endTime: "",
     description: "",
+    location: "",
+    city: "",
     isFree: true,
     ticketPrice: 0,
     capacity: "",
@@ -40,6 +47,7 @@ const CreateEvent = () => {
     image: null as string | null,
     ticketBatches: [] as TicketBatch[]
   });
+
   const [modals, setModals] = useState({
     imageUpload: false,
     calendar: false,
@@ -47,9 +55,13 @@ const CreateEvent = () => {
     description: false,
     ticket: false,
     batch: false,
+    capacity: false,
+    location: false,
     dateType: "" as "start" | "end",
-    timeType: "" as "start" | "end"
+    timeType: "" as "start" | "end",
+    locationType: "" as "location" | "city"
   });
+
   const openModal = (modalName: string, extra?: any) => {
     setModals(prev => ({
       ...prev,
@@ -57,12 +69,14 @@ const CreateEvent = () => {
       ...extra
     }));
   };
+
   const closeModal = (modalName: string) => {
     setModals(prev => ({
       ...prev,
       [modalName]: false
     }));
   };
+
   const handleSubmit = () => {
     toast({
       title: "Evento Criado com Sucesso! 🎉",
@@ -70,7 +84,9 @@ const CreateEvent = () => {
     });
     navigate("/eventos");
   };
-  return <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-blue-900">
+
+  return (
+    <div className="min-h-screen" style={{ background: '#040A1A' }}>
       <Header isLoggedIn={true} />
       
       <main className="container mx-auto px-4 py-8">
@@ -86,23 +102,31 @@ const CreateEvent = () => {
               {/* Visibility Dropdown - moved to top without title */}
               <div className="flex justify-end items-center">
                 <VisibilityDropdown isPublic={eventData.isPublic} onChange={isPublic => setEventData(prev => ({
-                ...prev,
-                isPublic
-              }))} />
+                  ...prev,
+                  isPublic
+                }))} />
               </div>
 
               {/* Event Name Field */}
               <EventNameField name={eventData.name} onChange={name => setEventData(prev => ({
-              ...prev,
-              name
-            }))} />
+                ...prev,
+                name
+              }))} />
 
               {/* Date and Time Section */}
               <DateTimeSection eventData={eventData} onDateClick={type => openModal('calendar', {
-              dateType: type
-            })} onTimeClick={type => openModal('timePicker', {
-              timeType: type
-            })} />
+                dateType: type
+              })} onTimeClick={type => openModal('timePicker', {
+                timeType: type
+              })} />
+
+              {/* Location Section */}
+              <LocationSection 
+                location={eventData.location}
+                city={eventData.city}
+                onLocationClick={() => openModal('location', { locationType: 'location' })}
+                onCityClick={() => openModal('location', { locationType: 'city' })}
+              />
 
               {/* Description */}
               <div onClick={() => openModal('description')} className="flex items-center gap-3 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]">
@@ -113,7 +137,13 @@ const CreateEvent = () => {
               </div>
 
               {/* Event Options Section */}
-              <EventOptionsSection eventData={eventData} onChange={setEventData} onTicketClick={() => openModal('ticket')} onBatchClick={() => openModal('batch')} />
+              <EventOptionsSection 
+                eventData={eventData} 
+                onChange={setEventData} 
+                onTicketClick={() => openModal('ticket')} 
+                onBatchClick={() => openModal('batch')}
+                onCapacityClick={() => openModal('capacity')}
+              />
 
               {/* Create Button */}
               <div className="pt-4">
@@ -128,57 +158,85 @@ const CreateEvent = () => {
 
       {/* Modals */}
       <ImageUploadModal isOpen={modals.imageUpload} onClose={() => closeModal('imageUpload')} onImageSelect={image => {
-      setEventData(prev => ({
-        ...prev,
-        image
-      }));
-      closeModal('imageUpload');
-    }} />
+        setEventData(prev => ({
+          ...prev,
+          image
+        }));
+        closeModal('imageUpload');
+      }} />
       
       <CalendarModal isOpen={modals.calendar} onClose={() => closeModal('calendar')} onDateSelect={date => {
-      const field = modals.dateType === 'start' ? 'startDate' : 'endDate';
-      setEventData(prev => ({
-        ...prev,
-        [field]: date
-      }));
-      closeModal('calendar');
-    }} />
+        const field = modals.dateType === 'start' ? 'startDate' : 'endDate';
+        setEventData(prev => ({
+          ...prev,
+          [field]: date
+        }));
+        closeModal('calendar');
+      }} />
       
       <TimePickerModal isOpen={modals.timePicker} onClose={() => closeModal('timePicker')} onTimeSelect={time => {
-      const field = modals.timeType === 'start' ? 'startTime' : 'endTime';
-      setEventData(prev => ({
-        ...prev,
-        [field]: time
-      }));
-      closeModal('timePicker');
-    }} />
+        const field = modals.timeType === 'start' ? 'startTime' : 'endTime';
+        setEventData(prev => ({
+          ...prev,
+          [field]: time
+        }));
+        closeModal('timePicker');
+      }} />
       
       <DescriptionModal isOpen={modals.description} onClose={() => closeModal('description')} description={eventData.description} onSave={description => {
-      setEventData(prev => ({
-        ...prev,
-        description
-      }));
-      closeModal('description');
-    }} />
+        setEventData(prev => ({
+          ...prev,
+          description
+        }));
+        closeModal('description');
+      }} />
 
       <TicketModal isOpen={modals.ticket} onClose={() => closeModal('ticket')} isFree={eventData.isFree} ticketPrice={eventData.ticketPrice} onSave={(isFree, ticketPrice) => {
-      setEventData(prev => ({
-        ...prev,
-        isFree,
-        ticketPrice
-      }));
-      closeModal('ticket');
-    }} />
+        setEventData(prev => ({
+          ...prev,
+          isFree,
+          ticketPrice
+        }));
+        closeModal('ticket');
+      }} />
 
       <BatchModal isOpen={modals.batch} onClose={() => closeModal('batch')} batches={eventData.ticketBatches} onSave={batches => {
-      setEventData(prev => ({
-        ...prev,
-        ticketBatches: batches
-      }));
-      closeModal('batch');
-    }} />
+        setEventData(prev => ({
+          ...prev,
+          ticketBatches: batches
+        }));
+        closeModal('batch');
+      }} />
 
-      <Footer />
-    </div>;
+      <CapacityModal 
+        isOpen={modals.capacity} 
+        onClose={() => closeModal('capacity')} 
+        capacity={eventData.capacity}
+        onSave={(capacity) => {
+          setEventData(prev => ({
+            ...prev,
+            capacity
+          }));
+          closeModal('capacity');
+        }} 
+      />
+
+      <LocationModal 
+        isOpen={modals.location} 
+        onClose={() => closeModal('location')} 
+        type={modals.locationType}
+        value={modals.locationType === 'location' ? eventData.location : eventData.city}
+        onSave={(value) => {
+          const field = modals.locationType === 'location' ? 'location' : 'city';
+          setEventData(prev => ({
+            ...prev,
+            [field]: value
+          }));
+          closeModal('location');
+        }} 
+      />
+    </div>
+  );
 };
+
 export default CreateEvent;

@@ -30,7 +30,7 @@ const TicketModal = ({ isOpen, onClose, isFree, ticketPrice, onSave }: TicketMod
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md">
+      <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md" style={{ backgroundColor: '#040A1A' }}>
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-white">Configurar Ingressos</DialogTitle>
         </DialogHeader>
@@ -96,10 +96,17 @@ const TicketModal = ({ isOpen, onClose, isFree, ticketPrice, onSave }: TicketMod
         </div>
 
         <div className="flex justify-end gap-3 pt-4">
-          <Button variant="outline" onClick={onClose} className="border-gray-600 text-gray-300 hover:bg-gray-700">
+          <Button 
+            variant="outline" 
+            onClick={onClose} 
+            className="border-gray-600 text-gray-300 hover:bg-gray-700"
+          >
             Cancelar
           </Button>
-          <Button onClick={handleSave} className="bg-blue-600 hover:bg-blue-700">
+          <Button 
+            onClick={handleSave} 
+            className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white"
+          >
             Salvar
           </Button>
         </div>

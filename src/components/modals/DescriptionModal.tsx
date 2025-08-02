@@ -31,9 +31,9 @@ const DescriptionModal = ({ isOpen, onClose, description, onSave }: DescriptionM
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl bg-gray-900 border-gray-700">
+      <DialogContent className="max-w-2xl bg-gray-800 border-gray-700" style={{ backgroundColor: '#040A1A' }}>
         <DialogHeader>
-          <DialogTitle className="text-white">Descrição do Evento</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-white">Descrição do Evento</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -41,7 +41,7 @@ const DescriptionModal = ({ isOpen, onClose, description, onSave }: DescriptionM
             placeholder="Descreva seu evento, objetivos, agenda e o que os participantes podem esperar..."
             value={currentDescription}
             onChange={(e) => setCurrentDescription(e.target.value)}
-            className="min-h-[200px] bg-gray-800 border-gray-600 text-white resize-none"
+            className="min-h-[200px] bg-gray-700 border-gray-600 text-white resize-none focus:border-blue-500"
           />
 
           <div className="flex justify-between">
@@ -55,10 +55,17 @@ const DescriptionModal = ({ isOpen, onClose, description, onSave }: DescriptionM
             </Button>
 
             <div className="flex gap-2">
-              <Button variant="outline" onClick={onClose} className="text-white border-gray-600">
+              <Button 
+                variant="outline" 
+                onClick={onClose} 
+                className="text-white border-gray-600 hover:bg-gray-700"
+              >
                 Cancelar
               </Button>
-              <Button onClick={handleSave} className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Button 
+                onClick={handleSave} 
+                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white"
+              >
                 Concluído
               </Button>
             </div>
