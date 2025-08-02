@@ -29,6 +29,8 @@ import TimePickerModal from "@/components/modals/TimePickerModal";
 import DescriptionModal from "@/components/modals/DescriptionModal";
 import TicketModal from "@/components/modals/TicketModal";
 import BatchModal from "@/components/modals/BatchModal";
+import CapacityModal from "@/components/modals/CapacityModal";
+import LocationModal from "@/components/modals/LocationModal";
 
 interface TicketBatch {
   id: string;
@@ -65,8 +67,11 @@ const CreateEvent = () => {
     description: false,
     ticket: false,
     batch: false,
+    capacity: false,
+    location: false,
     dateType: "" as "start" | "end",
-    timeType: "" as "start" | "end"
+    timeType: "" as "start" | "end",
+    locationType: "" as "location" | "city" | "address"
   });
 
   const openModal = (modalName: string, extra?: any) => {
@@ -86,7 +91,7 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-blue-900">
+    <div className="min-h-screen" style={{ backgroundColor: '#040A1A' }}>
       <Header isLoggedIn={true} />
       
       <main className="container mx-auto px-4 py-8">
@@ -121,7 +126,7 @@ const CreateEvent = () => {
                   <div className="mt-6">
                     <LocationSection
                       eventData={eventData}
-                      onChange={setEventData}
+                      onLocationClick={(type) => openModal('location', { locationType: type })}
                     />
                   </div>
                 </div>
@@ -152,6 +157,7 @@ const CreateEvent = () => {
                 onChange={setEventData}
                 onTicketClick={() => openModal('ticket')}
                 onBatchClick={() => openModal('batch')}
+                onCapacityClick={() => openModal('capacity')}
               />
 
               {/* Create Button */}
@@ -226,6 +232,27 @@ const CreateEvent = () => {
         onSave={(batches) => {
           setEventData(prev => ({ ...prev, ticketBatches: batches }));
           closeModal('batch');
+        }}
+      />
+
+      <CapacityModal
+        isOpen={modals.capacity}
+        onClose={() => closeModal('capacity')}
+        capacity={eventData.capacity}
+        onSave={(capacity) => {
+          setEventData(prev => ({ ...prev, capacity }));
+          closeModal('capacity');
+        }}
+      />
+
+      <LocationModal
+        isOpen={modals.location}
+        onClose={() => closeModal('location')}
+        eventData={eventData}
+        locationType={modals.locationType}
+        onSave={(field, value) => {
+          setEventData(prev => ({ ...prev, [field]: value }));
+          closeModal('location');
         }}
       />
 

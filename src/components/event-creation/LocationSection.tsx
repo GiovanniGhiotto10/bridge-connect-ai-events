@@ -7,25 +7,10 @@ interface LocationSectionProps {
     city: string;
     address: string;
   };
-  onChange: (updater: (prev: any) => any) => void;
+  onLocationClick: (type: 'location' | 'city' | 'address') => void;
 }
 
-const LocationSection = ({ eventData, onChange }: LocationSectionProps) => {
-  const handleLocationClick = () => {
-    const location = prompt("Localização (Nome do local ou link virtual):", eventData.location);
-    if (location !== null) onChange(prev => ({ ...prev, location }));
-  };
-
-  const handleCityClick = () => {
-    const city = prompt("Cidade:", eventData.city);
-    if (city !== null) onChange(prev => ({ ...prev, city }));
-  };
-
-  const handleAddressClick = () => {
-    const address = prompt("Endereço (opcional):", eventData.address);
-    if (address !== null) onChange(prev => ({ ...prev, address }));
-  };
-
+const LocationSection = ({ eventData, onLocationClick }: LocationSectionProps) => {
   return (
     <div className="space-y-3">
       <h3 className="text-lg font-semibold text-white">LOCALIZAÇÃO</h3>
@@ -34,7 +19,7 @@ const LocationSection = ({ eventData, onChange }: LocationSectionProps) => {
         {/* Location */}
         <div 
           className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-          onClick={handleLocationClick}
+          onClick={() => onLocationClick('location')}
         >
           <MapPin className="h-4 w-4 text-blue-400" />
           <div className="flex-1">
@@ -48,7 +33,7 @@ const LocationSection = ({ eventData, onChange }: LocationSectionProps) => {
         {/* City */}
         <div 
           className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-          onClick={handleCityClick}
+          onClick={() => onLocationClick('city')}
         >
           <Building className="h-4 w-4 text-blue-400" />
           <div className="flex-1">
@@ -62,7 +47,7 @@ const LocationSection = ({ eventData, onChange }: LocationSectionProps) => {
         {/* Address */}
         <div 
           className="flex items-center gap-2 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-          onClick={handleAddressClick}
+          onClick={() => onLocationClick('address')}
         >
           <Navigation className="h-4 w-4 text-blue-400" />
           <div className="flex-1">
