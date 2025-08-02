@@ -1,3 +1,4 @@
+
 import { Switch } from "@/components/ui/switch";
 import { Sparkles, Users, Ticket } from "lucide-react";
 
@@ -17,10 +18,14 @@ interface EventOptionsSectionProps {
   onChange: (updater: (prev: any) => any) => void;
   onTicketClick: () => void;
   onBatchClick: () => void;
-  onCapacityClick: () => void;
 }
 
-const EventOptionsSection = ({ eventData, onChange, onTicketClick, onBatchClick, onCapacityClick }: EventOptionsSectionProps) => {
+const EventOptionsSection = ({ eventData, onChange, onTicketClick, onBatchClick }: EventOptionsSectionProps) => {
+  const handleCapacityClick = () => {
+    const capacity = prompt("Capacidade máxima:", eventData.capacity);
+    if (capacity !== null) onChange(prev => ({ ...prev, capacity }));
+  };
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -85,7 +90,7 @@ const EventOptionsSection = ({ eventData, onChange, onTicketClick, onBatchClick,
         {/* Capacity */}
         <div 
           className="flex items-center justify-between p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all"
-          onClick={onCapacityClick}
+          onClick={handleCapacityClick}
         >
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4 text-blue-400" />
