@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/hooks/use-toast";
-import { Calendar, Clock, MapPin, Users, Upload, ChevronDown, Edit3, Image as ImageIcon, Sparkles } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, Upload, ChevronDown, Edit3, Image as ImageIcon, Sparkles, Palette } from "lucide-react";
 import Header from "@/components/layout/Header";
 import EventImageUpload from "@/components/event-creation/EventImageUpload";
 import EventNameField from "@/components/event-creation/EventNameField";
@@ -20,6 +20,8 @@ import TicketModal from "@/components/modals/TicketModal";
 import BatchModal from "@/components/modals/BatchModal";
 import CapacityModal from "@/components/modals/CapacityModal";
 import LocationModal from "@/components/modals/LocationModal";
+import ThemeEditor from "@/components/theme-editor/ThemeEditor";
+import { useTheme, Theme } from "@/hooks/useTheme";
 
 interface TicketBatch {
   id: string;
@@ -30,6 +32,8 @@ interface TicketBatch {
 
 const CreateEvent = () => {
   const navigate = useNavigate();
+  const { selectedTheme, updateTheme } = useTheme();
+  
   const [eventData, setEventData] = useState({
     name: "Nome do Evento",
     startDate: "",
@@ -45,7 +49,8 @@ const CreateEvent = () => {
     isPublic: true,
     matchmakingEnabled: true,
     image: null as string | null,
-    ticketBatches: [] as TicketBatch[]
+    ticketBatches: [] as TicketBatch[],
+    theme: selectedTheme
   });
 
   const [modals, setModals] = useState({
@@ -57,6 +62,7 @@ const CreateEvent = () => {
     batch: false,
     capacity: false,
     location: false,
+    themeEditor: false,
     dateType: "" as "start" | "end",
     timeType: "" as "start" | "end",
     locationType: "" as "location" | "city"
@@ -77,24 +83,68 @@ const CreateEvent = () => {
     }));
   };
 
+  const handleThemeChange = (theme: Theme) => {
+    updateTheme(theme);
+    setEventData(prev => ({
+      ...prev,
+      theme
+    }));
+  };
+
   const handleSubmit = () => {
+    // Simular salvamento do evento
+    const eventId = Math.random().toString(36).substr(2, 9);
+    
+    // Salvar dados do evento (em uma aplicação real, isso seria uma chamada para API)
+    const newEvent = {
+      id: eventId,
+      ...eventData,
+      createdAt: new Date().toISOString()
+    };
+    
+    // Simular salvamento no localStorage para demonstração
+    const existingEvents = JSON.parse(localStorage.getItem('events') || '[]');
+    existingEvents.push(newEvent);
+    localStorage.setItem('events', JSON.stringify(existingEvents));
+    
     toast({
       title: "Evento Criado com Sucesso! 🎉",
       description: "Seu evento foi publicado e está disponível para participantes."
     });
-    navigate("/eventos");
+    
+    // Redirecionar para a página de detalhes do evento criado
+    navigate(`/evento/${eventId}`);
   };
 
+  const pageBackground = selectedTheme.background || '#040A1A';
+
   return (
-    <div className="min-h-screen" style={{ background: '#040A1A' }}>
+    <div 
+      className="min-h-screen" 
+      style={{ 
+        background: pageBackground
+      }}
+    >
       <Header isLoggedIn={true} />
       
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left Column - Event Image */}
+            {/* Left Column - Event Image and Theme */}
             <div className="space-y-4">
               <EventImageUpload image={eventData.image} onImageClick={() => openModal('imageUpload')} />
+              
+              {/* Theme Button */}
+              <div className="mx-[200px]">
+                <Button
+                  onClick={() => openModal('themeEditor')}
+                  variant="outline"
+                  className="w-full bg-gray-800 border-gray-600 text-white hover:bg-gray-700 hover:border-blue-400 transition-all"
+                >
+                  <Palette className="h-4 w-4 mr-2" />
+                  Tema ({selectedTheme.name})
+                </Button>
+              </div>
             </div>
 
             {/* Right Column - Form */}
@@ -156,7 +206,15 @@ const CreateEvent = () => {
         </div>
       </main>
 
-      {/* Modals */}
+      {/* Theme Editor */}
+      <ThemeEditor
+        isOpen={modals.themeEditor}
+        onClose={() => closeModal('themeEditor')}
+        selectedTheme={selectedTheme}
+        onThemeChange={handleThemeChange}
+      />
+
+      {/* Modais existentes */}
       <ImageUploadModal isOpen={modals.imageUpload} onClose={() => closeModal('imageUpload')} onImageSelect={image => {
         setEventData(prev => ({
           ...prev,

@@ -85,9 +85,32 @@ const mockMatches = [
 
 const EventDetails = () => {
   const { id } = useParams();
-  const eventId = parseInt(id || "1");
+  const eventId = id;
   
-  const event = eventDetails.find(e => e.id === eventId);
+  // Primeiro, tentar buscar de eventos criados dinamicamente
+  const createdEvents = JSON.parse(localStorage.getItem('events') || '[]');
+  let event = createdEvents.find((e: any) => e.id === eventId);
+  
+  // Se não encontrar, usar os dados mockados existentes
+  if (!event) {
+    event = eventDetails.find(e => e.id === parseInt(eventId || "1"));
+    
+    // Converter formato mockado para o formato esperado
+    if (event) {
+      event = {
+        ...event,
+        startDate: event.date,
+        endDate: event.endDate || event.date,
+        bannerImage: event.bannerImage || event.image,
+        theme: {
+          background: '#040A1A',
+          primaryColor: '#3B82F6',
+          textColor: '#ffffff',
+          fontFamily: 'Inter'
+        }
+      };
+    }
+  }
   
   if (!event) {
     return (
@@ -109,22 +132,32 @@ const EventDetails = () => {
     });
   };
 
+  // Aplicar tema do evento se disponível
+  const eventTheme = event.theme;
+  const pageStyle = eventTheme ? {
+    background: eventTheme.background,
+    color: eventTheme.textColor,
+    fontFamily: eventTheme.fontFamily
+  } : {};
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={pageStyle.background ? { background: pageStyle.background } : { backgroundColor: '#040A1A' }}>
       <Header isLoggedIn={true} />
       
       {/* Hero Section */}
       <section className="relative h-96 overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${event.bannerImage})` }}
+          style={{ 
+            backgroundImage: `url(${event.bannerImage || event.image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop&crop=center'})` 
+          }}
         >
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-background/20" />
         </div>
         <div className="relative container mx-auto px-4 h-full flex items-end pb-12">
           <div className="max-w-4xl">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 text-shadow-lg">
-              {event.title}
+              {event.title || event.name}
             </h1>
           </div>
         </div>
@@ -138,22 +171,24 @@ const EventDetails = () => {
             <h2 className="text-2xl font-bold text-foreground mb-6">SOBRE O EVENTO</h2>
             <div className="prose prose-invert max-w-none">
               <p className="text-muted-foreground leading-relaxed text-lg">
-                {event.description}
+                {event.description || "Descrição do evento não disponível."}
               </p>
             </div>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-2 mt-8">
-              {event.tags.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant="outline"
-                  className="border-primary/30 text-primary bg-primary/10"
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </div>
+            {event.tags && (
+              <div className="flex flex-wrap gap-2 mt-8">
+                {event.tags.map((tag: string) => (
+                  <Badge
+                    key={tag}
+                    variant="outline"
+                    className="border-primary/30 text-primary bg-primary/10"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right Column - Event Info Card */}
@@ -168,10 +203,10 @@ const EventDetails = () => {
                   </div>
                   <div>
                     <p className="text-foreground font-medium">
-                      {formatDate(event.date)}
-                      {event.id === 1 && ` - ${formatDate("2025-03-16")}`}
+                      {formatDate(event.startDate || event.date)}
+                      {event.endDate && event.endDate !== event.startDate && ` - ${formatDate(event.endDate)}`}
                     </p>
-                    <p className="text-foreground font-medium">{event.time}</p>
+                    <p className="text-foreground font-medium">{event.startTime || event.time}</p>
                   </div>
                 </div>
 
@@ -183,46 +218,61 @@ const EventDetails = () => {
                   </div>
                   <div>
                     <p className="text-foreground font-medium">{event.location}</p>
-                    <a
-                      href={event.mapLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:text-primary/80 text-sm inline-flex items-center gap-1 mt-1"
-                    >
-                      Ver no mapa <ExternalLink className="h-3 w-3" />
-                    </a>
+                    {event.city && (
+                      <p className="text-muted-foreground text-sm">{event.city}</p>
+                    )}
+                    {event.mapLink && (
+                      <a
+                        href={event.mapLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-primary/80 text-sm inline-flex items-center gap-1 mt-1"
+                      >
+                        Ver no mapa <ExternalLink className="h-3 w-3" />
+                      </a>
+                    )}
                   </div>
                 </div>
 
                 {/* Price */}
                 <div className="space-y-2">
                   <p className="text-sm text-muted-foreground">Preço</p>
-                  <p className="text-2xl font-bold text-primary">{event.price}</p>
-                </div>
-
-                {/* Capacity */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-primary">
-                    <Users className="h-5 w-5" />
-                    <p className="text-sm text-muted-foreground">Vagas</p>
-                  </div>
-                  <p className="text-foreground font-medium">
-                    {event.attendees} / {event.capacity} participantes
+                  <p className="text-2xl font-bold text-primary">
+                    {event.isFree !== undefined 
+                      ? (event.isFree ? "Gratuito" : `R$ ${event.ticketPrice},00`)
+                      : (event.price || "Gratuito")
+                    }
                   </p>
                 </div>
 
-                {/* Organizer */}
-                <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">Organizador</p>
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={event.organizerLogo}
-                      alt={`${event.organizer} logo`}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                    <p className="text-foreground font-medium">{event.organizer}</p>
+                {/* Capacity */}
+                {(event.capacity || event.attendees) && (
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-primary">
+                      <Users className="h-5 w-5" />
+                      <p className="text-sm text-muted-foreground">Vagas</p>
+                    </div>
+                    <p className="text-foreground font-medium">
+                      {event.attendees ? `${event.attendees} / ${event.capacity} participantes` : 
+                       event.capacity ? `Até ${event.capacity} participantes` : 'Capacidade não definida'}
+                    </p>
                   </div>
-                </div>
+                )}
+
+                {/* Organizer */}
+                {event.organizer && (
+                  <div className="space-y-2">
+                    <p className="text-sm text-muted-foreground">Organizador</p>
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={event.organizerLogo}
+                        alt={`${event.organizer} logo`}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                      <p className="text-foreground font-medium">{event.organizer}</p>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -235,8 +285,8 @@ const EventDetails = () => {
           </Button>
         </div>
 
-        {/* Matchmaking Section - Only for registered users */}
-        {event.isUserRegistered && (
+        {/* Matchmaking Section - Only for registered users and if matchmaking is enabled */}
+        {(event.isUserRegistered || event.matchmakingEnabled) && (
           <section className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-foreground mb-4">
