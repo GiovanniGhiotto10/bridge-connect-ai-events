@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MessageCircle, MapPin, Users, Heart, X, Star, Calendar, User, Search } from "lucide-react";
+import { MessageCircle, MapPin, Users, Heart, X, Star, Calendar, User, Search, Handshake } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
@@ -38,8 +38,8 @@ const mockNewMatches = [
   }
 ];
 
-// Mock data for confirmed matches (requests/connections)
-const mockConfirmedMatches = [
+// Mock data for confirmed matches (my matches)
+const mockMyMatches = [
   {
     id: 3,
     name: "Maria Costa",
@@ -68,16 +68,44 @@ const mockConfirmedMatches = [
   }
 ];
 
+// Mock data for pending requests
+const mockPendingRequests = [
+  {
+    id: 5,
+    name: "Lucas Ferreira",
+    avatar: "/placeholder.svg",
+    bio: "Desenvolvedor mobile especializado em React Native e Flutter.",
+    location: "Curitiba, PR",
+    interests: ["Mobile", "React Native", "Flutter"],
+    mutualConnections: 7,
+    matchPercentage: 88,
+    isOnline: false,
+    lastSeen: "3h atrás",
+    requestSent: "2 dias atrás"
+  }
+];
+
 const Matches = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState<'novos' | 'solicitacoes'>('novos');
+  const [activeTab, setActiveTab] = useState<'novos' | 'meus' | 'solicitacoes'>('novos');
   const [likedProfiles, setLikedProfiles] = useState<number[]>([]);
-  const [dismissedProfiles, setDismissedProfiles] = useState<number[]>([]);
 
-  const currentMatches = activeTab === 'novos' ? mockNewMatches : mockConfirmedMatches;
+  const getCurrentMatches = () => {
+    switch (activeTab) {
+      case 'novos':
+        return mockNewMatches;
+      case 'meus':
+        return mockMyMatches;
+      case 'solicitacoes':
+        return mockPendingRequests;
+      default:
+        return mockNewMatches;
+    }
+  };
+
+  const currentMatches = getCurrentMatches();
   
   const filteredMatches = currentMatches.filter(match =>
-    !dismissedProfiles.includes(match.id) &&
     (match.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
      match.bio.toLowerCase().includes(searchTerm.toLowerCase()) ||
      match.interests.some(interest => 
@@ -85,12 +113,8 @@ const Matches = () => {
      ))
   );
 
-  const handleLike = (matchId: number) => {
+  const handleConnect = (matchId: number) => {
     setLikedProfiles(prev => [...prev, matchId]);
-  };
-
-  const handleDismiss = (matchId: number) => {
-    setDismissedProfiles(prev => [...prev, matchId]);
   };
 
   return (
@@ -118,7 +142,7 @@ const Matches = () => {
           </div>
 
           {/* Tab Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-4xl mx-auto">
             <Card 
               className={cn(
                 "card-bridge cursor-pointer transition-all",
@@ -142,7 +166,27 @@ const Matches = () => {
             <Card 
               className={cn(
                 "card-bridge cursor-pointer transition-all",
-                activeTab === 'solicitacoes' ? "ring-2 ring-primary bg-primary/10" : "hover:bg-card/70"
+                activeTab === 'meus' ? "ring-2 ring-green-500 bg-green-500/10" : "hover:bg-card/70"
+              )}
+              onClick={() => setActiveTab('meus')}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-green-500/10 rounded-lg">
+                    <Handshake className="h-6 w-6 text-green-500" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">{mockMyMatches.length}</p>
+                    <p className="text-sm text-muted-foreground">Meus Matches</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card 
+              className={cn(
+                "card-bridge cursor-pointer transition-all",
+                activeTab === 'solicitacoes' ? "ring-2 ring-purple-500 bg-purple-500/10" : "hover:bg-card/70"
               )}
               onClick={() => setActiveTab('solicitacoes')}
             >
@@ -152,7 +196,7 @@ const Matches = () => {
                     <MessageCircle className="h-6 w-6 text-purple-500" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-white">{mockConfirmedMatches.length}</p>
+                    <p className="text-2xl font-bold text-white">{mockPendingRequests.length}</p>
                     <p className="text-sm text-muted-foreground">Solicitações</p>
                   </div>
                 </div>
@@ -197,11 +241,19 @@ const Matches = () => {
                     {match.bio}
                   </p>
 
-                  {/* Event info for confirmed matches */}
-                  {activeTab === 'solicitacoes' && 'matchEvent' in match && (
+                  {/* Event info for my matches */}
+                  {activeTab === 'meus' && 'matchEvent' in match && (
                     <div className="text-sm text-primary">
                       <span className="font-medium">Match em: </span>
                       {match.matchEvent}
+                    </div>
+                  )}
+
+                  {/* Request sent info for pending requests */}
+                  {activeTab === 'solicitacoes' && 'requestSent' in match && (
+                    <div className="text-sm text-orange-400">
+                      <span className="font-medium">Enviado: </span>
+                      {match.requestSent}
                     </div>
                   )}
                   
@@ -226,58 +278,78 @@ const Matches = () => {
                     <span>{match.lastSeen}</span>
                   </div>
                   
-                  <div className="flex space-x-2 pt-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDismiss(match.id)}
-                      className="flex-1 border-red-500/30 text-red-400 hover:bg-red-500/10 hover:border-red-500/50"
-                    >
-                      <X className="h-4 w-4 mr-1" />
-                      {activeTab === 'solicitacoes' ? 'Recusar' : 'Dispensar'}
-                    </Button>
-                    
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleLike(match.id)}
-                      className={cn(
-                        "flex-1 transition-all",
-                        likedProfiles.includes(match.id)
-                          ? "bg-primary/20 border-primary text-primary"
-                          : "border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50"
-                      )}
-                      disabled={likedProfiles.includes(match.id)}
-                    >
-                      <Heart className={cn(
-                        "h-4 w-4 mr-1",
-                        likedProfiles.includes(match.id) && "fill-current"
-                      )} />
-                      {likedProfiles.includes(match.id) ? "Curtido" : "Conectar"}
-                    </Button>
-                  </div>
-                  
-                  <div className="flex space-x-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="flex-1 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
-                    >
-                      <MessageCircle className="h-4 w-4 mr-1" />
-                      Bate-papo
-                    </Button>
-                    
-                    <Link to={`/perfil/${match.id}`} className="flex-1">
+                  {/* Action buttons based on active tab */}
+                  {activeTab === 'novos' && (
+                    <div className="flex space-x-2 pt-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleConnect(match.id)}
+                        className={cn(
+                          "flex-1 transition-all",
+                          likedProfiles.includes(match.id)
+                            ? "bg-primary/20 border-primary text-primary"
+                            : "border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50"
+                        )}
+                        disabled={likedProfiles.includes(match.id)}
+                      >
+                        <Handshake className={cn(
+                          "h-4 w-4 mr-1",
+                          likedProfiles.includes(match.id) && "fill-current"
+                        )} />
+                        {likedProfiles.includes(match.id) ? "Conectado" : "Conectar"}
+                      </Button>
+                    </div>
+                  )}
+
+                  {activeTab === 'meus' && (
+                    <div className="flex space-x-2 pt-2">
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="w-full text-muted-foreground hover:bg-card/70 hover:text-foreground"
+                        className="flex-1 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
                       >
-                        <User className="h-4 w-4 mr-1" />
-                        Ver Perfil
+                        <MessageCircle className="h-4 w-4 mr-1" />
+                        Bate-papo
                       </Button>
-                    </Link>
-                  </div>
+                      
+                      <Link to={`/perfil/${match.id}`} className="flex-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="w-full text-muted-foreground hover:bg-card/70 hover:text-foreground"
+                        >
+                          <User className="h-4 w-4 mr-1" />
+                          Ver Perfil
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+
+                  {activeTab === 'solicitacoes' && (
+                    <div className="flex space-x-2 pt-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 border-orange-500/30 text-orange-400 hover:bg-orange-500/10 hover:border-orange-500/50"
+                        disabled
+                      >
+                        <MessageCircle className="h-4 w-4 mr-1" />
+                        Pendente
+                      </Button>
+                      
+                      <Link to={`/perfil/${match.id}`} className="flex-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="w-full text-muted-foreground hover:bg-card/70 hover:text-foreground"
+                        >
+                          <User className="h-4 w-4 mr-1" />
+                          Ver Perfil
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -291,14 +363,18 @@ const Matches = () => {
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">
                   {searchTerm ? "Nenhum resultado encontrado" : 
-                    activeTab === 'novos' ? "Nenhum novo match ainda" : "Nenhuma solicitação ainda"}
+                    activeTab === 'novos' ? "Nenhum novo match ainda" : 
+                    activeTab === 'meus' ? "Nenhum match confirmado ainda" :
+                    "Nenhuma solicitação pendente"}
                 </h3>
                 <p className="text-muted-foreground">
                   {searchTerm 
                     ? "Tente usar outros termos de busca"
                     : activeTab === 'novos' 
                       ? "Continue explorando eventos e fazendo conexões!"
-                      : "Quando você conectar com alguém, aparecerá aqui."
+                      : activeTab === 'meus'
+                        ? "Quando você conectar com alguém, aparecerá aqui."
+                        : "Suas solicitações enviadas aparecerão aqui."
                   }
                 </p>
                 {!searchTerm && activeTab === 'novos' && (
