@@ -1,22 +1,12 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Users, 
-  Calendar,
-  Brain,
-  Target,
-  ArrowRight,
-  CheckCircle
-} from "lucide-react";
+import { Users, Calendar, Brain, Target, ArrowRight, CheckCircle } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-
 const Index = () => {
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header isLoggedIn={false} />
       
       <main>
@@ -24,9 +14,7 @@ const Index = () => {
         <section className="relative overflow-hidden py-20 lg:py-32">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
-              <h1 className="text-5xl lg:text-7xl font-bold text-gradient-primary mb-6 leading-tight">
-                ENCONTRE AS PESSOAS CERTAS EM CADA EVENTO.
-              </h1>
+              <h1 className="text-5xl lg:text-7xl font-bold text-gradient-primary mb-6 leading-tight">ENCONTRE AS PESSOAS CERTAS EM CADA EVENTO</h1>
               <p className="text-xl lg:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
                 Use a Inteligência Artificial da Bridge para encontrar as pessoas certas em cada evento. 
                 Transforme networking em oportunidades reais.
@@ -50,7 +38,9 @@ const Index = () => {
               {/* Floating Elements */}
               <div className="relative">
                 <div className="absolute -top-20 -left-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl animate-float"></div>
-                <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-primary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+                <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-primary/5 rounded-full blur-3xl animate-float" style={{
+                animationDelay: '2s'
+              }}></div>
               </div>
             </div>
           </div>
@@ -67,11 +57,7 @@ const Index = () => {
             
             <div className="max-w-4xl mx-auto">
               <div className="animate-fade-in-up">
-                <img 
-                  src="/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png" 
-                  alt="Networking inteligente em eventos" 
-                  className="w-full h-auto rounded-lg shadow-card"
-                />
+                <img src="/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png" alt="Networking inteligente em eventos" className="w-full h-auto rounded-lg shadow-card" />
               </div>
             </div>
           </div>
@@ -110,7 +96,9 @@ const Index = () => {
                 </div>
 
                 {/* Step 2 */}
-                <div className="text-center animate-scale-in" style={{ animationDelay: '0.2s' }}>
+                <div className="text-center animate-scale-in" style={{
+                animationDelay: '0.2s'
+              }}>
                   <div className="relative mb-8">
                     <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 relative z-10">
                       <Calendar className="h-10 w-10 text-primary-foreground" />
@@ -127,7 +115,9 @@ const Index = () => {
                 </div>
 
                 {/* Step 3 */}
-                <div className="text-center animate-scale-in" style={{ animationDelay: '0.4s' }}>
+                <div className="text-center animate-scale-in" style={{
+                animationDelay: '0.4s'
+              }}>
                   <div className="relative mb-8">
                     <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
                       <Brain className="h-10 w-10 text-primary-foreground" />
@@ -177,7 +167,9 @@ const Index = () => {
                     </div>
                     
                     {/* Bottom Left Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" style={{ animationDelay: '0.2s' }} id="personalization-block">
+                    <div className="card-bridge p-6 animate-scale-in relative" style={{
+                    animationDelay: '0.2s'
+                  }} id="personalization-block">
                       <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="personalization-title">
                         OPÇÕES DE PERSONALIZAÇÃO PARA ORGANIZADORES
                       </h3>
@@ -189,7 +181,9 @@ const Index = () => {
 
                   {/* Center Block - MATCH IA */}
                   <div className="relative lg:my-8">
-                    <div className="card-bridge p-8 animate-scale-in relative z-20" style={{ animationDelay: '0.4s' }} id="match-ia-block">
+                    <div className="card-bridge p-8 animate-scale-in relative z-20" style={{
+                    animationDelay: '0.4s'
+                  }} id="match-ia-block">
                       <div className="flex items-center gap-4 mb-6">
                         <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
                           <Target className="h-6 w-6 text-primary-foreground" />
@@ -219,61 +213,69 @@ const Index = () => {
                     </div>
                     
                     {/* Neon Connecting Lines - Only on large screens */}
-                    <div className="hidden lg:block absolute inset-0 pointer-events-none" style={{ zIndex: 10 }}>
+                    <div className="hidden lg:block absolute inset-0 pointer-events-none" style={{
+                    zIndex: 10
+                  }}>
                       {/* Connection 1: From right side of top-left block to left side of center */}
-                      <div 
-                        className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" 
-                        style={{ 
-                          top: '50%', // Center vertically with top-left block
-                          left: '-6rem', // Start from outside the center block
-                          width: '6rem', // Connect to left edge of center block
-                          transform: 'translateY(-calc(4rem + 1rem))', // Align with top-left block
-                          boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
-                        }}
-                      ></div>
+                      <div className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" style={{
+                      top: '50%',
+                      // Center vertically with top-left block
+                      left: '-6rem',
+                      // Start from outside the center block
+                      width: '6rem',
+                      // Connect to left edge of center block
+                      transform: 'translateY(-calc(4rem + 1rem))',
+                      // Align with top-left block
+                      boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
+                    }}></div>
                       
                       {/* Connection 2: From right side of bottom-left block to left side of center */}
-                      <div 
-                        className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" 
-                        style={{ 
-                          bottom: '50%', // Center vertically with bottom-left block
-                          left: '-6rem', // Start from outside the center block
-                          width: '6rem', // Connect to left edge of center block
-                          transform: 'translateY(calc(4rem + 1rem))', // Align with bottom-left block
-                          boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
-                        }}
-                      ></div>
+                      <div className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" style={{
+                      bottom: '50%',
+                      // Center vertically with bottom-left block
+                      left: '-6rem',
+                      // Start from outside the center block
+                      width: '6rem',
+                      // Connect to left edge of center block
+                      transform: 'translateY(calc(4rem + 1rem))',
+                      // Align with bottom-left block
+                      boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
+                    }}></div>
                       
                       {/* Connection 3: From left side of top-right block to right side of center */}
-                      <div 
-                        className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" 
-                        style={{ 
-                          top: '50%', // Center vertically with top-right block
-                          right: '-6rem', // Start from outside the center block
-                          width: '6rem', // Connect to right edge of center block
-                          transform: 'translateY(-calc(4rem + 1rem))', // Align with top-right block
-                          boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
-                        }}
-                      ></div>
+                      <div className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" style={{
+                      top: '50%',
+                      // Center vertically with top-right block
+                      right: '-6rem',
+                      // Start from outside the center block
+                      width: '6rem',
+                      // Connect to right edge of center block
+                      transform: 'translateY(-calc(4rem + 1rem))',
+                      // Align with top-right block
+                      boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
+                    }}></div>
                       
                       {/* Connection 4: From left side of bottom-right block to right side of center */}
-                      <div 
-                        className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" 
-                        style={{ 
-                          bottom: '50%', // Center vertically with bottom-right block
-                          right: '-6rem', // Start from outside the center block
-                          width: '6rem', // Connect to right edge of center block
-                          transform: 'translateY(calc(4rem + 1rem))', // Align with bottom-right block
-                          boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
-                        }}
-                      ></div>
+                      <div className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" style={{
+                      bottom: '50%',
+                      // Center vertically with bottom-right block
+                      right: '-6rem',
+                      // Start from outside the center block
+                      width: '6rem',
+                      // Connect to right edge of center block
+                      transform: 'translateY(calc(4rem + 1rem))',
+                      // Align with bottom-right block
+                      boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
+                    }}></div>
                     </div>
                   </div>
 
                   {/* Right Column - Two blocks */}
                   <div className="space-y-8">
                     {/* Top Right Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" style={{ animationDelay: '0.6s' }} id="community-block">
+                    <div className="card-bridge p-6 animate-scale-in relative" style={{
+                    animationDelay: '0.6s'
+                  }} id="community-block">
                       <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="community-title">
                         COMUNIDADE ENGAJADA E DE ALTO VALOR
                       </h3>
@@ -283,7 +285,9 @@ const Index = () => {
                     </div>
                     
                     {/* Bottom Right Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" style={{ animationDelay: '0.8s' }} id="analytics-block">
+                    <div className="card-bridge p-6 animate-scale-in relative" style={{
+                    animationDelay: '0.8s'
+                  }} id="analytics-block">
                       <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="analytics-title">
                         ANALYTICS E INSIGHTS EM TEMPO REAL
                       </h3>
@@ -309,11 +313,7 @@ const Index = () => {
                 Cadastre-se gratuitamente e comece a transformar seus eventos e seu networking hoje mesmo.
               </p>
               
-              <Button 
-                size="lg" 
-                className="btn-bridge-primary px-12 py-6 text-xl font-semibold glow-primary" 
-                asChild
-              >
+              <Button size="lg" className="btn-bridge-primary px-12 py-6 text-xl font-semibold glow-primary" asChild>
                 <Link to="/cadastro">
                   Cadastre-se Agora
                   <ArrowRight className="ml-3 h-6 w-6" />
@@ -325,8 +325,6 @@ const Index = () => {
       </main>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
