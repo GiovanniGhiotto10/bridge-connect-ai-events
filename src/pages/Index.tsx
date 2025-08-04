@@ -145,9 +145,7 @@ const Index = () => {
                 <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
                   SUA PLATAFORMA COMPLETA DE EVENTOS
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                  Crie momentos memoráveis e conexões estratégicas com a potência da nossa tecnologia de matchmaking
-                </p>
+                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">Crie momentos memoráveis e conexões estratégicas com a potência da nossa tecnologia de matchmaking.</p>
               </div>
 
               {/* 5-Block Layout with Neon Connections */}
