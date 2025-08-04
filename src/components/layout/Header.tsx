@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -10,7 +9,7 @@ import {
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Settings, Users, LogOut, Menu, X, Calendar } from "lucide-react";
+import { User, Settings, Users, LogOut, Menu, X, Calendar, Search, Plus, Handshake } from "lucide-react";
 
 interface HeaderProps {
   isLoggedIn?: boolean;
@@ -34,9 +33,9 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   }, []);
 
   const navigationLinks = isLoggedIn ? [
-    { label: "Descobrir", path: "/eventos" },
-    { label: "Criar um Evento", path: "/criar-evento" },
-    { label: "Matches", path: "/matches" },
+    { label: "Descobrir", path: "/eventos", icon: Search },
+    { label: "Criar Evento", path: "/criar-evento", icon: Plus },
+    { label: "Matches", path: "/matches", icon: Handshake },
     { label: "Agenda", path: "/agenda", icon: Calendar }
   ] : [
     { label: "Como Funciona", path: "#como-funciona" },
@@ -95,7 +94,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/matches" className="flex items-center cursor-pointer">
-                    <Users className="mr-2 h-4 w-4" />
+                    <Handshake className="mr-2 h-4 w-4" />
                     Meus Matches
                   </Link>
                 </DropdownMenuItem>
