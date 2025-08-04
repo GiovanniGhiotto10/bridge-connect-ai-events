@@ -10,8 +10,8 @@ import { MessageCircle, MapPin, Users, Heart, X, Star, Calendar, User, Search } 
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-// Mock data for matches
-const mockMatches = [
+// Mock data for new matches (suggested profiles)
+const mockNewMatches = [
   {
     id: 1,
     name: "Ana Silva",
@@ -35,7 +35,11 @@ const mockMatches = [
     matchPercentage: 92,
     isOnline: false,
     lastSeen: "2h atrás"
-  },
+  }
+];
+
+// Mock data for confirmed matches (requests/connections)
+const mockConfirmedMatches = [
   {
     id: 3,
     name: "Maria Costa",
@@ -46,7 +50,8 @@ const mockMatches = [
     mutualConnections: 8,
     matchPercentage: 89,
     isOnline: true,
-    lastSeen: "Agora"
+    lastSeen: "Agora",
+    matchEvent: "Tech Summit 2024"
   },
   {
     id: 4,
@@ -58,16 +63,20 @@ const mockMatches = [
     mutualConnections: 3,
     matchPercentage: 85,
     isOnline: false,
-    lastSeen: "1d atrás"
+    lastSeen: "1d atrás",
+    matchEvent: "Fintech Conference 2024"
   }
 ];
 
 const Matches = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState<'novos' | 'solicitacoes'>('novos');
   const [likedProfiles, setLikedProfiles] = useState<number[]>([]);
   const [dismissedProfiles, setDismissedProfiles] = useState<number[]>([]);
 
-  const filteredMatches = mockMatches.filter(match =>
+  const currentMatches = activeTab === 'novos' ? mockNewMatches : mockConfirmedMatches;
+  
+  const filteredMatches = currentMatches.filter(match =>
     !dismissedProfiles.includes(match.id) &&
     (match.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
      match.bio.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -91,7 +100,7 @@ const Matches = () => {
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-black text-white uppercase mb-8 text-center">
-            Seus Matches
+            Matches
           </h1>
 
           {/* Search Bar */}
@@ -108,45 +117,43 @@ const Matches = () => {
             </div>
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <Card className="card-bridge">
+          {/* Tab Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 max-w-2xl mx-auto">
+            <Card 
+              className={cn(
+                "card-bridge cursor-pointer transition-all",
+                activeTab === 'novos' ? "ring-2 ring-primary bg-primary/10" : "hover:bg-card/70"
+              )}
+              onClick={() => setActiveTab('novos')}
+            >
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-primary/10 rounded-lg">
                     <Heart className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-white">{likedProfiles.length}</p>
-                    <p className="text-sm text-muted-foreground">Curtidas Enviadas</p>
+                    <p className="text-2xl font-bold text-white">{mockNewMatches.length}</p>
+                    <p className="text-sm text-muted-foreground">Novos Matches</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="card-bridge">
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-green-500/10 rounded-lg">
-                    <Users className="h-6 w-6 text-green-500" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-white">24</p>
-                    <p className="text-sm text-muted-foreground">Matches Mútuos</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="card-bridge">
+            <Card 
+              className={cn(
+                "card-bridge cursor-pointer transition-all",
+                activeTab === 'solicitacoes' ? "ring-2 ring-primary bg-primary/10" : "hover:bg-card/70"
+              )}
+              onClick={() => setActiveTab('solicitacoes')}
+            >
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-purple-500/10 rounded-lg">
                     <MessageCircle className="h-6 w-6 text-purple-500" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-white">12</p>
-                    <p className="text-sm text-muted-foreground">Conversas Ativas</p>
+                    <p className="text-2xl font-bold text-white">{mockConfirmedMatches.length}</p>
+                    <p className="text-sm text-muted-foreground">Solicitações</p>
                   </div>
                 </div>
               </CardContent>
@@ -189,6 +196,14 @@ const Matches = () => {
                   <p className="text-sm text-muted-foreground line-clamp-3">
                     {match.bio}
                   </p>
+
+                  {/* Event info for confirmed matches */}
+                  {activeTab === 'solicitacoes' && 'matchEvent' in match && (
+                    <div className="text-sm text-primary">
+                      <span className="font-medium">Match em: </span>
+                      {match.matchEvent}
+                    </div>
+                  )}
                   
                   <div className="flex flex-wrap gap-1">
                     {match.interests.slice(0, 3).map((interest, index) => (
@@ -219,7 +234,7 @@ const Matches = () => {
                       className="flex-1 border-red-500/30 text-red-400 hover:bg-red-500/10 hover:border-red-500/50"
                     >
                       <X className="h-4 w-4 mr-1" />
-                      Dispensar
+                      {activeTab === 'solicitacoes' ? 'Recusar' : 'Dispensar'}
                     </Button>
                     
                     <Button
@@ -275,15 +290,18 @@ const Matches = () => {
                   <Heart className="w-12 h-12 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">
-                  {searchTerm ? "Nenhum resultado encontrado" : "Nenhum match ainda"}
+                  {searchTerm ? "Nenhum resultado encontrado" : 
+                    activeTab === 'novos' ? "Nenhum novo match ainda" : "Nenhuma solicitação ainda"}
                 </h3>
                 <p className="text-muted-foreground">
                   {searchTerm 
                     ? "Tente usar outros termos de busca"
-                    : "Continue explorando eventos e fazendo conexões!"
+                    : activeTab === 'novos' 
+                      ? "Continue explorando eventos e fazendo conexões!"
+                      : "Quando você conectar com alguém, aparecerá aqui."
                   }
                 </p>
-                {!searchTerm && (
+                {!searchTerm && activeTab === 'novos' && (
                   <Button asChild className="mt-4 btn-bridge-primary">
                     <Link to="/eventos">
                       Descobrir Eventos

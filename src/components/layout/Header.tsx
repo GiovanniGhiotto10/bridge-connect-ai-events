@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -43,9 +42,9 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
   const navigationLinks = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos", icon: Search },
-    { label: "Criar Evento", path: "/criar-evento", icon: Plus },
     { label: "Matches", path: "/matches", icon: Handshake },
-    { label: "Agenda", path: "/agenda", icon: Calendar }
+    { label: "Agenda", path: "/agenda", icon: Calendar },
+    { label: "Criar Evento", path: "/criar-evento", icon: Plus }
   ] : [
     { label: "Como Funciona", path: "#como-funciona", onClick: handleComoFuncionaClick },
     { label: "Para Organizadores", path: "#organizadores" }
