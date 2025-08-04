@@ -33,13 +33,21 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleComoFuncionaClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const section = document.getElementById('como-funciona');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const navigationLinks = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos", icon: Search },
     { label: "Criar Evento", path: "/criar-evento", icon: Plus },
     { label: "Matches", path: "/matches", icon: Handshake },
     { label: "Agenda", path: "/agenda", icon: Calendar }
   ] : [
-    { label: "Como Funciona", path: "#como-funciona" },
+    { label: "Como Funciona", path: "#como-funciona", onClick: handleComoFuncionaClick },
     { label: "Para Organizadores", path: "#organizadores" }
   ];
 
@@ -62,6 +70,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
             <Link
               key={link.path}
               to={link.path}
+              onClick={link.onClick}
               className={`text-sm font-medium transition-colors hover:text-primary flex items-center space-x-1 ${
                 isActive(link.path) ? "text-primary" : "text-muted-foreground"
               }`}
@@ -165,8 +174,13 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               <Link
                 key={link.path}
                 to={link.path}
+                onClick={(e) => {
+                  if (link.onClick) {
+                    link.onClick(e);
+                  }
+                  setIsMobileMenuOpen(false);
+                }}
                 className="block text-muted-foreground hover:text-primary transition-colors flex items-center space-x-2"
-                onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.icon && <link.icon className="h-4 w-4" />}
                 <span>{link.label}</span>

@@ -4,9 +4,15 @@ import Header from "@/components/layout/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Calendar, MapPin, Clock, User, ChevronLeft, ChevronRight } from "lucide-react";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { Calendar, MapPin, Clock, User, ChevronLeft, ChevronRight, Plus, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ScheduleMeetingModal from "@/components/modals/ScheduleMeetingModal";
 
 // Mock data for events and meetings
 const mockEvents = [{
@@ -53,10 +59,13 @@ const mockMeetings = [{
   status: "Concluída",
   isPast: true
 }];
+
 const Agenda = () => {
   const [activeFilter, setActiveFilter] = useState<"upcoming" | "past">("upcoming");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [isScheduleMeetingModalOpen, setIsScheduleMeetingModalOpen] = useState(false);
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('pt-BR', {
       day: '2-digit',
@@ -64,11 +73,11 @@ const Agenda = () => {
       year: 'numeric'
     });
   };
+
   const formatTime = (time: string) => {
     return time;
   };
 
-  // Calendar logic
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -78,43 +87,48 @@ const Agenda = () => {
     const startingDayOfWeek = firstDay.getDay();
     const days = [];
 
-    // Add empty cells for days before the first day of the month
     for (let i = 0; i < startingDayOfWeek; i++) {
       days.push(null);
     }
 
-    // Add days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       days.push(day);
     }
     return days;
   };
+
   const getEventsForDate = (date: string) => {
     return mockEvents.filter(event => event.date === date);
   };
+
   const getMeetingsForDate = (date: string) => {
     return mockMeetings.filter(meeting => meeting.date === date);
   };
+
   const hasEventsOnDate = (day: number) => {
     if (!day) return false;
     const dateString = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     return getEventsForDate(dateString).length > 0;
   };
+
   const hasMeetingsOnDate = (day: number) => {
     if (!day) return false;
     const dateString = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     return getMeetingsForDate(dateString).length > 0;
   };
+
   const isToday = (day: number) => {
     if (!day) return false;
     const today = new Date();
     return day === today.getDate() && currentMonth.getMonth() === today.getMonth() && currentMonth.getFullYear() === today.getFullYear();
   };
+
   const handleDateClick = (day: number) => {
     if (!day) return;
     const dateString = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     setSelectedDate(dateString);
   };
+
   const navigateMonth = (direction: 'prev' | 'next') => {
     setCurrentMonth(prev => {
       const newMonth = new Date(prev);
@@ -126,11 +140,15 @@ const Agenda = () => {
       return newMonth;
     });
   };
+
   const filteredEvents = selectedDate ? getEventsForDate(selectedDate) : mockEvents.filter(event => activeFilter === "upcoming" ? !event.isPast : event.isPast);
   const filteredMeetings = selectedDate ? getMeetingsForDate(selectedDate) : mockMeetings.filter(meeting => activeFilter === "upcoming" ? !meeting.isPast : meeting.isPast);
+  
   const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
   const dayNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-  return <div className="min-h-screen flex flex-col bg-gradient-to-b from-background via-background/95 to-primary/5">
+
+  return (
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background via-background/95 to-primary/5">
       <Header isLoggedIn={true} />
       
       <main className="flex-1 container mx-auto px-4 py-8">
@@ -139,12 +157,12 @@ const Agenda = () => {
             Agenda
           </h1>
 
-          {/* Two Column Layout - Adjusted proportions */}
+          {/* Two Column Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             
             {/* Left Column - Calendar (40%) */}
             <div className="lg:col-span-2">
-              <Card className="card-bridge my-[75px]">
+              <Card className="card-bridge">
                 <CardHeader className="pb-4">
                   <CardTitle className="text-white font-poppins font-black uppercase text-xl">
                     CALENDÁRIO
@@ -164,19 +182,34 @@ const Agenda = () => {
                   </div>
                   
                   <div className="grid grid-cols-7 gap-1 mb-2">
-                    {dayNames.map(day => <div key={day} className="text-center text-xs font-medium text-muted-foreground py-1">
+                    {dayNames.map(day => (
+                      <div key={day} className="text-center text-xs font-medium text-muted-foreground py-1">
                         {day}
-                      </div>)}
+                      </div>
+                    ))}
                   </div>
                   
                   <div className="grid grid-cols-7 gap-1">
-                    {getDaysInMonth(currentMonth).map((day, index) => <div key={index} className={cn("aspect-square flex items-center justify-center relative cursor-pointer rounded text-xs transition-all border", day ? "hover:bg-card/70 text-foreground border-card-border" : "text-transparent cursor-default border-transparent", isToday(day) ? "bg-white text-black font-bold" : "", selectedDate === `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}` && !isToday(day) ? "bg-primary text-primary-foreground" : "")} onClick={() => day && handleDateClick(day)}>
+                    {getDaysInMonth(currentMonth).map((day, index) => (
+                      <div 
+                        key={index}
+                        className={cn(
+                          "aspect-square flex items-center justify-center relative cursor-pointer rounded text-xs transition-all border",
+                          day ? "hover:bg-card/70 text-foreground border-card-border" : "text-transparent cursor-default border-transparent",
+                          isToday(day) ? "bg-white text-black font-bold" : "",
+                          selectedDate === `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}` && !isToday(day) ? "bg-primary text-primary-foreground" : ""
+                        )}
+                        onClick={() => day && handleDateClick(day)}
+                      >
                         <span className="z-10">{day}</span>
-                        {day && <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-0.5">
+                        {day && (
+                          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-0.5">
                             {hasEventsOnDate(day) && <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>}
                             {hasMeetingsOnDate(day) && <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>}
-                          </div>}
-                      </div>)}
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
@@ -188,10 +221,18 @@ const Agenda = () => {
               {/* Filter Buttons */}
               <div className="flex justify-center">
                 <div className="bg-card rounded-lg p-1 border border-card-border">
-                  <Button variant={activeFilter === "upcoming" ? "default" : "ghost"} onClick={() => setActiveFilter("upcoming")} className={cn("text-sm px-4 py-2", activeFilter === "upcoming" ? "btn-bridge-primary" : "text-muted-foreground")}>
+                  <Button 
+                    variant={activeFilter === "upcoming" ? "default" : "ghost"} 
+                    onClick={() => setActiveFilter("upcoming")} 
+                    className={cn("text-sm px-4 py-2", activeFilter === "upcoming" ? "btn-bridge-primary" : "text-muted-foreground")}
+                  >
                     Próximos
                   </Button>
-                  <Button variant={activeFilter === "past" ? "default" : "ghost"} onClick={() => setActiveFilter("past")} className={cn("text-sm px-4 py-2", activeFilter === "past" ? "btn-bridge-primary" : "text-muted-foreground")}>
+                  <Button 
+                    variant={activeFilter === "past" ? "default" : "ghost"} 
+                    onClick={() => setActiveFilter("past")} 
+                    className={cn("text-sm px-4 py-2", activeFilter === "past" ? "btn-bridge-primary" : "text-muted-foreground")}
+                  >
                     Passado
                   </Button>
                 </div>
@@ -200,17 +241,51 @@ const Agenda = () => {
               {/* Eventos */}
               <Card className="card-bridge">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-white font-poppins font-black uppercase text-lg">
-                    EVENTOS
-                  </CardTitle>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-white font-poppins font-black uppercase text-lg">
+                      EVENTOS
+                    </CardTitle>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="text-white hover:bg-primary/20">
+                          <Plus className="h-5 w-5" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="bg-popover border-card-border" align="end">
+                        <DropdownMenuItem asChild>
+                          <Link to="/criar-evento" className="flex items-center cursor-pointer">
+                            <Plus className="mr-2 h-4 w-4" />
+                            Criar Evento
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link to="/eventos" className="flex items-center cursor-pointer">
+                            <Search className="mr-2 h-4 w-4" />
+                            Descobrir
+                          </Link>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  {filteredEvents.length === 0 ? <div className="text-center py-6 text-muted-foreground">
+                  {filteredEvents.length === 0 ? (
+                    <div className="text-center py-6 text-muted-foreground">
                       <Calendar className="h-8 w-8 mx-auto mb-3 opacity-30" />
                       <p className="text-sm">
                         Nenhum evento {selectedDate ? "para esta data" : activeFilter === "upcoming" ? "próximo" : "passado"}
                       </p>
-                    </div> : filteredEvents.map(event => <Link key={event.id} to={`/evento/${event.id}`} className={cn("block bg-card/50 rounded-lg p-4 border transition-all hover:bg-card/70", selectedDate && selectedDate === event.date ? "border-green-500 shadow-glow shadow-green-500/20" : "border-card-border")}>
+                    </div>
+                  ) : (
+                    filteredEvents.map(event => (
+                      <Link
+                        key={event.id}
+                        to={`/evento/${event.id}`}
+                        className={cn(
+                          "block bg-card/50 rounded-lg p-4 border transition-all hover:bg-card/70",
+                          selectedDate && selectedDate === event.date ? "border-green-500 shadow-glow shadow-green-500/20" : "border-card-border"
+                        )}
+                      >
                         <div className="flex items-start space-x-3">
                           <div className="w-3 h-3 bg-green-500 rounded-full mt-1 flex-shrink-0"></div>
                           <div className="space-y-2 min-w-0">
@@ -225,24 +300,46 @@ const Agenda = () => {
                             </div>
                           </div>
                         </div>
-                      </Link>)}
+                      </Link>
+                    ))
+                  )}
                 </CardContent>
               </Card>
 
               {/* Reuniões */}
               <Card className="card-bridge">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-white font-poppins font-black uppercase text-lg">
-                    REUNIÕES
-                  </CardTitle>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-white font-poppins font-black uppercase text-lg">
+                      REUNIÕES
+                    </CardTitle>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="text-white hover:bg-primary/20"
+                      onClick={() => setIsScheduleMeetingModalOpen(true)}
+                    >
+                      <Plus className="h-5 w-5" />
+                    </Button>
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  {filteredMeetings.length === 0 ? <div className="text-center py-6 text-muted-foreground">
+                  {filteredMeetings.length === 0 ? (
+                    <div className="text-center py-6 text-muted-foreground">
                       <User className="h-8 w-8 mx-auto mb-3 opacity-30" />
                       <p className="text-sm">
                         Nenhuma reunião {selectedDate ? "para esta data" : activeFilter === "upcoming" ? "próxima" : "passada"}
                       </p>
-                    </div> : filteredMeetings.map(meeting => <div key={meeting.id} className={cn("bg-card/50 rounded-lg p-4 border transition-all cursor-pointer hover:bg-card/70", selectedDate && selectedDate === meeting.date ? "border-purple-500 shadow-glow shadow-purple-500/20" : "border-card-border")}>
+                    </div>
+                  ) : (
+                    filteredMeetings.map(meeting => (
+                      <div
+                        key={meeting.id}
+                        className={cn(
+                          "bg-card/50 rounded-lg p-4 border transition-all cursor-pointer hover:bg-card/70",
+                          selectedDate && selectedDate === meeting.date ? "border-purple-500 shadow-glow shadow-purple-500/20" : "border-card-border"
+                        )}
+                      >
                         <div className="flex items-start space-x-3">
                           <div className="w-3 h-3 bg-purple-500 rounded-full mt-1 flex-shrink-0"></div>
                           <div className="space-y-2 min-w-0 flex-1">
@@ -262,13 +359,23 @@ const Agenda = () => {
                             {meeting.status}
                           </Badge>
                         </div>
-                      </div>)}
+                      </div>
+                    ))
+                  )}
                 </CardContent>
               </Card>
             </div>
           </div>
         </div>
       </main>
-    </div>;
+
+      {/* Schedule Meeting Modal */}
+      <ScheduleMeetingModal 
+        isOpen={isScheduleMeetingModalOpen}
+        onClose={() => setIsScheduleMeetingModalOpen(false)}
+      />
+    </div>
+  );
 };
+
 export default Agenda;
