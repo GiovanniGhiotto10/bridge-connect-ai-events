@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Header from "@/components/layout/Header";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Search, UserPlus, Calendar, Eye } from "lucide-react";
+import { Search, UserPlus, Eye, MessageCircle } from "lucide-react";
 
 // Mock data for matches
 const mockMatches = [
@@ -78,8 +77,8 @@ const Matches = () => {
     console.log(`Following match ${matchId}`);
   };
 
-  const handleScheduleMeeting = (matchId: number) => {
-    console.log(`Scheduling meeting with match ${matchId}`);
+  const handleStartChat = (matchId: number) => {
+    console.log(`Starting chat with match ${matchId}`);
   };
 
   const handleViewProfile = (matchId: number) => {
@@ -148,13 +147,13 @@ const Matches = () => {
                       
                       <div className="flex gap-2">
                         <Button 
-                          onClick={() => handleScheduleMeeting(match.id)}
+                          onClick={() => handleStartChat(match.id)}
                           variant="outline"
                           className="flex-1 text-xs"
                           size="sm"
                         >
-                          <Calendar className="h-3 w-3 mr-1" />
-                          Reunião
+                          <MessageCircle className="h-3 w-3 mr-1" />
+                          Chat
                         </Button>
                         <Button 
                           onClick={() => handleViewProfile(match.id)}

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,7 @@ import {
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Settings, Users, LogOut, Menu, X, Calendar, Search, Plus, Handshake } from "lucide-react";
+import { User, Settings, LogOut, Menu, X, Calendar, Search, Plus, Handshake, Bell, MessageCircle } from "lucide-react";
 
 interface HeaderProps {
   isLoggedIn?: boolean;
@@ -75,48 +76,61 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
         <div className="flex items-center space-x-4">
           {isLoggedIn ? (
             /* Logged In State */
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                  <Avatar className="h-10 w-10 border-2 border-primary/20">
-                    <AvatarFallback className="bg-primary/10 text-primary">
-                      <User className="h-5 w-5" />
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 bg-popover border-card-border" align="end">
-                <DropdownMenuItem asChild>
-                  <Link to="/perfil" className="flex items-center cursor-pointer">
-                    <User className="mr-2 h-4 w-4" />
-                    Meu Perfil
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/matches" className="flex items-center cursor-pointer">
-                    <Handshake className="mr-2 h-4 w-4" />
-                    Meus Matches
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/agenda" className="flex items-center cursor-pointer">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    Minha Agenda
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/configuracoes" className="flex items-center cursor-pointer">
-                    <Settings className="mr-2 h-4 w-4" />
-                    Configurações
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-card-border" />
-                <DropdownMenuItem className="text-destructive focus:text-destructive">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sair
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex items-center space-x-2">
+              {/* Notifications Icon */}
+              <Button variant="ghost" size="icon" className="text-white hover:bg-primary/20">
+                <Bell className="h-5 w-5" />
+              </Button>
+              
+              {/* Chat Icon */}
+              <Button variant="ghost" size="icon" className="text-white hover:bg-primary/20">
+                <MessageCircle className="h-5 w-5" />
+              </Button>
+              
+              {/* User Menu */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Avatar className="h-10 w-10 border-2 border-primary/20">
+                      <AvatarFallback className="bg-primary/10 text-primary">
+                        <User className="h-5 w-5" />
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 bg-popover border-card-border" align="end">
+                  <DropdownMenuItem asChild>
+                    <Link to="/perfil" className="flex items-center cursor-pointer">
+                      <User className="mr-2 h-4 w-4" />
+                      Meu Perfil
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/matches" className="flex items-center cursor-pointer">
+                      <Handshake className="mr-2 h-4 w-4" />
+                      Meus Matches
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/agenda" className="flex items-center cursor-pointer">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      Minha Agenda
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/configuracoes" className="flex items-center cursor-pointer">
+                      <Settings className="mr-2 h-4 w-4" />
+                      Configurações
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-card-border" />
+                  <DropdownMenuItem className="text-destructive focus:text-destructive">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sair
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           ) : (
             /* Not Logged In State */
             <>

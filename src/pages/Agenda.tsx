@@ -201,72 +201,72 @@ const Agenda = () => {
             </div>
           </div>
 
-          {/* Calendar */}
-          <Card className="card-bridge mb-8">
-            <CardHeader>
-              <CardTitle className="text-white font-poppins font-black uppercase flex items-center justify-between">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => navigateMonth('prev')}
-                  className="text-white hover:bg-primary/20"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-                <span className="flex items-center">
-                  <Calendar className="h-5 w-5 mr-2" />
-                  {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => navigateMonth('next')}
-                  className="text-white hover:bg-primary/20"
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-7 gap-2 mb-4">
-                {dayNames.map((day) => (
-                  <div key={day} className="text-center text-sm font-medium text-muted-foreground py-2">
-                    {day}
-                  </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-7 gap-2">
-                {getDaysInMonth(currentMonth).map((day, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                      "aspect-square flex items-center justify-center relative cursor-pointer rounded-lg transition-all",
-                      day 
-                        ? "hover:bg-card/70 text-foreground" 
-                        : "text-transparent cursor-default",
-                      selectedDate === `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}` 
-                        ? "bg-primary text-primary-foreground" 
-                        : ""
-                    )}
-                    onClick={() => day && handleDateClick(day)}
+          {/* Compact Calendar */}
+          <div className="max-w-md mx-auto mb-8">
+            <Card className="card-bridge">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => navigateMonth('prev')}
+                    className="text-white hover:bg-primary/20 h-8 w-8"
                   >
-                    <span className="text-sm">{day}</span>
-                    {day && (
-                      <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-1">
-                        {hasEventsOnDate(day) && (
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        )}
-                        {hasMeetingsOnDate(day) && (
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <span className="text-white font-poppins font-bold text-lg">
+                    {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => navigateMonth('next')}
+                    className="text-white hover:bg-primary/20 h-8 w-8"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+                <div className="grid grid-cols-7 gap-1 mb-2">
+                  {dayNames.map((day) => (
+                    <div key={day} className="text-center text-xs font-medium text-muted-foreground py-1">
+                      {day}
+                    </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-7 gap-1">
+                  {getDaysInMonth(currentMonth).map((day, index) => (
+                    <div
+                      key={index}
+                      className={cn(
+                        "aspect-square flex items-center justify-center relative cursor-pointer rounded text-sm transition-all",
+                        day 
+                          ? "hover:bg-card/70 text-foreground" 
+                          : "text-transparent cursor-default",
+                        selectedDate === `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}` 
+                          ? "bg-primary text-primary-foreground" 
+                          : ""
+                      )}
+                      onClick={() => day && handleDateClick(day)}
+                    >
+                      <span>{day}</span>
+                      {day && (
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-0.5">
+                          {hasEventsOnDate(day) && (
+                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                          )}
+                          {hasMeetingsOnDate(day) && (
+                            <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
+          {/* Two Column Layout for Events and Meetings */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Eventos */}
             <Card className="card-bridge">
