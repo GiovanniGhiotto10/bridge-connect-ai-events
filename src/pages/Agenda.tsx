@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -182,10 +181,10 @@ const Agenda = () => {
             Agenda
           </h1>
 
-          {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Two Column Layout - Adjusted proportions */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             
-            {/* Left Column - Calendar (65%) */}
+            {/* Left Column - Calendar (40%) */}
             <div className="lg:col-span-2">
               <Card className="card-bridge">
                 <CardHeader className="pb-4">
@@ -193,43 +192,43 @@ const Agenda = () => {
                     CALENDÁRIO
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-6">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-4">
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => navigateMonth('prev')}
-                      className="text-white hover:bg-primary/20 h-10 w-10"
+                      className="text-white hover:bg-primary/20 h-8 w-8"
                     >
-                      <ChevronLeft className="h-5 w-5" />
+                      <ChevronLeft className="h-4 w-4" />
                     </Button>
-                    <span className="text-white font-poppins font-bold text-xl">
+                    <span className="text-white font-poppins font-bold text-lg">
                       {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
                     </span>
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => navigateMonth('next')}
-                      className="text-white hover:bg-primary/20 h-10 w-10"
+                      className="text-white hover:bg-primary/20 h-8 w-8"
                     >
-                      <ChevronRight className="h-5 w-5" />
+                      <ChevronRight className="h-4 w-4" />
                     </Button>
                   </div>
                   
-                  <div className="grid grid-cols-7 gap-2 mb-4">
+                  <div className="grid grid-cols-7 gap-1 mb-2">
                     {dayNames.map((day) => (
-                      <div key={day} className="text-center text-sm font-medium text-muted-foreground py-2">
+                      <div key={day} className="text-center text-xs font-medium text-muted-foreground py-1">
                         {day}
                       </div>
                     ))}
                   </div>
                   
-                  <div className="grid grid-cols-7 gap-2">
+                  <div className="grid grid-cols-7 gap-1">
                     {getDaysInMonth(currentMonth).map((day, index) => (
                       <div
                         key={index}
                         className={cn(
-                          "aspect-square flex items-center justify-center relative cursor-pointer rounded-lg text-sm transition-all border",
+                          "aspect-square flex items-center justify-center relative cursor-pointer rounded text-xs transition-all border",
                           day 
                             ? "hover:bg-card/70 text-foreground border-card-border" 
                             : "text-transparent cursor-default border-transparent",
@@ -244,12 +243,12 @@ const Agenda = () => {
                       >
                         <span className="z-10">{day}</span>
                         {day && (
-                          <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-0.5">
                             {hasEventsOnDate(day) && (
-                              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
                             )}
                             {hasMeetingsOnDate(day) && (
-                              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
                             )}
                           </div>
                         )}
@@ -260,8 +259,8 @@ const Agenda = () => {
               </Card>
             </div>
 
-            {/* Right Column - Lists (35%) */}
-            <div className="lg:col-span-1 space-y-6">
+            {/* Right Column - Lists (60%) */}
+            <div className="lg:col-span-3 space-y-6">
               
               {/* Filter Buttons */}
               <div className="flex justify-center">
@@ -310,7 +309,7 @@ const Agenda = () => {
                         key={event.id} 
                         to={`/evento/${event.id}`}
                         className={cn(
-                          "block bg-card/50 rounded-lg p-3 border transition-all hover:bg-card/70",
+                          "block bg-card/50 rounded-lg p-4 border transition-all hover:bg-card/70",
                           selectedDate && selectedDate === event.date 
                             ? "border-green-500 shadow-glow shadow-green-500/20" 
                             : "border-card-border"
@@ -318,14 +317,14 @@ const Agenda = () => {
                       >
                         <div className="flex items-start space-x-3">
                           <div className="w-3 h-3 bg-green-500 rounded-full mt-1 flex-shrink-0"></div>
-                          <div className="space-y-1 min-w-0">
-                            <h3 className="font-semibold text-foreground text-sm line-clamp-2">{event.name}</h3>
-                            <div className="flex items-center text-xs text-muted-foreground space-x-2">
-                              <Calendar className="h-3 w-3 flex-shrink-0" />
+                          <div className="space-y-2 min-w-0">
+                            <h3 className="font-semibold text-foreground text-base line-clamp-2">{event.name}</h3>
+                            <div className="flex items-center text-sm text-muted-foreground space-x-2">
+                              <Calendar className="h-4 w-4 flex-shrink-0" />
                               <span>{formatDate(event.date)}</span>
                             </div>
-                            <div className="flex items-center text-xs text-muted-foreground space-x-2">
-                              <MapPin className="h-3 w-3 flex-shrink-0" />
+                            <div className="flex items-center text-sm text-muted-foreground space-x-2">
+                              <MapPin className="h-4 w-4 flex-shrink-0" />
                               <span className="line-clamp-1">{event.location}</span>
                             </div>
                           </div>
@@ -356,7 +355,7 @@ const Agenda = () => {
                       <div 
                         key={meeting.id} 
                         className={cn(
-                          "bg-card/50 rounded-lg p-3 border transition-all cursor-pointer hover:bg-card/70",
+                          "bg-card/50 rounded-lg p-4 border transition-all cursor-pointer hover:bg-card/70",
                           selectedDate && selectedDate === meeting.date 
                             ? "border-purple-500 shadow-glow shadow-purple-500/20" 
                             : "border-card-border"
@@ -364,16 +363,16 @@ const Agenda = () => {
                       >
                         <div className="flex items-start space-x-3">
                           <div className="w-3 h-3 bg-purple-500 rounded-full mt-1 flex-shrink-0"></div>
-                          <div className="space-y-1 min-w-0 flex-1">
-                            <h3 className="font-semibold text-foreground text-sm">
+                          <div className="space-y-2 min-w-0 flex-1">
+                            <h3 className="font-semibold text-foreground text-base">
                               Reunião com {meeting.person}
                             </h3>
-                            <div className="flex items-center text-xs text-muted-foreground space-x-2">
-                              <Calendar className="h-3 w-3 flex-shrink-0" />
+                            <div className="flex items-center text-sm text-muted-foreground space-x-2">
+                              <Calendar className="h-4 w-4 flex-shrink-0" />
                               <span>{formatDate(meeting.date)}</span>
                             </div>
-                            <div className="flex items-center text-xs text-muted-foreground space-x-2">
-                              <Clock className="h-3 w-3 flex-shrink-0" />
+                            <div className="flex items-center text-sm text-muted-foreground space-x-2">
+                              <Clock className="h-4 w-4 flex-shrink-0" />
                               <span>{formatTime(meeting.time)}</span>
                             </div>
                           </div>
