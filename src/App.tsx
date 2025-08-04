@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,7 +8,8 @@ import Index from "./pages/Index";
 import CreateEvent from "./pages/CreateEvent";
 import DiscoverEvents from "./pages/DiscoverEvents";
 import EventDetails from "./pages/EventDetails";
-import MyConnections from "./pages/MyConnections";
+import Matches from "./pages/Matches";
+import Agenda from "./pages/Agenda";
 import NotFound from "./pages/NotFound";
 import AllEvents from "./pages/AllEvents";
 
@@ -25,7 +27,10 @@ const App = () => (
           <Route path="/eventos" element={<DiscoverEvents />} />
           <Route path="/todos-eventos" element={<AllEvents />} />
           <Route path="/evento/:id" element={<EventDetails />} />
-          <Route path="/minhas-conexoes" element={<MyConnections />} />
+          <Route path="/matches" element={<Matches />} />
+          <Route path="/agenda" element={<Agenda />} />
+          {/* Redirect old route to new one */}
+          <Route path="/minhas-conexoes" element={<Matches />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

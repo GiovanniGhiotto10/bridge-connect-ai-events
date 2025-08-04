@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Settings, Users, LogOut, Menu, X } from "lucide-react";
+import { User, Settings, Users, LogOut, Menu, X, Calendar } from "lucide-react";
 
 interface HeaderProps {
   isLoggedIn?: boolean;
@@ -36,7 +36,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   const navigationLinks = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos" },
     { label: "Criar um Evento", path: "/criar-evento" },
-    { label: "Conexões", path: "/minhas-conexoes" }
+    { label: "Matches", path: "/matches" },
+    { label: "Agenda", path: "/agenda", icon: Calendar }
   ] : [
     { label: "Como Funciona", path: "#como-funciona" },
     { label: "Para Organizadores", path: "#organizadores" }
@@ -61,11 +62,12 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
             <Link
               key={link.path}
               to={link.path}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
+              className={`text-sm font-medium transition-colors hover:text-primary flex items-center space-x-1 ${
                 isActive(link.path) ? "text-primary" : "text-muted-foreground"
               }`}
             >
-              {link.label}
+              {link.icon && <link.icon className="h-4 w-4" />}
+              <span>{link.label}</span>
             </Link>
           ))}
         </nav>
@@ -92,9 +94,15 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/minhas-conexoes" className="flex items-center cursor-pointer">
+                  <Link to="/matches" className="flex items-center cursor-pointer">
                     <Users className="mr-2 h-4 w-4" />
-                    Minhas Conexões
+                    Meus Matches
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/agenda" className="flex items-center cursor-pointer">
+                    <Calendar className="mr-2 h-4 w-4" />
+                    Minha Agenda
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -144,10 +152,11 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               <Link
                 key={link.path}
                 to={link.path}
-                className="block text-muted-foreground hover:text-primary transition-colors"
+                className="block text-muted-foreground hover:text-primary transition-colors flex items-center space-x-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {link.label}
+                {link.icon && <link.icon className="h-4 w-4" />}
+                <span>{link.label}</span>
               </Link>
             ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-card-border">
