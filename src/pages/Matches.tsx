@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -288,76 +289,80 @@ const Matches = () => {
                         </div>
                         <span>{match.lastSeen}</span>
                       </div>
+
+                      {/* Action buttons integrated within card content */}
+                      <div className="flex justify-end pt-2">
+                        {activeTab === 'novos' && (
+                          <Button
+                            size="sm"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              handleConnect(match.id);
+                            }}
+                            className={cn(
+                              "h-8 px-3 text-xs transition-all",
+                              likedProfiles.includes(match.id)
+                                ? "bg-primary/20 border-primary text-primary"
+                                : "bg-primary hover:bg-primary/90 text-primary-foreground"
+                            )}
+                            disabled={likedProfiles.includes(match.id)}
+                          >
+                            <Handshake className={cn(
+                              "h-3 w-3 mr-1",
+                              likedProfiles.includes(match.id) && "fill-current"
+                            )} />
+                            {likedProfiles.includes(match.id) ? "Conectado" : "Conectar"}
+                          </Button>
+                        )}
+
+                        {activeTab === 'meus' && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="h-8 px-3 text-xs text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                            }}
+                          >
+                            <MessageCircle className="h-3 w-3 mr-1" />
+                            Bate-papo
+                          </Button>
+                        )}
+
+                        {activeTab === 'solicitacoes' && (
+                          <div className="flex space-x-2">
+                            <Button
+                              size="sm"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleRejectRequest(match.id);
+                              }}
+                              className="h-8 px-3 text-xs bg-red-600 hover:bg-red-700 text-white"
+                            >
+                              <X className="h-3 w-3 mr-1" />
+                              Recusar
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleAcceptRequest(match.id);
+                              }}
+                              className="h-8 px-3 text-xs bg-green-600 hover:bg-green-700 text-white"
+                            >
+                              <Check className="h-3 w-3 mr-1" />
+                              Aceitar
+                            </Button>
+                          </div>
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                 </Link>
-
-                {/* Action buttons inside each card - positioned absolutely to avoid link conflicts */}
-                <div className="absolute bottom-4 left-4 right-4 z-10">
-                  {activeTab === 'novos' && (
-                    <Button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        handleConnect(match.id);
-                      }}
-                      className={cn(
-                        "w-full transition-all",
-                        likedProfiles.includes(match.id)
-                          ? "bg-primary/20 border-primary text-primary"
-                          : "bg-primary hover:bg-primary/90 text-primary-foreground"
-                      )}
-                      disabled={likedProfiles.includes(match.id)}
-                    >
-                      <Handshake className={cn(
-                        "h-4 w-4 mr-2",
-                        likedProfiles.includes(match.id) && "fill-current"
-                      )} />
-                      {likedProfiles.includes(match.id) ? "Conectado" : "Conectar"}
-                    </Button>
-                  )}
-
-                  {activeTab === 'meus' && (
-                    <Button
-                      variant="ghost"
-                      className="w-full text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                      }}
-                    >
-                      <MessageCircle className="h-4 w-4 mr-2" />
-                      Bate-papo
-                    </Button>
-                  )}
-
-                  {activeTab === 'solicitacoes' && (
-                    <div className="flex space-x-2">
-                      <Button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleRejectRequest(match.id);
-                        }}
-                        className="flex-1 bg-red-600 hover:bg-red-700 text-white"
-                      >
-                        <X className="h-4 w-4 mr-1" />
-                        Recusar
-                      </Button>
-                      <Button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleAcceptRequest(match.id);
-                        }}
-                        className="flex-1 bg-green-600 hover:bg-green-700 text-white"
-                      >
-                        <Check className="h-4 w-4 mr-1" />
-                        Aceitar
-                      </Button>
-                    </div>
-                  )}
-                </div>
               </div>
             ))}
           </div>
