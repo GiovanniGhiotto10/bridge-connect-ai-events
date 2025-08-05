@@ -217,7 +217,7 @@ const Matches = () => {
           {/* Matches Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredMatches.map((match) => (
-              <Link key={match.id} to={`/perfil/${match.id}`}>
+              <Link key={match.id} to={`/perfil/${match.id}`} className="block">
                 <Card className="card-bridge hover:scale-[1.02] transition-all duration-300 cursor-pointer">
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
@@ -256,7 +256,7 @@ const Matches = () => {
                     {activeTab === 'meus' && 'matchEvent' in match && match.matchEvent && (
                       <div className="text-sm text-primary">
                         <span className="font-medium">Match em: </span>
-                        {match.matchEvent}
+                        {String(match.matchEvent)}
                       </div>
                     )}
 
@@ -264,7 +264,7 @@ const Matches = () => {
                     {activeTab === 'solicitacoes' && 'requestSent' in match && match.requestSent && (
                       <div className="text-sm text-orange-400">
                         <span className="font-medium">Enviado: </span>
-                        {match.requestSent}
+                        {String(match.requestSent)}
                       </div>
                     )}
                     
