@@ -282,45 +282,17 @@ const Matches = () => {
                         )}
                       </div>
                       
-                      <div className="flex items-center justify-between text-sm text-muted-foreground">
-                        <div className="flex items-center space-x-1">
-                          <Users className="h-4 w-4" />
-                          <span>{match.mutualConnections} conexões mútuas</span>
-                        </div>
-                        <span>{match.lastSeen}</span>
-                      </div>
-
-                      {/* Action buttons integrated within card content */}
-                      <div className="flex justify-end pt-2">
-                        {activeTab === 'novos' && (
-                          <Button
-                            size="sm"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              handleConnect(match.id);
-                            }}
-                            className={cn(
-                              "h-8 px-3 text-xs transition-all",
-                              likedProfiles.includes(match.id)
-                                ? "bg-primary/20 border-primary text-primary"
-                                : "bg-primary hover:bg-primary/90 text-primary-foreground"
-                            )}
-                            disabled={likedProfiles.includes(match.id)}
-                          >
-                            <Handshake className={cn(
-                              "h-3 w-3 mr-1",
-                              likedProfiles.includes(match.id) && "fill-current"
-                            )} />
-                            {likedProfiles.includes(match.id) ? "Conectado" : "Conectar"}
-                          </Button>
-                        )}
-
-                        {activeTab === 'meus' && (
+                      {/* Bottom section - different layout for "meus matches" */}
+                      {activeTab === 'meus' ? (
+                        <div className="flex items-center justify-between text-sm text-muted-foreground">
+                          <div className="flex items-center space-x-1">
+                            <Users className="h-4 w-4" />
+                            <span>{match.mutualConnections} conexões mútuas</span>
+                          </div>
                           <Button
                             size="sm"
                             variant="ghost"
-                            className="h-8 px-3 text-xs text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
+                            className="h-7 px-2 text-xs text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
@@ -329,37 +301,74 @@ const Matches = () => {
                             <MessageCircle className="h-3 w-3 mr-1" />
                             Bate-papo
                           </Button>
-                        )}
-
-                        {activeTab === 'solicitacoes' && (
-                          <div className="flex space-x-2">
-                            <Button
-                              size="sm"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                handleRejectRequest(match.id);
-                              }}
-                              className="h-8 px-3 text-xs bg-red-600 hover:bg-red-700 text-white"
-                            >
-                              <X className="h-3 w-3 mr-1" />
-                              Recusar
-                            </Button>
-                            <Button
-                              size="sm"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                handleAcceptRequest(match.id);
-                              }}
-                              className="h-8 px-3 text-xs bg-green-600 hover:bg-green-700 text-white"
-                            >
-                              <Check className="h-3 w-3 mr-1" />
-                              Aceitar
-                            </Button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-between text-sm text-muted-foreground">
+                          <div className="flex items-center space-x-1">
+                            <Users className="h-4 w-4" />
+                            <span>{match.mutualConnections} conexões mútuas</span>
                           </div>
-                        )}
-                      </div>
+                          <span>{match.lastSeen}</span>
+                        </div>
+                      )}
+
+                      {/* Action buttons for non-meus tabs */}
+                      {activeTab !== 'meus' && (
+                        <div className="flex justify-end pt-2">
+                          {activeTab === 'novos' && (
+                            <Button
+                              size="sm"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleConnect(match.id);
+                              }}
+                              className={cn(
+                                "h-7 px-2 text-xs transition-all",
+                                likedProfiles.includes(match.id)
+                                  ? "bg-primary/20 border-primary text-primary"
+                                  : "bg-primary hover:bg-primary/90 text-primary-foreground"
+                              )}
+                              disabled={likedProfiles.includes(match.id)}
+                            >
+                              <Handshake className={cn(
+                                "h-3 w-3 mr-1",
+                                likedProfiles.includes(match.id) && "fill-current"
+                              )} />
+                              {likedProfiles.includes(match.id) ? "Conectado" : "Conectar"}
+                            </Button>
+                          )}
+
+                          {activeTab === 'solicitacoes' && (
+                            <div className="flex space-x-2">
+                              <Button
+                                size="sm"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  handleRejectRequest(match.id);
+                                }}
+                                className="h-7 px-2 text-xs bg-red-600 hover:bg-red-700 text-white"
+                              >
+                                <X className="h-3 w-3 mr-1" />
+                                Recusar
+                              </Button>
+                              <Button
+                                size="sm"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  handleAcceptRequest(match.id);
+                                }}
+                                className="h-7 px-2 text-xs bg-green-600 hover:bg-green-700 text-white"
+                              >
+                                <Check className="h-3 w-3 mr-1" />
+                                Aceitar
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </Link>
