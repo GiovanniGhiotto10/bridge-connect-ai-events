@@ -10,6 +10,7 @@ import DiscoverEvents from "./pages/DiscoverEvents";
 import EventDetails from "./pages/EventDetails";
 import Matches from "./pages/Matches";
 import Agenda from "./pages/Agenda";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import AllEvents from "./pages/AllEvents";
 
@@ -29,6 +30,8 @@ const App = () => (
           <Route path="/evento/:id" element={<EventDetails />} />
           <Route path="/matches" element={<Matches />} />
           <Route path="/agenda" element={<Agenda />} />
+          <Route path="/perfil" element={<Profile />} />
+          <Route path="/perfil/:id" element={<Profile />} />
           {/* Redirect old route to new one */}
           <Route path="/minhas-conexoes" element={<Matches />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

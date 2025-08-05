@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MessageCircle, MapPin, Users, Heart, X, Star, Calendar, User, Search, Handshake } from "lucide-react";
+import { MessageCircle, MapPin, Users, Heart, Search, Handshake, Check, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
@@ -89,6 +89,8 @@ const Matches = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState<'novos' | 'meus' | 'solicitacoes'>('novos');
   const [likedProfiles, setLikedProfiles] = useState<number[]>([]);
+  const [acceptedRequests, setAcceptedRequests] = useState<number[]>([]);
+  const [rejectedRequests, setRejectedRequests] = useState<number[]>([]);
 
   const getCurrentMatches = () => {
     switch (activeTab) {
@@ -97,7 +99,7 @@ const Matches = () => {
       case 'meus':
         return mockMyMatches;
       case 'solicitacoes':
-        return mockPendingRequests;
+        return mockPendingRequests.filter(req => !acceptedRequests.includes(req.id) && !rejectedRequests.includes(req.id));
       default:
         return mockNewMatches;
     }
@@ -115,6 +117,14 @@ const Matches = () => {
 
   const handleConnect = (matchId: number) => {
     setLikedProfiles(prev => [...prev, matchId]);
+  };
+
+  const handleAcceptRequest = (matchId: number) => {
+    setAcceptedRequests(prev => [...prev, matchId]);
+  };
+
+  const handleRejectRequest = (matchId: number) => {
+    setRejectedRequests(prev => [...prev, matchId]);
   };
 
   return (
@@ -196,7 +206,7 @@ const Matches = () => {
                     <MessageCircle className="h-6 w-6 text-purple-500" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-white">{mockPendingRequests.length}</p>
+                    <p className="text-2xl font-bold text-white">{getCurrentMatches().length}</p>
                     <p className="text-sm text-muted-foreground">Solicitações</p>
                   </div>
                 </div>
@@ -207,152 +217,159 @@ const Matches = () => {
           {/* Matches Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredMatches.map((match) => (
-              <Card key={match.id} className="card-bridge hover:scale-[1.02] transition-all duration-300">
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="relative">
-                        <Avatar className="h-16 w-16 border-2 border-primary/20">
-                          <AvatarImage src={match.avatar} alt={match.name} />
-                          <AvatarFallback className="bg-primary/10 text-primary text-lg font-semibold">
-                            {match.name.split(' ').map(n => n[0]).join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        {match.isOnline && (
-                          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 border-2 border-card rounded-full"></div>
-                        )}
-                      </div>
-                      <div className="min-w-0">
-                        <h3 className="font-semibold text-white text-lg line-clamp-1">{match.name}</h3>
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <MapPin className="h-3 w-3 flex-shrink-0" />
-                          <span className="line-clamp-1">{match.location}</span>
+              <Link key={match.id} to={`/perfil/${match.id}`}>
+                <Card className="card-bridge hover:scale-[1.02] transition-all duration-300 cursor-pointer">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="relative">
+                          <Avatar className="h-16 w-16 border-2 border-primary/20">
+                            <AvatarImage src={match.avatar} alt={match.name} />
+                            <AvatarFallback className="bg-primary/10 text-primary text-lg font-semibold">
+                              {match.name.split(' ').map(n => n[0]).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          {match.isOnline && (
+                            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 border-2 border-card rounded-full"></div>
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <h3 className="font-semibold text-white text-lg line-clamp-1">{match.name}</h3>
+                          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                            <MapPin className="h-3 w-3 flex-shrink-0" />
+                            <span className="line-clamp-1">{match.location}</span>
+                          </div>
                         </div>
                       </div>
+                      <Badge className="bg-primary/10 text-primary border-primary/30 text-xs px-2 py-1">
+                        {match.matchPercentage}% Match
+                      </Badge>
                     </div>
-                    <Badge className="bg-primary/10 text-primary border-primary/30 text-xs px-2 py-1">
-                      {match.matchPercentage}% Match
-                    </Badge>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-muted-foreground line-clamp-3">
-                    {match.bio}
-                  </p>
-
-                  {/* Event info for my matches */}
-                  {activeTab === 'meus' && 'matchEvent' in match && (
-                    <div className="text-sm text-primary">
-                      <span className="font-medium">Match em: </span>
-                      {match.matchEvent}
-                    </div>
-                  )}
-
-                  {/* Request sent info for pending requests */}
-                  {activeTab === 'solicitacoes' && 'requestSent' in match && (
-                    <div className="text-sm text-orange-400">
-                      <span className="font-medium">Enviado: </span>
-                      {match.requestSent}
-                    </div>
-                  )}
+                  </CardHeader>
                   
-                  <div className="flex flex-wrap gap-1">
-                    {match.interests.slice(0, 3).map((interest, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs bg-secondary/20 text-secondary-foreground">
-                        {interest}
-                      </Badge>
-                    ))}
-                    {match.interests.length > 3 && (
-                      <Badge variant="secondary" className="text-xs bg-secondary/20 text-secondary-foreground">
-                        +{match.interests.length - 3}
-                      </Badge>
+                  <CardContent className="space-y-4">
+                    <p className="text-sm text-muted-foreground line-clamp-3">
+                      {match.bio}
+                    </p>
+
+                    {/* Event info for my matches */}
+                    {activeTab === 'meus' && 'matchEvent' in match && match.matchEvent && (
+                      <div className="text-sm text-primary">
+                        <span className="font-medium">Match em: </span>
+                        {match.matchEvent}
+                      </div>
                     )}
-                  </div>
-                  
-                  <div className="flex items-center justify-between text-sm text-muted-foreground">
-                    <div className="flex items-center space-x-1">
-                      <Users className="h-4 w-4" />
-                      <span>{match.mutualConnections} conexões mútuas</span>
-                    </div>
-                    <span>{match.lastSeen}</span>
-                  </div>
-                  
-                  {/* Action buttons based on active tab */}
-                  {activeTab === 'novos' && (
-                    <div className="flex space-x-2 pt-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleConnect(match.id)}
-                        className={cn(
-                          "flex-1 transition-all",
-                          likedProfiles.includes(match.id)
-                            ? "bg-primary/20 border-primary text-primary"
-                            : "border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50"
-                        )}
-                        disabled={likedProfiles.includes(match.id)}
-                      >
-                        <Handshake className={cn(
-                          "h-4 w-4 mr-1",
-                          likedProfiles.includes(match.id) && "fill-current"
-                        )} />
-                        {likedProfiles.includes(match.id) ? "Conectado" : "Conectar"}
-                      </Button>
-                    </div>
-                  )}
 
-                  {activeTab === 'meus' && (
-                    <div className="flex space-x-2 pt-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="flex-1 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
-                      >
-                        <MessageCircle className="h-4 w-4 mr-1" />
-                        Bate-papo
-                      </Button>
-                      
-                      <Link to={`/perfil/${match.id}`} className="flex-1">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="w-full text-muted-foreground hover:bg-card/70 hover:text-foreground"
-                        >
-                          <User className="h-4 w-4 mr-1" />
-                          Ver Perfil
-                        </Button>
-                      </Link>
+                    {/* Request sent info for pending requests */}
+                    {activeTab === 'solicitacoes' && 'requestSent' in match && match.requestSent && (
+                      <div className="text-sm text-orange-400">
+                        <span className="font-medium">Enviado: </span>
+                        {match.requestSent}
+                      </div>
+                    )}
+                    
+                    <div className="flex flex-wrap gap-1">
+                      {match.interests.slice(0, 3).map((interest, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs bg-secondary/20 text-secondary-foreground">
+                          {interest}
+                        </Badge>
+                      ))}
+                      {match.interests.length > 3 && (
+                        <Badge variant="secondary" className="text-xs bg-secondary/20 text-secondary-foreground">
+                          +{match.interests.length - 3}
+                        </Badge>
+                      )}
                     </div>
-                  )}
-
-                  {activeTab === 'solicitacoes' && (
-                    <div className="flex space-x-2 pt-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 border-orange-500/30 text-orange-400 hover:bg-orange-500/10 hover:border-orange-500/50"
-                        disabled
-                      >
-                        <MessageCircle className="h-4 w-4 mr-1" />
-                        Pendente
-                      </Button>
-                      
-                      <Link to={`/perfil/${match.id}`} className="flex-1">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="w-full text-muted-foreground hover:bg-card/70 hover:text-foreground"
-                        >
-                          <User className="h-4 w-4 mr-1" />
-                          Ver Perfil
-                        </Button>
-                      </Link>
+                    
+                    <div className="flex items-center justify-between text-sm text-muted-foreground">
+                      <div className="flex items-center space-x-1">
+                        <Users className="h-4 w-4" />
+                        <span>{match.mutualConnections} conexões mútuas</span>
+                      </div>
+                      <span>{match.lastSeen}</span>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
+          </div>
+
+          {/* Action buttons for different tabs - positioned outside cards */}
+          <div className="mt-6 space-y-4">
+            {activeTab === 'novos' && filteredMatches.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredMatches.map((match) => (
+                  <div key={`action-${match.id}`} className="flex justify-center">
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleConnect(match.id);
+                      }}
+                      className={cn(
+                        "transition-all",
+                        likedProfiles.includes(match.id)
+                          ? "bg-primary/20 border-primary text-primary"
+                          : "bg-primary hover:bg-primary/90 text-primary-foreground"
+                      )}
+                      disabled={likedProfiles.includes(match.id)}
+                    >
+                      <Handshake className={cn(
+                        "h-4 w-4 mr-2",
+                        likedProfiles.includes(match.id) && "fill-current"
+                      )} />
+                      {likedProfiles.includes(match.id) ? "Conectado" : "Conectar"}
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {activeTab === 'meus' && filteredMatches.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredMatches.map((match) => (
+                  <div key={`action-${match.id}`} className="flex space-x-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="flex-1 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <MessageCircle className="h-4 w-4 mr-1" />
+                      Bate-papo
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {activeTab === 'solicitacoes' && filteredMatches.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredMatches.map((match) => (
+                  <div key={`action-${match.id}`} className="flex space-x-2">
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleRejectRequest(match.id);
+                      }}
+                      className="flex-1 bg-red-600 hover:bg-red-700 text-white"
+                    >
+                      <X className="h-4 w-4 mr-1" />
+                      Recusar
+                    </Button>
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleAcceptRequest(match.id);
+                      }}
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <Check className="h-4 w-4 mr-1" />
+                      Aceitar
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {filteredMatches.length === 0 && (
