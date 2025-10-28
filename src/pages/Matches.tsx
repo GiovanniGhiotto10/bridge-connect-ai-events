@@ -242,9 +242,6 @@ const Matches = () => {
                             </div>
                           </div>
                         </div>
-                        <Badge className="bg-primary/10 text-primary border-primary/30 text-xs px-2 py-1">
-                          {match.matchPercentage}% Conexão
-                        </Badge>
                       </div>
                     </CardHeader>
                     
