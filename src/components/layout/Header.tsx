@@ -42,7 +42,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
   const navigationLinks = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos", icon: Search },
-    { label: "Matches", path: "/matches", icon: Handshake },
+    { label: "Conexões", path: "/matches", icon: Handshake },
     { label: "Agenda", path: "/agenda", icon: Calendar },
     { label: "Criar Evento", path: "/criar-evento", icon: Plus }
   ] : [
@@ -116,7 +116,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   <DropdownMenuItem asChild>
                     <Link to="/matches" className="flex items-center cursor-pointer">
                       <Handshake className="mr-2 h-4 w-4" />
-                      Meus Matches
+                      Minhas Conexões
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>

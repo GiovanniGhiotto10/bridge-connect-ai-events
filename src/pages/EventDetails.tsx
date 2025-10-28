@@ -290,7 +290,7 @@ const EventDetails = () => {
           <section className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-foreground mb-4">
-                Veja Seus Matches em Potencial Neste Evento
+                Veja Suas Conexões em Potencial Neste Evento
               </h2>
               <p className="text-muted-foreground">
                 Nossa IA encontrou pessoas com interesses similares aos seus que também participarão deste evento.
@@ -323,7 +323,7 @@ const EventDetails = () => {
             <div className="text-center">
               <Button variant="outline" className="btn-bridge-outline">
                 <MessageCircle className="h-4 w-4 mr-2" />
-                Ver Todos os Matches & Conversar
+                Ver Todas as Conexões & Conversar
               </Button>
             </div>
           </section>

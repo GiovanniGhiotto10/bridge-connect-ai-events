@@ -91,7 +91,7 @@ const Index = () => {
                   <h3 className="text-xl font-bold text-foreground mb-4">Crie seu Perfil</h3>
                   <p className="text-muted-foreground">
                     Adicione seus interesses, o que você busca e o que oferece. 
-                    Quanto mais completo, melhores os matches.
+                    Quanto mais completo, melhores as conexões.
                   </p>
                 </div>
 
@@ -126,7 +126,7 @@ const Index = () => {
                       3
                     </Badge>
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-4">Descubra seus Matches</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-4">Descubra suas Conexões</h3>
                   <p className="text-muted-foreground">
                     Envie convites, agende reuniões e construa relacionamentos que geram valor se conectando com as pessoas certas.
                   </p>

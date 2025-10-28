@@ -93,12 +93,12 @@ const MyConnections = () => {
 
           <Tabs defaultValue="matches" className="w-full">
             <TabsList className="grid w-full grid-cols-3 mb-8">
-              <TabsTrigger value="matches">Meus Matches</TabsTrigger>
+              <TabsTrigger value="matches">Minhas Conexões</TabsTrigger>
               <TabsTrigger value="meetings">Minhas Reuniões</TabsTrigger>
               <TabsTrigger value="calendar">Minha Agenda</TabsTrigger>
             </TabsList>
 
-            {/* Meus Matches Tab */}
+            {/* Minhas Conexões Tab */}
             <TabsContent value="matches" className="space-y-6">
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
                 <div className="relative flex-1">

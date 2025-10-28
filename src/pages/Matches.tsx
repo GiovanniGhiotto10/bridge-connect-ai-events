@@ -134,7 +134,7 @@ const Matches = () => {
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-black text-white uppercase mb-8 text-center">
-            Matches
+            Conexões
           </h1>
 
           {/* Search Bar */}
@@ -167,7 +167,7 @@ const Matches = () => {
                   </div>
                   <div>
                     <p className="text-2xl font-bold text-white">{mockNewMatches.length}</p>
-                    <p className="text-sm text-muted-foreground">Novos Matches</p>
+                    <p className="text-sm text-muted-foreground">Novas Conexões</p>
                   </div>
                 </div>
               </CardContent>
@@ -187,7 +187,7 @@ const Matches = () => {
                   </div>
                   <div>
                     <p className="text-2xl font-bold text-white">{mockMyMatches.length}</p>
-                    <p className="text-sm text-muted-foreground">Meus Matches</p>
+                    <p className="text-sm text-muted-foreground">Minhas Conexões</p>
                   </div>
                 </div>
               </CardContent>
@@ -243,7 +243,7 @@ const Matches = () => {
                           </div>
                         </div>
                         <Badge className="bg-primary/10 text-primary border-primary/30 text-xs px-2 py-1">
-                          {match.matchPercentage}% Match
+                          {match.matchPercentage}% Conexão
                         </Badge>
                       </div>
                     </CardHeader>
@@ -256,7 +256,7 @@ const Matches = () => {
                       {/* Event info for my matches */}
                       {activeTab === 'meus' && 'matchEvent' in match && match.matchEvent && (
                         <div className="text-sm text-primary">
-                          <span className="font-medium">Match em: </span>
+                          <span className="font-medium">Conexão em: </span>
                           {String(match.matchEvent)}
                         </div>
                       )}
@@ -384,8 +384,8 @@ const Matches = () => {
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">
                   {searchTerm ? "Nenhum resultado encontrado" : 
-                    activeTab === 'novos' ? "Nenhum novo match ainda" : 
-                    activeTab === 'meus' ? "Nenhum match confirmado ainda" :
+                    activeTab === 'novos' ? "Nenhuma nova conexão ainda" : 
+                    activeTab === 'meus' ? "Nenhuma conexão confirmada ainda" :
                     "Nenhuma solicitação pendente"}
                 </h3>
                 <p className="text-muted-foreground">
