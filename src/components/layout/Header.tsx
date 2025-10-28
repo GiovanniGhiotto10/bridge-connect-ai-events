@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import bridgeLogo from "@/assets/bridge-logo.svg";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -57,9 +58,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-          <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-lg">B</span>
-          </div>
+          <img src={bridgeLogo} alt="Bridge Logo" className="h-8 w-auto" />
           <span className="text-xl font-bold text-white">Bridge</span>
         </Link>
 
