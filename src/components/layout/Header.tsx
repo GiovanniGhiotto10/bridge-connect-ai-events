@@ -57,9 +57,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     }`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+        <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
           <img src={bridgeLogo} alt="Bridge Logo" className="h-12 w-auto" />
-          <span className="text-xl font-bold text-white">Bridge</span>
         </Link>
 
         {/* Desktop Navigation */}
