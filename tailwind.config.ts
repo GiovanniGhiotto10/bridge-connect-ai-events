@@ -69,12 +69,11 @@ export default {
 					border: 'hsl(var(--card-border))'
 				}
 			},
-			backgroundImage: {
-				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-surface': 'var(--gradient-surface)',
-				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'gradient-blue-black': 'linear-gradient(180deg, #1e40af 0%, #000000 100%)',
-			},
+		backgroundImage: {
+			'gradient-primary': 'var(--gradient-primary)',
+			'gradient-surface': 'var(--gradient-surface)',
+			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+		},
 			boxShadow: {
 				'glow': 'var(--shadow-glow)',
 				'glow-subtle': 'var(--shadow-glow-subtle)',
