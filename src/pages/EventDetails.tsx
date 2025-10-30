@@ -141,7 +141,7 @@ const EventDetails = () => {
   } : {};
 
   return (
-    <div className="min-h-screen" style={pageStyle.background ? { background: pageStyle.background } : { backgroundColor: '#040A1A' }}>
+    <div className="min-h-screen" style={pageStyle.background ? { background: pageStyle.background } : { backgroundColor: '#FFFFFF' }}>
       <Header isLoggedIn={true} />
       
       {/* Hero Section */}
@@ -168,9 +168,9 @@ const EventDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
           {/* Left Column - Event Description */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-foreground mb-6">SOBRE O EVENTO</h2>
-            <div className="prose prose-invert max-w-none">
-              <p className="text-muted-foreground leading-relaxed text-lg">
+            <h2 className="text-2xl font-bold text-black mb-6">SOBRE O EVENTO</h2>
+            <div className="prose max-w-none">
+              <p className="text-black leading-relaxed text-lg">
                 {event.description || "Descrição do evento não disponível."}
               </p>
             </div>
@@ -199,14 +199,14 @@ const EventDetails = () => {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-primary">
                     <Calendar className="h-5 w-5" />
-                    <p className="text-sm text-muted-foreground">Data e Hora</p>
+                    <p className="text-sm text-black">Data e Hora</p>
                   </div>
                   <div>
-                    <p className="text-foreground font-medium">
+                    <p className="text-black font-medium">
                       {formatDate(event.startDate || event.date)}
                       {event.endDate && event.endDate !== event.startDate && ` - ${formatDate(event.endDate)}`}
                     </p>
-                    <p className="text-foreground font-medium">{event.startTime || event.time}</p>
+                    <p className="text-black font-medium">{event.startTime || event.time}</p>
                   </div>
                 </div>
 
@@ -214,12 +214,12 @@ const EventDetails = () => {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-primary">
                     <MapPin className="h-5 w-5" />
-                    <p className="text-sm text-muted-foreground">Localização</p>
+                    <p className="text-sm text-black">Localização</p>
                   </div>
                   <div>
-                    <p className="text-foreground font-medium">{event.location}</p>
+                    <p className="text-black font-medium">{event.location}</p>
                     {event.city && (
-                      <p className="text-muted-foreground text-sm">{event.city}</p>
+                      <p className="text-black text-sm">{event.city}</p>
                     )}
                     {event.mapLink && (
                       <a
@@ -236,7 +236,7 @@ const EventDetails = () => {
 
                 {/* Price */}
                 <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">Preço</p>
+                  <p className="text-sm text-black">Preço</p>
                   <p className="text-2xl font-bold text-primary">
                     {event.isFree !== undefined 
                       ? (event.isFree ? "Gratuito" : `R$ ${event.ticketPrice},00`)
@@ -250,9 +250,9 @@ const EventDetails = () => {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 text-primary">
                       <Users className="h-5 w-5" />
-                      <p className="text-sm text-muted-foreground">Vagas</p>
+                      <p className="text-sm text-black">Vagas</p>
                     </div>
-                    <p className="text-foreground font-medium">
+                    <p className="text-black font-medium">
                       {event.attendees ? `${event.attendees} / ${event.capacity} participantes` : 
                        event.capacity ? `Até ${event.capacity} participantes` : 'Capacidade não definida'}
                     </p>
@@ -262,14 +262,14 @@ const EventDetails = () => {
                 {/* Organizer */}
                 {event.organizer && (
                   <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground">Organizador</p>
+                    <p className="text-sm text-black">Organizador</p>
                     <div className="flex items-center gap-3">
                       <img
                         src={event.organizerLogo}
                         alt={`${event.organizer} logo`}
                         className="w-10 h-10 rounded-full object-cover"
                       />
-                      <p className="text-foreground font-medium">{event.organizer}</p>
+                      <p className="text-black font-medium">{event.organizer}</p>
                     </div>
                   </div>
                 )}
@@ -289,10 +289,10 @@ const EventDetails = () => {
         {(event.isUserRegistered || event.matchmakingEnabled) && (
           <section className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl font-bold text-black mb-4">
                 Veja Suas Conexões em Potencial Neste Evento
               </h2>
-              <p className="text-muted-foreground">
+              <p className="text-black">
                 Nossa IA encontrou pessoas com interesses similares aos seus que também participarão deste evento.
               </p>
             </div>
@@ -311,10 +311,10 @@ const EventDetails = () => {
                         {match.compatibility}%
                       </div>
                     </div>
-                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <h3 className="font-semibold text-black group-hover:text-primary transition-colors">
                       {match.name}
                     </h3>
-                    <p className="text-xs text-muted-foreground mt-1">Match</p>
+                    <p className="text-xs text-black mt-1">Match</p>
                   </CardContent>
                 </Card>
               ))}
