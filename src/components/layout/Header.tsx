@@ -119,6 +119,12 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
+                    <Link to="/meus-eventos" className="flex items-center cursor-pointer">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      Meus Eventos
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
                     <Link to="/matches" className="flex items-center cursor-pointer">
                       <Handshake className="mr-2 h-4 w-4" />
                       Minhas Conexões

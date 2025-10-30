@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import AllEvents from "./pages/AllEvents";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import MyEvents from "./pages/MyEvents";
 
 const App = () => {
   // Create QueryClient inside the component to ensure fresh instance
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="/evento/:id" element={<EventDetails />} />
             <Route path="/matches" element={<Matches />} />
             <Route path="/agenda" element={<Agenda />} />
+            <Route path="/meus-eventos" element={<MyEvents />} />
             <Route path="/perfil" element={<Profile />} />
             <Route path="/perfil/:id" element={<Profile />} />
             {/* Redirect old route to new one */}
