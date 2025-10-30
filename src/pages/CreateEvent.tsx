@@ -116,7 +116,7 @@ const CreateEvent = () => {
     navigate(`/evento/${eventId}`);
   };
 
-  const pageBackground = selectedTheme.background || '#040A1A';
+  const pageBackground = '#FFFFFF';
 
   return (
     <div 
