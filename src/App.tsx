@@ -14,6 +14,8 @@ import Agenda from "./pages/Agenda";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import AllEvents from "./pages/AllEvents";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 const App = () => {
   // Create QueryClient inside the component to ensure fresh instance
@@ -34,6 +36,8 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/cadastro" element={<Signup />} />
             <Route path="/criar-evento" element={<CreateEvent />} />
             <Route path="/eventos" element={<DiscoverEvents />} />
             <Route path="/todos-eventos" element={<AllEvents />} />
