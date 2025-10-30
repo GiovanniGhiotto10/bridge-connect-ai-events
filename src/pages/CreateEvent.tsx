@@ -139,7 +139,7 @@ const CreateEvent = () => {
                 <Button
                   onClick={() => openModal('themeEditor')}
                   variant="outline"
-                  className="w-full bg-gray-800 border-gray-600 text-white hover:bg-gray-700 hover:border-blue-400 transition-all"
+                  className="w-full bg-gray-800 border-gray-600 text-black hover:bg-gray-700 hover:border-blue-400 transition-all"
                 >
                   <Palette className="h-4 w-4 mr-2" />
                   Tema ({selectedTheme.name})
@@ -181,7 +181,7 @@ const CreateEvent = () => {
               {/* Description */}
               <div onClick={() => openModal('description')} className="flex items-center gap-3 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]">
                 <Edit3 className="h-4 w-4 text-blue-400" />
-                <span className="text-white text-sm">
+                <span className="text-black text-sm">
                   {eventData.description || "Adicionar Descrição"}
                 </span>
               </div>

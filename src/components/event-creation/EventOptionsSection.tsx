@@ -37,15 +37,15 @@ const EventOptionsSection = ({
 
   return (
     <div className="space-y-3">
-      <h3 className="text-lg font-semibold text-white mx-[10px]">OPÇÕES DO EVENTO</h3>
+      <h3 className="text-lg font-semibold text-black mx-[10px]">OPÇÕES DO EVENTO</h3>
       
       {/* Matchmaking IA - Destaque */}
       <div className="flex items-center justify-between p-4 rounded-lg border-2 border-blue-500 bg-blue-500/10 mx-[10px]">
         <div className="flex items-center gap-3">
           <Sparkles className="h-5 w-5 text-blue-400" />
           <div>
-            <p className="text-white font-medium">Ativar Matchmaking IA</p>
-            <p className="text-xs text-gray-300">
+            <p className="text-black font-medium">Ativar Matchmaking IA</p>
+            <p className="text-xs text-gray-600">
               Conecte automaticamente participantes com interesses similares
             </p>
           </div>
@@ -69,7 +69,7 @@ const EventOptionsSection = ({
         >
           <div className="flex items-center gap-2">
             <Ticket className="h-4 w-4 text-blue-400" />
-            <span className="text-white text-sm">Ingressos</span>
+            <span className="text-black text-sm">Ingressos</span>
           </div>
           <span className="text-blue-400 text-sm">
             {eventData.isFree ? "Gratuito" : formatPrice(eventData.ticketPrice)}
@@ -84,7 +84,7 @@ const EventOptionsSection = ({
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-purple-400"></div>
-              <span className="text-white text-sm">Virada de Lote</span>
+              <span className="text-black text-sm">Virada de Lote</span>
             </div>
             <span className="text-blue-400 text-sm">
               {eventData.ticketBatches.length > 0 ? `${eventData.ticketBatches.length} lotes` : "Configurar"}
@@ -99,7 +99,7 @@ const EventOptionsSection = ({
         >
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4 text-blue-400" />
-            <span className="text-white text-sm">Capacidade</span>
+            <span className="text-black text-sm">Capacidade</span>
           </div>
           <span className="text-blue-400 text-sm">{eventData.capacity || "Definir limite"}</span>
         </div>

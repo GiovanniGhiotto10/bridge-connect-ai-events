@@ -23,7 +23,7 @@ const DateTimeSection = ({
     return time;
   };
   return <div className="space-y-3">
-      <h3 className="text-lg font-semibold text-white mx-[10px]">DATA E HORÁRIO</h3>
+      <h3 className="text-lg font-semibold text-black mx-[10px]">DATA E HORÁRIO</h3>
       
       {/* Start Date/Time */}
       <div className="grid grid-cols-2 gap-3">
@@ -31,7 +31,7 @@ const DateTimeSection = ({
           <Calendar className="h-4 w-4 text-blue-400" />
           <div>
             <p className="text-xs text-gray-400">Início</p>
-            <p className="text-white text-sm">{formatDate(eventData.startDate)}</p>
+            <p className="text-black text-sm">{formatDate(eventData.startDate)}</p>
           </div>
         </div>
         
@@ -39,7 +39,7 @@ const DateTimeSection = ({
           <Clock className="h-4 w-4 text-blue-400" />
           <div>
             <p className="text-xs text-gray-400">Horário</p>
-            <p className="text-white text-sm">{formatTime(eventData.startTime)}</p>
+            <p className="text-black text-sm">{formatTime(eventData.startTime)}</p>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@ const DateTimeSection = ({
           <Calendar className="h-4 w-4 text-green-400" />
           <div>
             <p className="text-xs text-gray-400">Fim</p>
-            <p className="text-white text-sm">{formatDate(eventData.endDate)}</p>
+            <p className="text-black text-sm">{formatDate(eventData.endDate)}</p>
           </div>
         </div>
         
@@ -58,7 +58,7 @@ const DateTimeSection = ({
           <Clock className="h-4 w-4 text-green-400" />
           <div>
             <p className="text-xs text-gray-400">Horário</p>
-            <p className="text-white text-sm">{formatTime(eventData.endTime)}</p>
+            <p className="text-black text-sm">{formatTime(eventData.endTime)}</p>
           </div>
         </div>
       </div>

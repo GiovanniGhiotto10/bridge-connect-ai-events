@@ -18,7 +18,7 @@ const VisibilityDropdown = ({ isPublic, onChange }: VisibilityDropdownProps) => 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="text-white border-gray-600 bg-gray-800 hover:bg-gray-700">
+        <Button variant="outline" className="text-black border-gray-600 bg-gray-800 hover:bg-gray-700">
           {isPublic ? (
             <>
               <Globe className="h-4 w-4 mr-2" />
@@ -36,7 +36,7 @@ const VisibilityDropdown = ({ isPublic, onChange }: VisibilityDropdownProps) => 
       <DropdownMenuContent className="w-56 bg-gray-800 border-gray-700">
         <DropdownMenuItem
           onClick={() => onChange(true)}
-          className="text-white hover:bg-gray-700"
+          className="text-black hover:bg-gray-700"
         >
           <Globe className="h-4 w-4 mr-2" />
           <div>
@@ -46,7 +46,7 @@ const VisibilityDropdown = ({ isPublic, onChange }: VisibilityDropdownProps) => 
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => onChange(false)}
-          className="text-white hover:bg-gray-700"
+          className="text-black hover:bg-gray-700"
         >
           <Lock className="h-4 w-4 mr-2" />
           <div>

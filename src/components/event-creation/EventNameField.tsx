@@ -13,7 +13,7 @@ const EventNameField = ({
   };
   return <div onClick={handleClick} className="group cursor-pointer p-4 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-gray-700 px-[10px]">
       <div className="flex items-center gap-3">
-        <h2 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors flex-1">
+        <h2 className="text-2xl font-bold text-black group-hover:text-blue-400 transition-colors flex-1">
           {name}
         </h2>
         <Edit3 className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity text-blue-400" />
