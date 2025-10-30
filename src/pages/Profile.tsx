@@ -100,7 +100,7 @@ const Profile = () => {
                 </Avatar>
                 
                 <div className="flex-1 text-center md:text-left">
-                  <h1 className="text-3xl font-bold text-white mb-2">{mockUser.name}</h1>
+                  <h1 className="text-3xl font-bold text-black mb-2">{mockUser.name}</h1>
                   <div className="flex items-center justify-center md:justify-start space-x-2 text-muted-foreground mb-3">
                     <MapPin className="h-4 w-4" />
                     <span>{mockUser.location}</span>
@@ -121,7 +121,7 @@ const Profile = () => {
           {/* About Section */}
           <Card className="card-bridge mb-8">
             <CardHeader>
-              <CardTitle className="text-white">Sobre</CardTitle>
+              <CardTitle className="text-black">Sobre</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground leading-relaxed">{mockUser.bio}</p>
@@ -132,19 +132,19 @@ const Profile = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <Card className="card-bridge">
               <CardHeader>
-                <CardTitle className="text-white flex items-center">
+                <CardTitle className="text-black flex items-center">
                   <Briefcase className="h-5 w-5 mr-2" />
                   Carreira e Objetivos
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h4 className="font-semibold text-white mb-1">Área de Atuação</h4>
+                  <h4 className="font-semibold text-black mb-1">Área de Atuação</h4>
                   <p className="text-muted-foreground">{mockUser.career}</p>
                 </div>
                 <Separator className="bg-card-border" />
                 <div>
-                  <h4 className="font-semibold text-white mb-1 flex items-center">
+                  <h4 className="font-semibold text-black mb-1 flex items-center">
                     <Target className="h-4 w-4 mr-1" />
                     Objetivos de Networking
                   </h4>
@@ -155,7 +155,7 @@ const Profile = () => {
 
             <Card className="card-bridge">
               <CardHeader>
-                <CardTitle className="text-white flex items-center">
+                <CardTitle className="text-black flex items-center">
                   <Users className="h-5 w-5 mr-2" />
                   Conexões ({mockUser.connectionsCount})
                 </CardTitle>
@@ -186,7 +186,7 @@ const Profile = () => {
           {/* Social Networks */}
           <Card className="card-bridge mb-8">
             <CardHeader>
-              <CardTitle className="text-white">Redes Sociais</CardTitle>
+              <CardTitle className="text-black">Redes Sociais</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex space-x-4">
@@ -218,7 +218,7 @@ const Profile = () => {
           {/* Events History */}
           <Card className="card-bridge">
             <CardHeader>
-              <CardTitle className="text-white flex items-center">
+              <CardTitle className="text-black flex items-center">
                 <Calendar className="h-5 w-5 mr-2" />
                 Histórico de Eventos
               </CardTitle>
@@ -242,7 +242,7 @@ const Profile = () => {
                           <Calendar className="h-8 w-8 text-primary" />
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-white">{event.name}</h4>
+                          <h4 className="font-semibold text-black">{event.name}</h4>
                           <p className="text-sm text-muted-foreground">{event.date}</p>
                           <p className="text-xs text-muted-foreground flex items-center">
                             <MapPin className="h-3 w-3 mr-1" />
@@ -265,7 +265,7 @@ const Profile = () => {
                           <Calendar className="h-8 w-8 text-muted-foreground" />
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-white">{event.name}</h4>
+                          <h4 className="font-semibold text-black">{event.name}</h4>
                           <p className="text-sm text-muted-foreground">{event.date}</p>
                           <p className="text-xs text-muted-foreground flex items-center">
                             <MapPin className="h-3 w-3 mr-1" />
