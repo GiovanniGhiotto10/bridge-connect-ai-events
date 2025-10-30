@@ -166,7 +166,7 @@ const Matches = () => {
                     <Heart className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-white">{mockNewMatches.length}</p>
+                    <p className="text-2xl font-bold text-black">{mockNewMatches.length}</p>
                     <p className="text-sm text-muted-foreground">Novas Conexões</p>
                   </div>
                 </div>
@@ -186,7 +186,7 @@ const Matches = () => {
                     <Handshake className="h-6 w-6 text-green-500" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-white">{mockMyMatches.length}</p>
+                    <p className="text-2xl font-bold text-black">{mockMyMatches.length}</p>
                     <p className="text-sm text-muted-foreground">Minhas Conexões</p>
                   </div>
                 </div>
@@ -206,7 +206,7 @@ const Matches = () => {
                     <MessageCircle className="h-6 w-6 text-purple-500" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-white">{getCurrentMatches().length}</p>
+                    <p className="text-2xl font-bold text-black">{getCurrentMatches().length}</p>
                     <p className="text-sm text-muted-foreground">Solicitações</p>
                   </div>
                 </div>
@@ -235,7 +235,7 @@ const Matches = () => {
                             )}
                           </div>
                           <div className="min-w-0">
-                            <h3 className="font-semibold text-white text-lg line-clamp-1">{match.name}</h3>
+                            <h3 className="font-semibold text-black text-lg line-clamp-1">{match.name}</h3>
                             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                               <MapPin className="h-3 w-3 flex-shrink-0" />
                               <span className="line-clamp-1">{match.location}</span>
