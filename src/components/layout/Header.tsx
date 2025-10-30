@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import bridgeLogo from "@/assets/bridge-logo.svg";
+import bridgeLogo from "@/assets/logo-Bridge.svg";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
