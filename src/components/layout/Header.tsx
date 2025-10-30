@@ -44,8 +44,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   const navigationLinks = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos", icon: Search },
     { label: "Conexões", path: "/matches", icon: Handshake },
-    { label: "Agenda", path: "/agenda", icon: Calendar },
-    { label: "Criar Evento", path: "/criar-evento", icon: Plus }
+    { label: "Agenda", path: "/agenda", icon: Calendar }
   ] : [
     { label: "Como Funciona", path: "#como-funciona", onClick: handleComoFuncionaClick },
     { label: "Para Organizadores", path: "#organizadores" }
@@ -83,8 +82,15 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
           {isLoggedIn ? (
             /* Logged In State */
             <div className="flex items-center space-x-2">
+              {/* Create Event Button */}
+              <Button variant="ghost" size="icon" asChild className="text-white hover:bg-primary/20">
+                <Link to="/criar-evento">
+                  <Plus className="h-5 w-5" />
+                </Link>
+              </Button>
+              
               {/* Notifications Icon */}
-              <Button variant="ghost" size="icon" className="text-white hover:bg-primary/20">
+              <Button variant="ghost" size="icon" className="text-black hover:bg-primary/20">
                 <Bell className="h-5 w-5" />
               </Button>
               
