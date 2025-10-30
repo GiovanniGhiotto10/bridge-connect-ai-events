@@ -14,7 +14,7 @@ const Index = () => {
         <section className="relative overflow-hidden py-20 lg:py-32">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
-              <h1 className="text-5xl lg:text-7xl font-bold text-gradient-primary mb-6 leading-tight">ENCONTRE AS PESSOAS CERTAS EM CADA EVENTO</h1>
+              <h1 className="text-5xl lg:text-7xl font-bold text-gradient-primary mb-6 leading-tight">Conecte-se estrategicamente e impulsione o seu networking com a Bridge.</h1>
               <p className="text-xl lg:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
                 Use a Inteligência Artificial da Bridge para encontrar as pessoas certas em cada evento. 
                 Transforme networking em oportunidades reais.
