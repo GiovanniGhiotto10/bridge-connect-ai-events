@@ -44,7 +44,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
   const navigationLinks = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos", icon: Search },
     { label: "Conexões", path: "/matches", icon: Handshake },
-    { label: "Agenda", path: "/agenda", icon: Calendar }
+    { label: "Agenda", path: "/agenda", icon: Calendar },
+    { label: "Meus Eventos", path: "/meus-eventos", icon: Calendar }
   ] : [
     { label: "Como Funciona", path: "#como-funciona", onClick: handleComoFuncionaClick },
     { label: "Para Organizadores", path: "#organizadores" }
