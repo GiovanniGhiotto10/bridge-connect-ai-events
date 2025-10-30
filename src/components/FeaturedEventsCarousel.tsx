@@ -133,13 +133,13 @@ const FeaturedEventsCarousel = ({ events }: FeaturedEventsCarouselProps) => {
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-all z-30 backdrop-blur-sm"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white hover:bg-gray-100 text-black rounded-full flex items-center justify-center transition-all z-30 shadow-lg border-2 border-black"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-all z-30 backdrop-blur-sm"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white hover:bg-gray-100 text-black rounded-full flex items-center justify-center transition-all z-30 shadow-lg border-2 border-black"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
