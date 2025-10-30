@@ -139,7 +139,7 @@ const CreateEvent = () => {
                 <Button
                   onClick={() => openModal('themeEditor')}
                   variant="outline"
-                  className="w-full bg-gray-800 border-gray-600 text-black hover:bg-gray-700 hover:border-blue-400 transition-all"
+                  className="w-full bg-black border-gray-600 text-white hover:bg-gray-900 hover:border-blue-400 transition-all"
                 >
                   <Palette className="h-4 w-4 mr-2" />
                   Tema ({selectedTheme.name})
