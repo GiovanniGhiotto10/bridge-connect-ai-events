@@ -131,7 +131,7 @@ const Agenda = () => {
       
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-black text-white uppercase mb-8 text-center">
+          <h1 className="text-4xl font-black text-black uppercase mb-8 text-center">
             Agenda
           </h1>
 
@@ -142,19 +142,19 @@ const Agenda = () => {
             <div className="lg:col-span-2 my-[77px]">
               <Card className="card-bridge">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-white font-poppins font-black uppercase text-xl">
+                  <CardTitle className="text-black font-poppins font-black uppercase text-xl">
                     CALENDÁRIO
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-4">
-                    <Button variant="ghost" size="icon" onClick={() => navigateMonth('prev')} className="text-white hover:bg-primary/20 h-8 w-8">
+                    <Button variant="ghost" size="icon" onClick={() => navigateMonth('prev')} className="text-black hover:bg-primary/20 h-8 w-8">
                       <ChevronLeft className="h-4 w-4" />
                     </Button>
-                    <span className="text-white font-poppins font-bold text-lg">
+                    <span className="text-black font-poppins font-bold text-lg">
                       {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
                     </span>
-                    <Button variant="ghost" size="icon" onClick={() => navigateMonth('next')} className="text-white hover:bg-primary/20 h-8 w-8">
+                    <Button variant="ghost" size="icon" onClick={() => navigateMonth('next')} className="text-black hover:bg-primary/20 h-8 w-8">
                       <ChevronRight className="h-4 w-4" />
                     </Button>
                   </div>
@@ -197,12 +197,12 @@ const Agenda = () => {
               <Card className="card-bridge">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-white font-poppins font-black uppercase text-lg">
+                    <CardTitle className="text-black font-poppins font-black uppercase text-lg">
                       EVENTOS
                     </CardTitle>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="text-white hover:bg-primary/20">
+                        <Button variant="ghost" size="icon" className="text-black hover:bg-primary/20">
                           <Plus className="h-5 w-5" />
                         </Button>
                       </DropdownMenuTrigger>
@@ -252,10 +252,10 @@ const Agenda = () => {
               <Card className="card-bridge">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-white font-poppins font-black uppercase text-lg">
+                    <CardTitle className="text-black font-poppins font-black uppercase text-lg">
                       REUNIÕES
                     </CardTitle>
-                    <Button variant="ghost" size="icon" className="text-white hover:bg-primary/20" onClick={() => setIsScheduleMeetingModalOpen(true)}>
+                    <Button variant="ghost" size="icon" className="text-black hover:bg-primary/20" onClick={() => setIsScheduleMeetingModalOpen(true)}>
                       <Plus className="h-5 w-5" />
                     </Button>
                   </div>
