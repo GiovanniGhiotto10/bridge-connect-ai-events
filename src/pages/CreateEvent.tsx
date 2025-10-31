@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/hooks/use-toast";
-import { Calendar, Clock, MapPin, Users, Upload, ChevronDown, Edit3, Image as ImageIcon, Sparkles, Palette } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, Upload, ChevronDown, Edit3, Image as ImageIcon, Sparkles } from "lucide-react";
 import Header from "@/components/layout/Header";
 import EventImageUpload from "@/components/event-creation/EventImageUpload";
 import EventNameField from "@/components/event-creation/EventNameField";
@@ -20,8 +20,6 @@ import TicketModal from "@/components/modals/TicketModal";
 import BatchModal from "@/components/modals/BatchModal";
 import CapacityModal from "@/components/modals/CapacityModal";
 import LocationModal from "@/components/modals/LocationModal";
-import ThemeEditor from "@/components/theme-editor/ThemeEditor";
-import { useTheme, Theme } from "@/hooks/useTheme";
 
 interface TicketBatch {
   id: string;
@@ -32,7 +30,6 @@ interface TicketBatch {
 
 const CreateEvent = () => {
   const navigate = useNavigate();
-  const { selectedTheme, updateTheme } = useTheme();
   
   const [eventData, setEventData] = useState({
     name: "Nome do Evento",
@@ -49,8 +46,7 @@ const CreateEvent = () => {
     isPublic: true,
     matchmakingEnabled: true,
     image: null as string | null,
-    ticketBatches: [] as TicketBatch[],
-    theme: selectedTheme
+    ticketBatches: [] as TicketBatch[]
   });
 
   const [modals, setModals] = useState({
@@ -62,7 +58,6 @@ const CreateEvent = () => {
     batch: false,
     capacity: false,
     location: false,
-    themeEditor: false,
     dateType: "" as "start" | "end",
     timeType: "" as "start" | "end",
     locationType: "" as "location" | "city"
@@ -80,14 +75,6 @@ const CreateEvent = () => {
     setModals(prev => ({
       ...prev,
       [modalName]: false
-    }));
-  };
-
-  const handleThemeChange = (theme: Theme) => {
-    updateTheme(theme);
-    setEventData(prev => ({
-      ...prev,
-      theme
     }));
   };
 
@@ -130,21 +117,9 @@ const CreateEvent = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left Column - Event Image and Theme */}
+            {/* Left Column - Event Image */}
             <div className="space-y-4">
               <EventImageUpload image={eventData.image} onImageClick={() => openModal('imageUpload')} />
-              
-              {/* Theme Button */}
-              <div className="mx-[200px]">
-                <Button
-                  onClick={() => openModal('themeEditor')}
-                  variant="outline"
-                  className="w-full bg-black border-gray-600 text-white hover:bg-gray-900 hover:border-blue-400 transition-all"
-                >
-                  <Palette className="h-4 w-4 mr-2" />
-                  Tema ({selectedTheme.name})
-                </Button>
-              </div>
             </div>
 
             {/* Right Column - Form */}
@@ -205,14 +180,6 @@ const CreateEvent = () => {
           </div>
         </div>
       </main>
-
-      {/* Theme Editor */}
-      <ThemeEditor
-        isOpen={modals.themeEditor}
-        onClose={() => closeModal('themeEditor')}
-        selectedTheme={selectedTheme}
-        onThemeChange={handleThemeChange}
-      />
 
       {/* Modais existentes */}
       <ImageUploadModal isOpen={modals.imageUpload} onClose={() => closeModal('imageUpload')} onImageSelect={image => {
