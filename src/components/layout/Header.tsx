@@ -43,7 +43,6 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
   const navigationLinks = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos", icon: Search },
-    { label: "Conexões", path: "/matches", icon: Handshake },
     { label: "Meus Eventos", path: "/meus-eventos", icon: Calendar }
   ] : [
     { label: "Como Funciona", path: "#como-funciona", onClick: handleComoFuncionaClick },
@@ -122,18 +121,6 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                     <Link to="/meus-eventos" className="flex items-center cursor-pointer">
                       <Calendar className="mr-2 h-4 w-4" />
                       Meus Eventos
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/matches" className="flex items-center cursor-pointer">
-                      <Handshake className="mr-2 h-4 w-4" />
-                      Minhas Conexões
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/agenda" className="flex items-center cursor-pointer">
-                      <Calendar className="mr-2 h-4 w-4" />
-                      Minha Agenda
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>

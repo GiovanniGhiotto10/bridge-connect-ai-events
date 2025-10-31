@@ -9,7 +9,6 @@ import Index from "./pages/Index";
 import CreateEvent from "./pages/CreateEvent";
 import DiscoverEvents from "./pages/DiscoverEvents";
 import EventDetails from "./pages/EventDetails";
-import Matches from "./pages/Matches";
 
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
@@ -43,13 +42,9 @@ const App = () => {
             <Route path="/eventos" element={<DiscoverEvents />} />
             <Route path="/todos-eventos" element={<AllEvents />} />
             <Route path="/evento/:id" element={<EventDetails />} />
-            <Route path="/matches" element={<Matches />} />
-            
             <Route path="/meus-eventos" element={<MyEvents />} />
             <Route path="/perfil" element={<Profile />} />
             <Route path="/perfil/:id" element={<Profile />} />
-            {/* Redirect old route to new one */}
-            <Route path="/minhas-conexoes" element={<Matches />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
