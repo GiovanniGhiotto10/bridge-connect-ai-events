@@ -16,6 +16,7 @@ import AllEvents from "./pages/AllEvents";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyEvents from "./pages/MyEvents";
+import EventMatches from "./pages/EventMatches";
 
 const App = () => {
   // Create QueryClient inside the component to ensure fresh instance
@@ -43,6 +44,7 @@ const App = () => {
             <Route path="/todos-eventos" element={<AllEvents />} />
             <Route path="/evento/:id" element={<EventDetails />} />
             <Route path="/meus-eventos" element={<MyEvents />} />
+            <Route path="/matches" element={<EventMatches />} />
             <Route path="/perfil" element={<Profile />} />
             <Route path="/perfil/:id" element={<Profile />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
