@@ -154,7 +154,7 @@ const CreateEvent = () => {
               />
 
               {/* Description */}
-              <div onClick={() => openModal('description')} className="flex items-center gap-3 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]">
+              <div onClick={() => openModal('description')} className="flex items-center gap-3 p-3 rounded-lg border border-gray-300 hover:border-blue-400 cursor-pointer hover:bg-gray-50 transition-all mx-[10px]">
                 <Edit3 className="h-4 w-4 text-blue-400" />
                 <span className="text-black text-sm">
                   {eventData.description || "Adicionar Descrição"}

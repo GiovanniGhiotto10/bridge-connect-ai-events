@@ -17,7 +17,7 @@ const LocationSection = ({ location, city, onLocationClick, onCityClick }: Locat
         {/* Location */}
         <div 
           onClick={onLocationClick}
-          className="flex items-center gap-3 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]"
+          className="flex items-center gap-3 p-3 rounded-lg border border-gray-300 hover:border-blue-400 cursor-pointer hover:bg-gray-50 transition-all mx-[10px]"
         >
           <MapPin className="h-4 w-4 text-blue-400" />
           <span className="text-black text-sm">
@@ -28,7 +28,7 @@ const LocationSection = ({ location, city, onLocationClick, onCityClick }: Locat
         {/* City */}
         <div 
           onClick={onCityClick}
-          className="flex items-center gap-3 p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]"
+          className="flex items-center gap-3 p-3 rounded-lg border border-gray-300 hover:border-blue-400 cursor-pointer hover:bg-gray-50 transition-all mx-[10px]"
         >
           <MapPin className="h-4 w-4 text-blue-400" />
           <span className="text-black text-sm">

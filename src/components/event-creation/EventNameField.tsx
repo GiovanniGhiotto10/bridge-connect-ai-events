@@ -11,7 +11,7 @@ const EventNameField = ({
     const newName = prompt("Nome do evento:", name);
     if (newName) onChange(newName);
   };
-  return <div onClick={handleClick} className="group cursor-pointer p-4 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-gray-700 px-[10px]">
+  return <div onClick={handleClick} className="group cursor-pointer p-4 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-blue-400 px-[10px]">
       <div className="flex items-center gap-3">
         <h2 className="text-2xl font-bold text-black group-hover:text-blue-400 transition-colors flex-1">
           {name}

@@ -65,7 +65,7 @@ const EventOptionsSection = ({
         {/* Tickets */}
         <div 
           onClick={onTicketClick} 
-          className="flex items-center justify-between p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]"
+          className="flex items-center justify-between p-3 rounded-lg border border-gray-300 hover:border-blue-400 cursor-pointer hover:bg-gray-50 transition-all mx-[10px]"
         >
           <div className="flex items-center gap-2">
             <Ticket className="h-4 w-4 text-blue-400" />
@@ -80,7 +80,7 @@ const EventOptionsSection = ({
         {!eventData.isFree && (
           <div 
             onClick={onBatchClick} 
-            className="flex items-center justify-between p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]"
+            className="flex items-center justify-between p-3 rounded-lg border border-gray-300 hover:border-blue-400 cursor-pointer hover:bg-gray-50 transition-all mx-[10px]"
           >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-purple-400"></div>
@@ -95,7 +95,7 @@ const EventOptionsSection = ({
         {/* Capacity */}
         <div 
           onClick={onCapacityClick} 
-          className="flex items-center justify-between p-3 rounded-lg border border-gray-700 hover:border-blue-400 cursor-pointer hover:bg-white/5 transition-all mx-[10px]"
+          className="flex items-center justify-between p-3 rounded-lg border border-gray-300 hover:border-blue-400 cursor-pointer hover:bg-gray-50 transition-all mx-[10px]"
         >
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4 text-blue-400" />
