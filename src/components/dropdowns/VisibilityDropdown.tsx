@@ -17,7 +17,7 @@ const VisibilityDropdown = ({ isPublic, onChange }: VisibilityDropdownProps) => 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="text-gray-700 border-gray-300 bg-white hover:bg-gray-50">
+        <Button variant="outline" className="text-gray-700 border-gray-300 bg-white hover:bg-white hover:border-blue-400 hover:text-gray-700">
           {isPublic ? (
             <>
               <Globe className="h-4 w-4 mr-2" />
