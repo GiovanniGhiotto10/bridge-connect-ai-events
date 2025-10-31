@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +17,7 @@ const VisibilityDropdown = ({ isPublic, onChange }: VisibilityDropdownProps) => 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="text-black border-gray-600 bg-gray-800 hover:bg-gray-700">
+        <Button variant="outline" className="text-gray-700 border-gray-300 bg-white hover:bg-gray-50">
           {isPublic ? (
             <>
               <Globe className="h-4 w-4 mr-2" />
@@ -33,25 +32,25 @@ const VisibilityDropdown = ({ isPublic, onChange }: VisibilityDropdownProps) => 
           <ChevronDown className="h-4 w-4 ml-2" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 bg-gray-800 border-gray-700">
+      <DropdownMenuContent className="w-56 bg-white border-gray-200 z-50">
         <DropdownMenuItem
           onClick={() => onChange(true)}
-          className="text-black hover:bg-gray-700"
+          className="text-gray-700 hover:bg-gray-100 cursor-pointer"
         >
           <Globe className="h-4 w-4 mr-2" />
           <div>
             <p className="font-medium">Público</p>
-            <p className="text-sm text-gray-400">Qualquer pessoa pode ver e se inscrever</p>
+            <p className="text-sm text-gray-500">Qualquer pessoa pode ver e se inscrever</p>
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => onChange(false)}
-          className="text-black hover:bg-gray-700"
+          className="text-gray-700 hover:bg-gray-100 cursor-pointer"
         >
           <Lock className="h-4 w-4 mr-2" />
           <div>
             <p className="font-medium">Privado</p>
-            <p className="text-sm text-gray-400">Apenas pessoas convidadas podem participar</p>
+            <p className="text-sm text-gray-500">Apenas pessoas convidadas podem participar</p>
           </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
