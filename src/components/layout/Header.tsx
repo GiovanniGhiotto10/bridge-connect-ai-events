@@ -2,25 +2,18 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import bridgeLogo from "@/assets/logo-Bridge.svg";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { User, Settings, LogOut, Menu, X, Calendar, Search, Plus, Handshake, Bell, MessageCircle } from "lucide-react";
-
 interface HeaderProps {
   isLoggedIn?: boolean;
 }
-
-const Header = ({ isLoggedIn = false }: HeaderProps) => {
+const Header = ({
+  isLoggedIn = false
+}: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-
   const isActive = (path: string) => location.pathname === path;
 
   // Handle scroll effect
@@ -28,31 +21,35 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
   const handleComoFuncionaClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const section = document.getElementById('como-funciona');
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({
+        behavior: 'smooth'
+      });
     }
   };
-
-  const navigationLinks = isLoggedIn ? [
-    { label: "Descobrir", path: "/eventos", icon: Search },
-    { label: "Meus Eventos", path: "/meus-eventos", icon: Calendar }
-  ] : [
-    { label: "Como Funciona", path: "#como-funciona", onClick: handleComoFuncionaClick },
-    { label: "Para Organizadores", path: "#organizadores" }
-  ];
-
-  return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-      isScrolled ? 'header-scrolled' : 'bg-transparent'
-    }`}>
+  const navigationLinks = isLoggedIn ? [{
+    label: "Descobrir",
+    path: "/eventos",
+    icon: Search
+  }, {
+    label: "Meus Eventos",
+    path: "/meus-eventos",
+    icon: Calendar
+  }] : [{
+    label: "Como Funciona",
+    path: "#como-funciona",
+    onClick: handleComoFuncionaClick
+  }, {
+    label: "Para Organizadores",
+    path: "#organizadores"
+  }];
+  return <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'header-scrolled' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
@@ -61,26 +58,16 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          {navigationLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={link.onClick}
-              className={`text-sm font-medium transition-colors hover:text-primary flex items-center space-x-1 ${
-                isActive(link.path) ? "text-primary" : "text-muted-foreground"
-              }`}
-            >
+          {navigationLinks.map(link => <Link key={link.path} to={link.path} onClick={link.onClick} className={`text-sm font-medium transition-colors hover:text-primary flex items-center space-x-1 ${isActive(link.path) ? "text-primary" : "text-muted-foreground"}`}>
               {link.icon && <link.icon className="h-4 w-4" />}
               <span>{link.label}</span>
-            </Link>
-          ))}
+            </Link>)}
         </nav>
 
         {/* Right Section */}
         <div className="flex items-center space-x-4">
-          {isLoggedIn ? (
-            /* Logged In State */
-            <div className="flex items-center space-x-2">
+          {isLoggedIn ? (/* Logged In State */
+        <div className="flex items-center space-x-2">
               {/* Create Event Button */}
               <Button variant="ghost" asChild className="text-black hover:bg-primary/20 flex items-center space-x-1">
                 <Link to="/criar-evento">
@@ -95,9 +82,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               </Button>
               
               {/* Chat Icon */}
-              <Button variant="ghost" size="icon" className="text-black hover:bg-primary/20">
-                <MessageCircle className="h-5 w-5" />
-              </Button>
+              
               
               {/* User Menu */}
               <DropdownMenu>
@@ -136,10 +121,8 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </div>
-          ) : (
-            /* Not Logged In State */
-            <>
+            </div>) : (/* Not Logged In State */
+        <>
               <div className="hidden md:flex items-center space-x-3">
                 <Button variant="outline" className="btn-bridge-outline" asChild>
                   <Link to="/cadastro">Cadastre-se</Link>
@@ -150,39 +133,25 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               </div>
 
               {/* Mobile Menu Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
+              <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                 {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>
-            </>
-          )}
+            </>)}
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && !isLoggedIn && (
-        <div className="md:hidden border-t border-card-border bg-card/95 backdrop-blur-sm">
+      {isMobileMenuOpen && !isLoggedIn && <div className="md:hidden border-t border-card-border bg-card/95 backdrop-blur-sm">
           <div className="container mx-auto px-4 py-4 space-y-4">
-            {navigationLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={(e) => {
-                  if (link.onClick) {
-                    link.onClick(e);
-                  }
-                  setIsMobileMenuOpen(false);
-                }}
-                className="block text-muted-foreground hover:text-primary transition-colors flex items-center space-x-2"
-              >
+            {navigationLinks.map(link => <Link key={link.path} to={link.path} onClick={e => {
+          if (link.onClick) {
+            link.onClick(e);
+          }
+          setIsMobileMenuOpen(false);
+        }} className="block text-muted-foreground hover:text-primary transition-colors flex items-center space-x-2">
                 {link.icon && <link.icon className="h-4 w-4" />}
                 <span>{link.label}</span>
-              </Link>
-            ))}
+              </Link>)}
             <div className="flex flex-col space-y-2 pt-4 border-t border-card-border">
               <Button variant="outline" className="btn-bridge-outline w-full" asChild>
                 <Link to="/cadastro">Cadastre-se</Link>
@@ -192,10 +161,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               </Button>
             </div>
           </div>
-        </div>
-      )}
-    </header>
-  );
+        </div>}
+    </header>;
 };
-
 export default Header;
