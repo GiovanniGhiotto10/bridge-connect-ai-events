@@ -11,7 +11,7 @@ const Index = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-20 lg:py-32">
+        <section className="relative overflow-hidden py-20 lg:py-32 border-b border-card-border">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
               <h1 className="text-5xl lg:text-7xl font-bold text-gradient-primary mb-6 leading-tight">Conecte-se estrategicamente e impulsione o seu networking com a Bridge.</h1>
@@ -47,7 +47,7 @@ const Index = () => {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-20" id="como-funciona">
+        <section className="py-20 border-b border-card-border" id="como-funciona">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16 animate-fade-in-up">
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
@@ -120,7 +120,7 @@ const Index = () => {
         </section>
 
         {/* Social Proof Section */}
-        <section className="py-16 bg-transparent">
+        <section className="py-16 bg-transparent border-b border-card-border">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12 animate-fade-in-up">
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
