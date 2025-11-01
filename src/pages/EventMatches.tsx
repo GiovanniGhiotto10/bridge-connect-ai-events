@@ -33,7 +33,7 @@ const EventMatches = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <Header isLoggedIn={true} />
       
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Navigation Tabs */}
