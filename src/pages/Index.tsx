@@ -43,25 +43,8 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Social Proof Section */}
-        <section className="py-16 bg-card/30 border-y border-card-border">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12 animate-fade-in-up">
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                A Ponte para Conexões de Valor
-              </h2>
-            </div>
-            
-            <div className="max-w-4xl mx-auto">
-              <div className="animate-fade-in-up">
-                <img src="/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png" alt="Networking inteligente em eventos" className="w-full h-auto rounded-lg shadow-card" />
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* How It Works Section */}
-        <section className="py-20" id="como-funciona">
+        <section className="py-20 border-b border-card-border" id="como-funciona">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16 animate-fade-in-up">
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
@@ -133,165 +116,18 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Value Proposition Section - Redesigned */}
-        <section className="py-20 bg-gradient-surface" id="organizadores">
+        {/* Social Proof Section */}
+        <section className="py-16 bg-card/30 border-b border-card-border">
           <div className="container mx-auto px-4">
+            <div className="text-center mb-12 animate-fade-in-up">
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                A Ponte para Conexões de Valor
+              </h2>
+            </div>
+            
             <div className="max-w-6xl mx-auto">
-              {/* Centered Title and Subtitle */}
-              <div className="text-center mb-16 animate-fade-in-up">
-                <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                  SUA PLATAFORMA COMPLETA DE EVENTOS
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">Crie momentos memoráveis e conexões estratégicas com a potência da nossa tecnologia de matchmaking.</p>
-              </div>
-
-              {/* 5-Block Layout with Neon Connections */}
-              <div className="relative">
-                {/* Grid Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
-                  {/* Left Column - Two blocks */}
-                  <div className="space-y-8">
-                    {/* Top Left Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" id="networking-block">
-                      <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="networking-title">
-                        NETWORKING SEM ESFORÇO PARA PARTICIPANTES
-                      </h3>
-                      <p className="text-muted-foreground text-sm">
-                        A IA faz o trabalho pesado de encontrar conexões relevantes.
-                      </p>
-                    </div>
-                    
-                    {/* Bottom Left Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" style={{
-                    animationDelay: '0.2s'
-                  }} id="personalization-block">
-                      <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="personalization-title">
-                        OPÇÕES DE PERSONALIZAÇÃO PARA ORGANIZADORES
-                      </h3>
-                      <p className="text-muted-foreground text-sm">
-                        Configure eventos públicos, privados, gratuitos ou pagos.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Center Block - MATCH IA */}
-                  <div className="relative lg:my-8">
-                    <div className="card-bridge p-8 animate-scale-in relative z-20" style={{
-                    animationDelay: '0.4s'
-                  }} id="match-ia-block">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center">
-                          <Target className="h-6 w-6 text-primary-foreground" />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-foreground text-lg" id="match-ia-title">MATCH IA</h3>
-                          <p className="text-sm text-muted-foreground">Tecnologia exclusiva</p>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-4">
-                        <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
-                          <span className="text-sm font-medium">Compatibilidade Analisada</span>
-                          <Badge className="bg-primary/10 text-primary">98%</Badge>
-                        </div>
-                        
-                        <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
-                          <span className="text-sm font-medium">Conexões Sugeridas</span>
-                          <Badge className="bg-primary/10 text-primary">12</Badge>
-                        </div>
-                        
-                        <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
-                          <span className="text-sm font-medium">Reuniões Agendadas</span>
-                          <Badge className="bg-success/10 text-success">7</Badge>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Neon Connecting Lines - Only on large screens */}
-                    <div className="hidden lg:block absolute inset-0 pointer-events-none" style={{
-                    zIndex: 10
-                  }}>
-                      {/* Connection 1: From right side of top-left block to left side of center */}
-                      <div className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" style={{
-                      top: '50%',
-                      // Center vertically with top-left block
-                      left: '-6rem',
-                      // Start from outside the center block
-                      width: '6rem',
-                      // Connect to left edge of center block
-                      transform: 'translateY(-calc(4rem + 1rem))',
-                      // Align with top-left block
-                      boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
-                    }}></div>
-                      
-                      {/* Connection 2: From right side of bottom-left block to left side of center */}
-                      <div className="absolute h-0.5 bg-gradient-to-r from-[#001eff] to-[#001eff]" style={{
-                      bottom: '50%',
-                      // Center vertically with bottom-left block
-                      left: '-6rem',
-                      // Start from outside the center block
-                      width: '6rem',
-                      // Connect to left edge of center block
-                      transform: 'translateY(calc(4rem + 1rem))',
-                      // Align with bottom-left block
-                      boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
-                    }}></div>
-                      
-                      {/* Connection 3: From left side of top-right block to right side of center */}
-                      <div className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" style={{
-                      top: '50%',
-                      // Center vertically with top-right block
-                      right: '-6rem',
-                      // Start from outside the center block
-                      width: '6rem',
-                      // Connect to right edge of center block
-                      transform: 'translateY(-calc(4rem + 1rem))',
-                      // Align with top-right block
-                      boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
-                    }}></div>
-                      
-                      {/* Connection 4: From left side of bottom-right block to right side of center */}
-                      <div className="absolute h-0.5 bg-gradient-to-l from-[#001eff] to-[#001eff]" style={{
-                      bottom: '50%',
-                      // Center vertically with bottom-right block
-                      right: '-6rem',
-                      // Start from outside the center block
-                      width: '6rem',
-                      // Connect to right edge of center block
-                      transform: 'translateY(calc(4rem + 1rem))',
-                      // Align with bottom-right block
-                      boxShadow: '0 0 10px #001eff, 0 0 20px #001eff50'
-                    }}></div>
-                    </div>
-                  </div>
-
-                  {/* Right Column - Two blocks */}
-                  <div className="space-y-8">
-                    {/* Top Right Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" style={{
-                    animationDelay: '0.6s'
-                  }} id="community-block">
-                      <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="community-title">
-                        COMUNIDADE ENGAJADA E DE ALTO VALOR
-                      </h3>
-                      <p className="text-muted-foreground text-sm">
-                        Participantes satisfeitos retornam e recomendam seus eventos.
-                      </p>
-                    </div>
-                    
-                    {/* Bottom Right Block */}
-                    <div className="card-bridge p-6 animate-scale-in relative" style={{
-                    animationDelay: '0.8s'
-                  }} id="analytics-block">
-                      <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider" id="analytics-title">
-                        ANALYTICS E INSIGHTS EM TEMPO REAL
-                      </h3>
-                      <p className="text-muted-foreground text-sm">
-                        Acompanhe o sucesso do seu evento com métricas detalhadas.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="animate-fade-in-up">
+                <img src="/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png" alt="Networking inteligente em eventos" className="w-full h-auto" />
               </div>
             </div>
           </div>
