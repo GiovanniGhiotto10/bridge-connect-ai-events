@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import Header from "@/components/layout/Header";
 import bridgeLogo from "@/assets/logo-Bridge.svg";
 
 const Login = () => {
@@ -46,8 +47,11 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-white">
+      <Header isLoggedIn={false} />
+      
+      <div className="flex items-center justify-center p-4 pt-20">
+        <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
           {/* Logo */}
           <div className="flex justify-center mb-8">
@@ -128,6 +132,7 @@ const Login = () => {
             Entrar com Google
           </Button>
         </div>
+      </div>
       </div>
     </div>
   );
