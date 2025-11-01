@@ -64,7 +64,7 @@ const Login = () => {
               Bem-vindo(a) à Bridge
             </h1>
             <p className="text-gray-600 text-sm">
-              Por favor, entre ou cadastre-se abaixo.
+              Por favor, entre com seu email abaixo.
             </p>
           </div>
 
