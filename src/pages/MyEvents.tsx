@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, MapPin } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -10,27 +11,47 @@ const userEvents = [
   {
     id: 1,
     title: "Tech Summit 2024",
-    date: "15 de Março, 2024",
+    date: "2024-03-15",
+    displayDate: "15 de Março, 2024",
     location: "São Paulo, SP",
     image: "/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png"
   },
   {
     id: 2,
     title: "Startup Meetup",
-    date: "20 de Março, 2024",
+    date: "2025-12-20",
+    displayDate: "20 de Dezembro, 2025",
     location: "Rio de Janeiro, RJ",
     image: "/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png"
   },
   {
     id: 3,
     title: "Design Conference",
-    date: "25 de Março, 2024",
+    date: "2025-11-25",
+    displayDate: "25 de Novembro, 2025",
     location: "Belo Horizonte, MG",
+    image: "/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png"
+  },
+  {
+    id: 4,
+    title: "Marketing Digital Workshop",
+    date: "2024-01-10",
+    displayDate: "10 de Janeiro, 2024",
+    location: "Brasília, DF",
     image: "/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png"
   }
 ];
 
 const MyEvents = () => {
+  const [activeTab, setActiveTab] = useState<"proximos" | "passados">("proximos");
+
+  // Filtrar eventos baseado na data atual
+  const today = new Date();
+  const upcomingEvents = userEvents.filter(event => new Date(event.date) >= today);
+  const pastEvents = userEvents.filter(event => new Date(event.date) < today);
+  
+  const displayedEvents = activeTab === "proximos" ? upcomingEvents : pastEvents;
+
   return (
     <div className="min-h-screen bg-background">
       <Header isLoggedIn={true} />
@@ -38,8 +59,26 @@ const MyEvents = () => {
       <main className="container mx-auto px-4 py-12">
         <h1 className="text-4xl font-bold text-gradient-primary mb-8">Meus Eventos</h1>
         
+        {/* Botões de Filtro */}
+        <div className="flex gap-4 mb-8">
+          <Button
+            variant={activeTab === "proximos" ? "default" : "outline"}
+            className={activeTab === "proximos" ? "btn-bridge-primary" : "btn-bridge-outline border-2 border-primary"}
+            onClick={() => setActiveTab("proximos")}
+          >
+            Próximos
+          </Button>
+          <Button
+            variant={activeTab === "passados" ? "default" : "outline"}
+            className={activeTab === "passados" ? "btn-bridge-primary" : "btn-bridge-outline border-2 border-primary"}
+            onClick={() => setActiveTab("passados")}
+          >
+            Passados
+          </Button>
+        </div>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {userEvents.map((event) => (
+          {displayedEvents.map((event) => (
             <Card key={event.id} className="card-bridge-interactive overflow-hidden group cursor-pointer h-full flex flex-col">
               <div className="relative aspect-square overflow-hidden">
                 <img 
@@ -57,7 +96,7 @@ const MyEvents = () => {
                 <div className="space-y-1">
                   <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
                     <Calendar className="h-3 w-3 flex-shrink-0" />
-                    <span className="truncate">{event.date}</span>
+                    <span className="truncate">{event.displayDate}</span>
                   </div>
                   <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
                     <MapPin className="h-3 w-3 flex-shrink-0" />
@@ -84,6 +123,15 @@ const MyEvents = () => {
             </Card>
           ))}
         </div>
+        
+        {/* Mensagem quando não há eventos */}
+        {displayedEvents.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">
+              Nenhum evento {activeTab === "proximos" ? "próximo" : "passado"} encontrado.
+            </p>
+          </div>
+        )}
       </main>
 
       <Footer />
