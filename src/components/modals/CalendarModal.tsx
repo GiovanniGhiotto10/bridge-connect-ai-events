@@ -26,9 +26,9 @@ const CalendarModal = ({ isOpen, onClose, onDateSelect }: CalendarModalProps) =>
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gray-800 border-gray-700" style={{ backgroundColor: '#040A1A' }}>
+      <DialogContent className="bg-white border-gray-300">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-white">Selecionar Data</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-foreground">Selecionar Data</DialogTitle>
         </DialogHeader>
         
         <div className="flex justify-center">
@@ -36,7 +36,7 @@ const CalendarModal = ({ isOpen, onClose, onDateSelect }: CalendarModalProps) =>
             mode="single"
             selected={selectedDate}
             onSelect={handleDateSelect}
-            className="rounded-md border border-gray-700 bg-gray-800 text-white pointer-events-auto"
+            className="rounded-md border border-card-border bg-white pointer-events-auto"
             disabled={(date) => date < new Date()}
           />
         </div>
