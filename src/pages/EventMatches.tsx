@@ -6,6 +6,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { Users, Bell } from "lucide-react";
 import bridgeLogo from "@/assets/logo-Bridge.svg";
+import ProfileDetailsModal from "@/components/modals/ProfileDetailsModal";
 
 // Mock data - Replace with real data from API
 const mockMatches = [
@@ -31,6 +32,13 @@ const EventMatches = () => {
   const [searchParams] = useSearchParams();
   const eventId = searchParams.get("event");
   const [activeTab, setActiveTab] = useState("conexoes");
+  const [selectedProfile, setSelectedProfile] = useState<typeof mockMatches[0] | null>(null);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
+  const handleCardClick = (match: typeof mockMatches[0]) => {
+    setSelectedProfile(match);
+    setIsProfileModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -79,7 +87,8 @@ const EventMatches = () => {
               {mockMatches.map((match) => (
                 <Card
                   key={match.id}
-                  className="p-6 bg-white border border-gray-200 hover:border-blue-400 transition-colors"
+                  className="p-6 bg-white border border-gray-200 hover:border-blue-400 transition-colors cursor-pointer"
+                  onClick={() => handleCardClick(match)}
                 >
                   {/* User Info Section */}
                   <div className="flex items-start gap-4 mb-4">
@@ -146,6 +155,15 @@ const EventMatches = () => {
           </TabsContent>
         </Tabs>
       </main>
+
+      {/* Profile Details Modal */}
+      {selectedProfile && (
+        <ProfileDetailsModal
+          isOpen={isProfileModalOpen}
+          onClose={() => setIsProfileModalOpen(false)}
+          profile={selectedProfile}
+        />
+      )}
     </div>
   );
 };
