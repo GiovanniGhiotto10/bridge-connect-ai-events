@@ -50,21 +50,21 @@ const EventMatches = () => {
           <TabsList className="grid grid-cols-1 md:grid-cols-3 w-full bg-white border border-gray-200 p-1 rounded-lg mb-6 md:mb-8 gap-1 md:gap-0 h-auto md:h-auto">
             <TabsTrigger
               value="conexoes"
-              className="flex items-center justify-center gap-2 data-[state=active]:bg-gray-100 data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-md md:rounded-none text-sm py-4 md:py-2 w-full"
+              className="flex items-center justify-center gap-2 data-[state=active]:bg-gray-100 data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-0 data-[state=active]:border-blue-600 rounded-md text-sm py-4 md:py-2 w-full"
             >
               <img src={bridgeLogo} alt="Bridge" className="w-6 h-6 md:w-8 md:h-8" />
               <span>Conexões</span>
             </TabsTrigger>
             <TabsTrigger
               value="participantes"
-              className="flex items-center justify-center gap-2 data-[state=active]:bg-gray-100 data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-md md:rounded-none text-sm py-4 md:py-2 w-full"
+              className="flex items-center justify-center gap-2 data-[state=active]:bg-gray-100 data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-0 data-[state=active]:border-blue-600 rounded-md text-sm py-4 md:py-2 w-full"
             >
               <Users className="w-4 h-4" />
               <span>Participantes</span>
             </TabsTrigger>
             <TabsTrigger
               value="solicitacoes"
-              className="flex items-center justify-center gap-2 data-[state=active]:bg-gray-100 data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-md md:rounded-none text-sm py-4 md:py-2 w-full"
+              className="flex items-center justify-center gap-2 data-[state=active]:bg-gray-100 data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-0 data-[state=active]:border-blue-600 rounded-md text-sm py-4 md:py-2 w-full"
             >
               <Bell className="w-4 h-4" />
               <span>Solicitações</span>
