@@ -5,6 +5,7 @@ import bridgeLogo from "@/assets/logo-Bridge.svg";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { User, Settings, LogOut, Menu, X, Calendar, Search, Plus, Bell } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface HeaderProps {
   isLoggedIn?: boolean;
@@ -20,6 +21,7 @@ type NavigationLink = {
 const Header = ({ isLoggedIn = false }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isMobile = useIsMobile();
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
 
@@ -74,17 +76,6 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
           })}
         </nav>
 
-        {/* Mobile Menu Button (for logged in users) */}
-        {isLoggedIn && (
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="md:hidden text-black hover:bg-primary/20" 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        )}
 
         {/* Right Section */}
         <div className="flex items-center space-x-2 md:space-x-4">
@@ -146,6 +137,26 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               
               {/* Mobile Icons - Always visible */}
               <div className="flex md:hidden items-center space-x-2">
+                {/* Navigation Links - Icon only */}
+                {navigationLinks.map(link => {
+                  const Icon = link.icon;
+                  return Icon ? (
+                    <Button 
+                      key={link.path}
+                      variant="ghost" 
+                      size="icon" 
+                      asChild
+                      className={`text-black hover:bg-primary/20 ${
+                        isActive(link.path) ? "bg-primary/10 text-primary" : ""
+                      }`}
+                    >
+                      <Link to={link.path}>
+                        <Icon className="h-5 w-5" />
+                      </Link>
+                    </Button>
+                  ) : null;
+                })}
+                
                 {/* Notifications Icon */}
                 <Button variant="ghost" size="icon" className="text-black hover:bg-primary/20">
                   <Bell className="h-5 w-5" />
@@ -250,38 +261,6 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
         </div>
       )}
 
-      {/* Mobile Menu - Logged In */}
-      {isMobileMenuOpen && isLoggedIn && (
-        <div className="md:hidden border-t border-card-border bg-white backdrop-blur-sm">
-          <div className="container mx-auto px-4 py-4 space-y-3">
-            {navigationLinks.map(link => {
-              const Icon = link.icon;
-              return (
-                <Link 
-                  key={link.path} 
-                  to={link.path} 
-                  onClick={() => setIsMobileMenuOpen(false)} 
-                  className={`block transition-colors flex items-center space-x-2 p-2 rounded ${
-                    isActive(link.path) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-primary"
-                  }`}
-                >
-                  {Icon && <Icon className="h-5 w-5" />}
-                  <span className="font-medium">{link.label}</span>
-                </Link>
-              );
-            })}
-            
-            <div className="pt-3 border-t border-card-border">
-              <Button variant="outline" asChild className="w-full justify-start text-black border-primary hover:bg-primary hover:text-white">
-                <Link to="/criar-evento" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Plus className="h-5 w-5 mr-2" />
-                  Criar Evento
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
 };
