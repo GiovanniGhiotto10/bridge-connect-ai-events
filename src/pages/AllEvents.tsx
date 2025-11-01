@@ -294,38 +294,34 @@ const AllEvents = () => {
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {paginatedEvents.map((event) => (
-                <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
-                  <div className="relative aspect-square overflow-hidden">
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  
-                  <CardContent className="p-4">
-                    <h3 className="text-sm font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                      {event.title}
-                    </h3>
-                    
-                    <div className="space-y-1 mb-3">
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Calendar className="h-3 w-3" />
-                        {formatDate(event.date)}
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <MapPin className="h-3 w-3" />
-                        {event.location}
-                      </div>
+                <Link key={event.id} to={`/evento/${event.id}`} className="block">
+                  <Card className="card-bridge-interactive overflow-hidden group cursor-pointer h-full">
+                    <div className="relative aspect-square overflow-hidden">
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
                     </div>
-
-                    <Button className="btn-bridge-primary w-full" size="sm" asChild>
-                      <Link to={`/evento/${event.id}`}>
-                        Ver Detalhes
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+                    
+                    <CardContent className="p-4">
+                      <h3 className="text-sm font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                        {event.title}
+                      </h3>
+                      
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <Calendar className="h-3 w-3" />
+                          {formatDate(event.date)}
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <MapPin className="h-3 w-3" />
+                          {event.location}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           )}
