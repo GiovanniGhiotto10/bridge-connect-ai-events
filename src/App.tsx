@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 import AllEvents from "./pages/AllEvents";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import VerifyCode from "./pages/VerifyCode";
 import MyEvents from "./pages/MyEvents";
 import EventMatches from "./pages/EventMatches";
 
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/cadastro" element={<Signup />} />
+            <Route path="/verify-code" element={<VerifyCode />} />
             <Route path="/criar-evento" element={<CreateEvent />} />
             <Route path="/eventos" element={<DiscoverEvents />} />
             <Route path="/todos-eventos" element={<AllEvents />} />
