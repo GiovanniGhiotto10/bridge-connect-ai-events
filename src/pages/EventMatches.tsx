@@ -44,57 +44,57 @@ const EventMatches = () => {
     <div className="min-h-screen bg-white">
       <Header isLoggedIn={true} />
       
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
+      <main className="container mx-auto px-4 py-4 md:py-8 max-w-4xl">
         {/* Navigation Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="w-full bg-white border border-gray-200 p-1 rounded-lg mb-8">
+          <TabsList className="grid grid-cols-3 w-full bg-white border border-gray-200 p-1 rounded-lg mb-4 md:mb-8">
             <TabsTrigger
               value="conexoes"
-              className="flex-1 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none"
+              className="flex items-center justify-center gap-1 md:gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none text-xs md:text-sm"
             >
-              <img src={bridgeLogo} alt="Bridge" className="w-8 h-8 mr-2" />
-              Conexões
+              <img src={bridgeLogo} alt="Bridge" className="w-5 h-5 md:w-8 md:h-8" />
+              <span className="hidden sm:inline">Conexões</span>
             </TabsTrigger>
             <TabsTrigger
               value="participantes"
-              className="flex-1 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none"
+              className="flex items-center justify-center gap-1 md:gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none text-xs md:text-sm"
             >
-              <Users className="w-4 h-4 mr-2" />
-              Participantes
+              <Users className="w-4 h-4" />
+              <span className="hidden sm:inline">Participantes</span>
             </TabsTrigger>
             <TabsTrigger
               value="solicitacoes"
-              className="flex-1 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none"
+              className="flex items-center justify-center gap-1 md:gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none text-xs md:text-sm"
             >
-              <Bell className="w-4 h-4 mr-2" />
-              Solicitações
+              <Bell className="w-4 h-4" />
+              <span className="hidden sm:inline">Solicitações</span>
             </TabsTrigger>
           </TabsList>
 
           {/* Conexões Tab Content */}
-          <TabsContent value="conexoes" className="space-y-8">
+          <TabsContent value="conexoes" className="space-y-4 md:space-y-8">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 uppercase mb-2">
+              <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 CONEXÕES
               </h1>
-              <p className="text-gray-600">
+              <p className="text-sm md:text-base text-gray-600">
                 Conexões ideais baseadas nos seus interesses
               </p>
             </div>
 
             {/* Match Cards */}
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {mockMatches.map((match) => (
                 <Card
                   key={match.id}
-                  className="p-6 bg-white border border-gray-200 hover:border-blue-400 transition-colors cursor-pointer"
+                  className="p-4 md:p-6 bg-white border border-gray-200 hover:border-blue-400 transition-colors cursor-pointer"
                   onClick={() => handleCardClick(match)}
                 >
                   {/* User Info Section */}
-                  <div className="flex items-start gap-4 mb-4">
-                    <Avatar className="h-14 w-14">
+                  <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                    <Avatar className="h-12 w-12 md:h-14 md:w-14 flex-shrink-0">
                       <AvatarImage src={match.avatar} alt={match.name} />
-                      <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold">
+                      <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold text-sm md:text-base">
                         {match.name
                           .split(" ")
                           .map((n) => n[0])
@@ -103,18 +103,18 @@ const EventMatches = () => {
                           .slice(0, 2)}
                       </AvatarFallback>
                     </Avatar>
-                    <div>
-                      <h3 className="text-lg font-bold text-gray-900">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-base md:text-lg font-bold text-gray-900 truncate">
                         {match.name}
                       </h3>
-                      <p className="text-sm text-gray-600">{match.company}</p>
-                      <p className="text-sm text-gray-600">{match.position}</p>
+                      <p className="text-xs md:text-sm text-gray-600 truncate">{match.company}</p>
+                      <p className="text-xs md:text-sm text-gray-600 truncate">{match.position}</p>
                     </div>
                   </div>
 
                   {/* AI Justification Section */}
-                  <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                    <p className="text-sm text-gray-700 leading-relaxed">
+                  <div className="bg-gray-50 rounded-lg p-3 md:p-4 border border-gray-100">
+                    <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
                       <span className="font-semibold text-gray-900">Conexão:</span>{" "}
                       {match.reason}
                     </p>
@@ -125,31 +125,31 @@ const EventMatches = () => {
           </TabsContent>
 
           {/* Participantes Tab Content */}
-          <TabsContent value="participantes" className="space-y-8">
+          <TabsContent value="participantes" className="space-y-4 md:space-y-8">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 uppercase mb-2">
+              <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 PARTICIPANTES
               </h1>
-              <p className="text-gray-600">
+              <p className="text-sm md:text-base text-gray-600">
                 Todos os participantes do evento
               </p>
             </div>
-            <div className="text-center py-12 text-gray-500">
+            <div className="text-center py-8 md:py-12 text-sm md:text-base text-gray-500">
               Em breve: lista de todos os participantes
             </div>
           </TabsContent>
 
           {/* Solicitações Tab Content */}
-          <TabsContent value="solicitacoes" className="space-y-8">
+          <TabsContent value="solicitacoes" className="space-y-4 md:space-y-8">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 uppercase mb-2">
+              <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 SOLICITAÇÕES
               </h1>
-              <p className="text-gray-600">
+              <p className="text-sm md:text-base text-gray-600">
                 Gerencie suas solicitações de conexão
               </p>
             </div>
-            <div className="text-center py-12 text-gray-500">
+            <div className="text-center py-8 md:py-12 text-sm md:text-base text-gray-500">
               Em breve: suas solicitações de conexão
             </div>
           </TabsContent>

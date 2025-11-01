@@ -18,18 +18,18 @@ interface ProfileDetailsModalProps {
 const ProfileDetailsModal = ({ isOpen, onClose, profile }: ProfileDetailsModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="bg-white max-w-[95vw] md:max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-gray-900">
+          <DialogTitle className="text-lg md:text-xl font-bold text-gray-900">
             Detalhes do Perfil
           </DialogTitle>
         </DialogHeader>
 
         {/* Seção de Identificação */}
-        <div className="flex flex-col items-center text-center py-6">
-          <Avatar className="h-24 w-24 mb-4">
+        <div className="flex flex-col items-center text-center py-4 md:py-6">
+          <Avatar className="h-20 w-20 md:h-24 md:w-24 mb-3 md:mb-4">
             <AvatarImage src={profile.avatar} alt={profile.name} />
-            <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold text-2xl">
+            <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold text-xl md:text-2xl">
               {profile.name
                 .split(" ")
                 .map((n) => n[0])
@@ -38,11 +38,11 @@ const ProfileDetailsModal = ({ isOpen, onClose, profile }: ProfileDetailsModalPr
                 .slice(0, 2)}
             </AvatarFallback>
           </Avatar>
-          <h2 className="text-2xl font-bold text-gray-900 mb-1">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-1">
             {profile.name}
           </h2>
-          <p className="text-base text-gray-600 mb-1">{profile.position}</p>
-          <p className="text-base text-gray-600">{profile.company}</p>
+          <p className="text-sm md:text-base text-gray-600 mb-1">{profile.position}</p>
+          <p className="text-sm md:text-base text-gray-600">{profile.company}</p>
         </div>
 
         {/* Seção de Perguntas */}

@@ -215,34 +215,34 @@ const DiscoverEvents = () => {
     <div className="min-h-screen bg-background">
       <Header isLoggedIn={true} />
       
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-6 md:py-12">
         {/* Page Header */}
-        <div className="text-center mb-12 animate-fade-in-up">
-          <h1 className="text-4xl font-bold text-gradient-primary mb-4">
+        <div className="text-center mb-8 md:mb-12 animate-fade-in-up">
+          <h1 className="text-2xl md:text-4xl font-bold text-gradient-primary mb-3 md:mb-4">
             Descubra Eventos com Conexões Reais
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Encontre eventos onde nossa IA conecta você com pessoas que compartilham seus interesses e objetivos.
           </p>
         </div>
 
         {/* Featured Events Carousel */}
-        <section className="mb-16">
-          <div className="flex items-center gap-3 mb-8 justify-center">
-            <Star className="h-6 w-6 text-primary" />
-            <h2 className="text-2xl font-bold text-foreground">Em Destaque</h2>
+        <section className="mb-10 md:mb-16">
+          <div className="flex items-center gap-2 md:gap-3 mb-6 md:mb-8 justify-center">
+            <Star className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+            <h2 className="text-xl md:text-2xl font-bold text-foreground">Em Destaque</h2>
           </div>
           
           <FeaturedEventsCarousel events={featuredEvents} />
         </section>
 
         {/* Upcoming Events */}
-        <section className="mb-16">
-          <h2 className="text-2xl font-bold text-foreground mb-8">
+        <section className="mb-10 md:mb-16">
+          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6 md:mb-8">
             Próximos Eventos
           </h2>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
             {allEvents.map((event) => (
               <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
                 <div className="relative aspect-square overflow-hidden">
@@ -253,27 +253,27 @@ const DiscoverEvents = () => {
                   />
                 </div>
                 
-                <CardContent className="p-4">
-                  <h3 className="text-base font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">
+                <CardContent className="p-3 md:p-4">
+                  <h3 className="text-sm md:text-base font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">
                     {event.title}
                   </h3>
                   
-                  <p className="text-sm text-muted-foreground mb-3 line-clamp-1">
+                  <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-3 line-clamp-1">
                     {event.description}
                   </p>
                   
-                  <div className="space-y-1 mb-3">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <Calendar className="h-3 w-3" />
-                      {formatDate(event.date)}
+                  <div className="space-y-1 mb-2 md:mb-3">
+                    <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
+                      <Calendar className="h-3 w-3 flex-shrink-0" />
+                      <span className="truncate">{formatDate(event.date)}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <MapPin className="h-3 w-3" />
-                      {event.location}
+                    <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
+                      <MapPin className="h-3 w-3 flex-shrink-0" />
+                      <span className="truncate">{event.location}</span>
                     </div>
                   </div>
 
-                  <Button className="btn-bridge-primary w-full" size="sm" asChild>
+                  <Button className="btn-bridge-primary w-full text-xs md:text-sm py-1.5 md:py-2" size="sm" asChild>
                     <Link to={`/evento/${event.id}`}>
                       Ver Detalhes
                     </Link>
@@ -285,7 +285,7 @@ const DiscoverEvents = () => {
 
           {/* Ver Todos Button */}
           <div className="text-center">
-            <Button variant="outline" className="btn-bridge-outline px-8 py-3" asChild>
+            <Button variant="outline" className="btn-bridge-outline px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base" asChild>
               <Link to="/todos-eventos">
                 Ver todos
                 <ChevronRight className="h-4 w-4 ml-2" />
@@ -296,22 +296,22 @@ const DiscoverEvents = () => {
 
         {/* Categories Section */}
         <section>
-          <h2 className="text-2xl font-bold text-foreground mb-8">
+          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6 md:mb-8">
             CATEGORIAS
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {categories.map((category) => {
               const IconComponent = category.icon;
               const categoryParam = encodeURIComponent(category.name.toLowerCase());
               return (
                 <Link key={category.id} to={`/todos-eventos?categoria=${categoryParam}`}>
                   <Card className="card-bridge-interactive group cursor-pointer">
-                    <CardContent className="p-8 text-center">
-                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r ${category.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                        <IconComponent className="h-8 w-8 text-white" />
+                    <CardContent className="p-6 md:p-8 text-center">
+                      <div className={`inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-gradient-to-r ${category.color} mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                        <IconComponent className="h-6 w-6 md:h-8 md:w-8 text-white" />
                       </div>
-                      <h3 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors uppercase tracking-wider">
+                      <h3 className="text-xs md:text-sm font-bold text-foreground group-hover:text-primary transition-colors uppercase tracking-wider">
                         {category.name}
                       </h3>
                     </CardContent>

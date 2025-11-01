@@ -66,13 +66,13 @@ const FeaturedEventsCarousel = ({ events }: FeaturedEventsCarouselProps) => {
 
   return (
     <div 
-      className="relative py-8"
+      className="relative py-4 md:py-8"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Main Carousel */}
-      <div className="relative mb-6">
-        <div className="relative h-80 md:h-96 overflow-hidden">
+      <div className="relative mb-4 md:mb-6">
+        <div className="relative h-64 md:h-80 lg:h-96 overflow-hidden">
           {/* Carousel Images with Partial Side Views */}
           <div className="flex items-center justify-center h-full">
             {events.map((event, index) => {
@@ -94,15 +94,15 @@ const FeaturedEventsCarousel = ({ events }: FeaturedEventsCarouselProps) => {
                 opacityClass = 'opacity-100';
                 scaleClass = 'scale-100';
               } else if (isPrev) {
-                transformClass = '-translate-x-32';
+                transformClass = 'md:-translate-x-32 -translate-x-0';
                 zIndexClass = 'z-10';
-                opacityClass = 'opacity-60';
-                scaleClass = 'scale-90';
+                opacityClass = 'md:opacity-60 opacity-0';
+                scaleClass = 'md:scale-90 scale-0';
               } else if (isNext) {
-                transformClass = 'translate-x-32';
+                transformClass = 'md:translate-x-32 translate-x-0';
                 zIndexClass = 'z-10';
-                opacityClass = 'opacity-60';
-                scaleClass = 'scale-90';
+                opacityClass = 'md:opacity-60 opacity-0';
+                scaleClass = 'md:scale-90 scale-0';
               }
 
               return (
@@ -115,14 +115,14 @@ const FeaturedEventsCarousel = ({ events }: FeaturedEventsCarouselProps) => {
                       <img
                         src={`https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop&crop=center`}
                         alt={event.title}
-                        className="w-[600px] h-80 md:h-96 object-cover rounded-lg cursor-pointer hover:opacity-95 transition-opacity"
+                        className="w-[90vw] md:w-[600px] h-64 md:h-80 lg:h-96 object-cover rounded-lg cursor-pointer hover:opacity-95 transition-opacity"
                       />
                     </Link>
                   ) : (
                     <img
                       src={`https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop&crop=center`}
                       alt={event.title}
-                      className="w-[600px] h-80 md:h-96 object-cover rounded-lg"
+                      className="w-[90vw] md:w-[600px] h-64 md:h-80 lg:h-96 object-cover rounded-lg"
                     />
                   )}
                 </div>
@@ -133,47 +133,47 @@ const FeaturedEventsCarousel = ({ events }: FeaturedEventsCarouselProps) => {
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white hover:bg-gray-100 text-black rounded-full flex items-center justify-center transition-all z-30 shadow-lg border-2 border-black"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white hover:bg-gray-100 text-black rounded-full flex items-center justify-center transition-all z-30 shadow-lg border-2 border-black"
           >
-            <ChevronLeft className="h-6 w-6" />
+            <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white hover:bg-gray-100 text-black rounded-full flex items-center justify-center transition-all z-30 shadow-lg border-2 border-black"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white hover:bg-gray-100 text-black rounded-full flex items-center justify-center transition-all z-30 shadow-lg border-2 border-black"
           >
-            <ChevronRight className="h-6 w-6" />
+            <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
           </button>
         </div>
       </div>
 
       {/* Event Information Below */}
-      <div className="text-center max-w-4xl mx-auto mb-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <div className="text-center max-w-4xl mx-auto mb-6 md:mb-8 px-4">
+        <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 md:mb-4">
           {currentEvent.title}
         </h2>
         
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-muted-foreground mb-6">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4 lg:gap-8 text-muted-foreground mb-4 md:mb-6">
           <div className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-primary" />
-            <span className="text-lg">
+            <Calendar className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+            <span className="text-sm md:text-base lg:text-lg">
               {formatDate(currentEvent.date, currentEvent.time)}
             </span>
           </div>
           <div className="hidden md:block w-px h-6 bg-muted-foreground/30" />
           <div className="flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-primary" />
-            <span className="text-lg">{currentEvent.location}</span>
+            <MapPin className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+            <span className="text-sm md:text-base lg:text-lg">{currentEvent.location}</span>
           </div>
         </div>
       </div>
 
       {/* Dot Indicators */}
-      <div className="flex justify-center gap-3">
+      <div className="flex justify-center gap-2 md:gap-3">
         {events.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
               index === currentIndex 
                 ? 'bg-primary scale-125' 
                 : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'

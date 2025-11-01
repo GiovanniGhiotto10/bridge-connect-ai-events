@@ -114,16 +114,16 @@ const CreateEvent = () => {
     >
       <Header isLoggedIn={true} />
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-4 md:py-8">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
             {/* Left Column - Event Image */}
             <div className="space-y-4">
               <EventImageUpload image={eventData.image} onImageClick={() => openModal('imageUpload')} />
             </div>
 
             {/* Right Column - Form */}
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {/* Visibility Dropdown - moved to top without title */}
               <div className="flex justify-end items-center">
                 <VisibilityDropdown isPublic={eventData.isPublic} onChange={isPublic => setEventData(prev => ({
@@ -154,9 +154,9 @@ const CreateEvent = () => {
               />
 
               {/* Description */}
-              <div onClick={() => openModal('description')} className="flex items-center gap-3 p-3 rounded-lg border border-gray-300 hover:border-blue-400 cursor-pointer hover:bg-gray-50 transition-all mx-[10px]">
-                <Edit3 className="h-4 w-4 text-blue-400" />
-                <span className="text-black text-sm">
+              <div onClick={() => openModal('description')} className="flex items-center gap-2 md:gap-3 p-2.5 md:p-3 rounded-lg border border-gray-300 hover:border-blue-400 cursor-pointer hover:bg-gray-50 transition-all mx-[10px]">
+                <Edit3 className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                <span className="text-black text-xs md:text-sm truncate">
                   {eventData.description || "Adicionar Descrição"}
                 </span>
               </div>
@@ -171,8 +171,8 @@ const CreateEvent = () => {
               />
 
               {/* Create Button */}
-              <div className="pt-4">
-                <Button onClick={handleSubmit} className="w-full py-4 text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white border-none mx-[10px]">
+              <div className="pt-2 md:pt-4">
+                <Button onClick={handleSubmit} className="w-full py-3 md:py-4 text-sm md:text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white border-none mx-[10px]">
                   Criar Evento
                 </Button>
               </div>
