@@ -30,9 +30,9 @@ const TicketModal = ({ isOpen, onClose, isFree, ticketPrice, onSave }: TicketMod
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md" style={{ backgroundColor: '#040A1A' }}>
+      <DialogContent className="bg-white border-gray-300 max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-white">Configurar Ingressos</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-foreground">Configurar Ingressos</DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
@@ -40,18 +40,18 @@ const TicketModal = ({ isOpen, onClose, isFree, ticketPrice, onSave }: TicketMod
           <div 
             className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
               selectedType === 'free' 
-                ? 'border-blue-500 bg-blue-500/10' 
-                : 'border-gray-600 hover:border-gray-500'
+                ? 'border-primary bg-primary/10' 
+                : 'border-gray-300 hover:border-gray-400'
             }`}
             onClick={() => setSelectedType('free')}
           >
             <div className="flex items-center gap-3">
               <div className={`w-4 h-4 rounded-full border-2 ${
-                selectedType === 'free' ? 'bg-blue-500 border-blue-500' : 'border-gray-400'
+                selectedType === 'free' ? 'bg-primary border-primary' : 'border-gray-400'
               }`} />
               <div>
-                <p className="font-medium text-white">Gratuito</p>
-                <p className="text-sm text-gray-300">Evento sem cobrança de ingresso</p>
+                <p className="font-medium text-foreground">Gratuito</p>
+                <p className="text-sm text-muted-foreground">Evento sem cobrança de ingresso</p>
               </div>
             </div>
           </div>
@@ -60,18 +60,18 @@ const TicketModal = ({ isOpen, onClose, isFree, ticketPrice, onSave }: TicketMod
           <div 
             className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
               selectedType === 'paid' 
-                ? 'border-blue-500 bg-blue-500/10' 
-                : 'border-gray-600 hover:border-gray-500'
+                ? 'border-primary bg-primary/10' 
+                : 'border-gray-300 hover:border-gray-400'
             }`}
             onClick={() => setSelectedType('paid')}
           >
             <div className="flex items-center gap-3">
               <div className={`w-4 h-4 rounded-full border-2 ${
-                selectedType === 'paid' ? 'bg-blue-500 border-blue-500' : 'border-gray-400'
+                selectedType === 'paid' ? 'bg-primary border-primary' : 'border-gray-400'
               }`} />
               <div className="flex-1">
-                <p className="font-medium text-white">Pago</p>
-                <p className="text-sm text-gray-300">Definir valor do ingresso</p>
+                <p className="font-medium text-foreground">Pago</p>
+                <p className="text-sm text-muted-foreground">Definir valor do ingresso</p>
               </div>
             </div>
           </div>
@@ -79,16 +79,16 @@ const TicketModal = ({ isOpen, onClose, isFree, ticketPrice, onSave }: TicketMod
           {/* Price Input - Only visible when paid is selected */}
           {selectedType === 'paid' && (
             <div className="space-y-2 ml-7">
-              <Label htmlFor="price" className="text-white">Valor do Ingresso</Label>
+              <Label htmlFor="price" className="text-foreground">Valor do Ingresso</Label>
               <div className="flex items-center gap-2">
-                <span className="text-white">R$</span>
+                <span className="text-foreground">R$</span>
                 <Input
                   id="price"
                   type="text"
                   value={price}
                   onChange={(e) => setPrice(formatCurrency(e.target.value))}
                   placeholder="50,00"
-                  className="bg-gray-700 border-gray-600 text-white focus:border-blue-500"
+                  className="bg-white border-gray-300 text-foreground focus:border-primary"
                 />
               </div>
             </div>
@@ -99,13 +99,13 @@ const TicketModal = ({ isOpen, onClose, isFree, ticketPrice, onSave }: TicketMod
           <Button 
             variant="outline" 
             onClick={onClose} 
-            className="border-gray-600 text-gray-300 hover:bg-gray-700"
+            className="border-gray-300 hover:bg-gray-100"
           >
             Cancelar
           </Button>
           <Button 
             onClick={handleSave} 
-            className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white"
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
           >
             Salvar
           </Button>

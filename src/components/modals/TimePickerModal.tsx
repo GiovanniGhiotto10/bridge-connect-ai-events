@@ -28,9 +28,9 @@ const TimePickerModal = ({ isOpen, onClose, onTimeSelect }: TimePickerModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gray-800 border-gray-700 max-h-[80vh]" style={{ backgroundColor: '#040A1A' }}>
+      <DialogContent className="bg-white border-gray-300 max-h-[80vh]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-white">Selecionar Horário</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-foreground">Selecionar Horário</DialogTitle>
         </DialogHeader>
         
         <div className="max-h-96 overflow-y-auto">
@@ -38,7 +38,7 @@ const TimePickerModal = ({ isOpen, onClose, onTimeSelect }: TimePickerModalProps
             {timeSlots.map((time) => (
               <button
                 key={time}
-                className="p-3 text-white bg-gray-700 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-500 rounded-lg transition-colors border border-gray-600"
+                className="p-3 text-foreground bg-gray-100 hover:bg-primary hover:text-primary-foreground rounded-lg transition-colors border border-gray-300"
                 onClick={() => onTimeSelect(time)}
               >
                 {time}

@@ -38,21 +38,21 @@ const LocationModal = ({ isOpen, onClose, type, value, onSave }: LocationModalPr
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md" style={{ backgroundColor: '#040A1A' }}>
+      <DialogContent className="bg-white border-gray-300 max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-white">{getTitle()}</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-foreground">{getTitle()}</DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="locationInput" className="text-white">{getLabel()}</Label>
+            <Label htmlFor="locationInput" className="text-foreground">{getLabel()}</Label>
             <Input
               id="locationInput"
               type="text"
               value={currentValue}
               onChange={(e) => setCurrentValue(e.target.value)}
               placeholder={getPlaceholder()}
-              className="bg-gray-700 border-gray-600 text-white focus:border-blue-500"
+              className="bg-white border-gray-300 text-foreground focus:border-primary"
             />
           </div>
         </div>
@@ -61,13 +61,13 @@ const LocationModal = ({ isOpen, onClose, type, value, onSave }: LocationModalPr
           <Button 
             variant="outline" 
             onClick={onClose} 
-            className="border-gray-600 text-gray-300 hover:bg-gray-700"
+            className="border-gray-300 hover:bg-gray-100"
           >
             Cancelar
           </Button>
           <Button 
             onClick={handleSave} 
-            className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white"
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
           >
             Salvar
           </Button>

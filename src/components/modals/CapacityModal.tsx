@@ -21,23 +21,23 @@ const CapacityModal = ({ isOpen, onClose, capacity, onSave }: CapacityModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-gray-800 border-gray-700 text-white max-w-md" style={{ backgroundColor: '#040A1A' }}>
+      <DialogContent className="bg-white border-gray-300 max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-white">Definir Capacidade</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-foreground">Definir Capacidade</DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="capacity" className="text-white">Número máximo de participantes</Label>
+            <Label htmlFor="capacity" className="text-foreground">Número máximo de participantes</Label>
             <Input
               id="capacity"
               type="number"
               value={currentCapacity}
               onChange={(e) => setCurrentCapacity(e.target.value)}
               placeholder="Ex: 100"
-              className="bg-gray-700 border-gray-600 text-white focus:border-blue-500"
+              className="bg-white border-gray-300 text-foreground focus:border-primary"
             />
-            <p className="text-sm text-gray-300">
+            <p className="text-sm text-muted-foreground">
               Deixe em branco para capacidade ilimitada
             </p>
           </div>
@@ -47,13 +47,13 @@ const CapacityModal = ({ isOpen, onClose, capacity, onSave }: CapacityModalProps
           <Button 
             variant="outline" 
             onClick={onClose} 
-            className="border-gray-600 text-gray-300 hover:bg-gray-700"
+            className="border-gray-300 hover:bg-gray-100"
           >
             Cancelar
           </Button>
           <Button 
             onClick={handleSave} 
-            className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white"
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
           >
             Concluído
           </Button>

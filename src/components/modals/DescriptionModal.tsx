@@ -31,9 +31,9 @@ const DescriptionModal = ({ isOpen, onClose, description, onSave }: DescriptionM
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl bg-gray-800 border-gray-700" style={{ backgroundColor: '#040A1A' }}>
+      <DialogContent className="max-w-2xl bg-white border-gray-300">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-white">Descrição do Evento</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-foreground">Descrição do Evento</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -41,14 +41,14 @@ const DescriptionModal = ({ isOpen, onClose, description, onSave }: DescriptionM
             placeholder="Descreva seu evento, objetivos, agenda e o que os participantes podem esperar..."
             value={currentDescription}
             onChange={(e) => setCurrentDescription(e.target.value)}
-            className="min-h-[200px] bg-gray-700 border-gray-600 text-white resize-none focus:border-blue-500"
+            className="min-h-[200px] bg-white border-gray-300 text-foreground resize-none focus:border-primary"
           />
 
           <div className="flex justify-between">
             <Button
               variant="outline"
               onClick={handleAISuggestion}
-              className="text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-white"
+              className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
             >
               <Sparkles className="h-4 w-4 mr-2" />
               Sugerir com IA
@@ -58,13 +58,13 @@ const DescriptionModal = ({ isOpen, onClose, description, onSave }: DescriptionM
               <Button 
                 variant="outline" 
                 onClick={onClose} 
-                className="text-white border-gray-600 hover:bg-gray-700"
+                className="border-gray-300 hover:bg-gray-100"
               >
                 Cancelar
               </Button>
               <Button 
                 onClick={handleSave} 
-                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 Concluído
               </Button>
