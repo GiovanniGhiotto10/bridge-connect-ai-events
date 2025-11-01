@@ -71,7 +71,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
         >
           <img src={bridgeLogo} alt="Bridge Logo" className="h-12 w-auto" />
-          <span className="text-2xl font-bold text-primary">Bridge</span>
+          <span className="hidden md:inline text-2xl font-bold text-primary">Bridge</span>
         </Link>
 
         {/* Desktop Navigation */}
