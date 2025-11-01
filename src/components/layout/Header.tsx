@@ -10,6 +10,13 @@ interface HeaderProps {
   isLoggedIn?: boolean;
 }
 
+type NavigationLink = {
+  label: string;
+  path: string;
+  icon?: React.ComponentType<{ className?: string }>;
+  onClick?: (e: React.MouseEvent) => void;
+};
+
 const Header = ({ isLoggedIn = false }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,13 +40,10 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     }
   };
 
-  const navigationLinks = isLoggedIn ? [
+  const navigationLinks: NavigationLink[] = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos", icon: Search },
     { label: "Meus Eventos", path: "/meus-eventos", icon: Calendar }
-  ] : [
-    { label: "Como Funciona", path: "#como-funciona", onClick: handleComoFuncionaClick },
-    { label: "Para Organizadores", path: "#organizadores" }
-  ];
+  ] : [];
 
   return (
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'header-scrolled' : 'bg-transparent'}`}>
@@ -57,7 +61,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               <Link 
                 key={link.path} 
                 to={link.path} 
-                onClick={link.onClick} 
+                onClick={link.onClick ? link.onClick : undefined} 
                 className={`text-sm font-medium transition-colors hover:text-primary flex items-center space-x-1 ${
                   isActive(link.path) ? "text-primary" : "text-muted-foreground"
                 }`}
