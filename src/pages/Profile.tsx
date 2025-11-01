@@ -99,7 +99,7 @@ const Profile = () => {
                   </AvatarFallback>
                 </Avatar>
                 
-                <div className="flex-1 text-center md:text-left">
+                <div className="flex-1 text-center md:text-left animate-fade-in-up">
                   <h1 className="text-3xl font-bold text-black mb-2">{mockUser.name}</h1>
                   <div className="flex items-center justify-center md:justify-start space-x-2 text-muted-foreground mb-3">
                     <MapPin className="h-4 w-4" />

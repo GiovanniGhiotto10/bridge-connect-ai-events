@@ -58,7 +58,7 @@ const MyEvents = () => {
       
       <main className="container mx-auto px-4 py-12">
         {/* Título e Filtros na mesma linha */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 animate-fade-in-up">
           <h1 className="text-4xl font-bold text-gradient-primary">Meus Eventos</h1>
           
           {/* Botões de Filtro */}

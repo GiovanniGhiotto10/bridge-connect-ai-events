@@ -73,7 +73,7 @@ const EventMatches = () => {
 
           {/* Conexões Tab Content */}
           <TabsContent value="conexoes" className="space-y-4 md:space-y-8">
-            <div>
+            <div className="animate-fade-in-up">
               <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 CONEXÕES
               </h1>
@@ -126,7 +126,7 @@ const EventMatches = () => {
 
           {/* Participantes Tab Content */}
           <TabsContent value="participantes" className="space-y-4 md:space-y-8">
-            <div>
+            <div className="animate-fade-in-up">
               <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 PARTICIPANTES
               </h1>
@@ -141,7 +141,7 @@ const EventMatches = () => {
 
           {/* Solicitações Tab Content */}
           <TabsContent value="solicitacoes" className="space-y-4 md:space-y-8">
-            <div>
+            <div className="animate-fade-in-up">
               <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 SOLICITAÇÕES
               </h1>

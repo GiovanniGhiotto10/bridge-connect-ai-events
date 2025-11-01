@@ -155,7 +155,7 @@ const EventDetails = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-background/20" />
         </div>
         <div className="relative container mx-auto px-4 h-full flex items-end pb-12">
-          <div className="max-w-4xl">
+          <div className="max-w-4xl animate-fade-in-up">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               {event.title || event.name}
             </h1>

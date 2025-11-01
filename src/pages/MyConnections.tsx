@@ -87,7 +87,7 @@ const MyConnections = () => {
       
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-black text-white uppercase mb-8 text-center">
+          <h1 className="text-4xl font-black text-white uppercase mb-8 text-center animate-fade-in-up">
             Minhas Conexões e Agenda
           </h1>
 
