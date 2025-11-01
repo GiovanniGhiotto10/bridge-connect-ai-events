@@ -72,8 +72,8 @@ const EventMatches = () => {
           </TabsList>
 
           {/* Conexões Tab Content */}
-          <TabsContent value="conexoes" className="space-y-4 md:space-y-6 mt-4 md:mt-6">
-            <div className="animate-fade-in-up">
+          <TabsContent value="conexoes" className="space-y-6 md:space-y-8">
+            <div className="animate-fade-in-up pt-4">
               <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 CONEXÕES
               </h1>
@@ -83,7 +83,7 @@ const EventMatches = () => {
             </div>
 
             {/* Match Cards */}
-            <div className="space-y-4 md:space-y-6">
+            <div className="space-y-4 md:space-y-6 pb-8">
               {mockMatches.map((match) => (
                 <Card
                   key={match.id}
@@ -125,8 +125,8 @@ const EventMatches = () => {
           </TabsContent>
 
           {/* Participantes Tab Content */}
-          <TabsContent value="participantes" className="space-y-4 md:space-y-8">
-            <div className="animate-fade-in-up">
+          <TabsContent value="participantes" className="space-y-6 md:space-y-8">
+            <div className="animate-fade-in-up pt-4">
               <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 PARTICIPANTES
               </h1>
@@ -140,8 +140,8 @@ const EventMatches = () => {
           </TabsContent>
 
           {/* Solicitações Tab Content */}
-          <TabsContent value="solicitacoes" className="space-y-4 md:space-y-8">
-            <div className="animate-fade-in-up">
+          <TabsContent value="solicitacoes" className="space-y-6 md:space-y-8">
+            <div className="animate-fade-in-up pt-4">
               <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 SOLICITAÇÕES
               </h1>
