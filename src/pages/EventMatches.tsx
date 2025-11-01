@@ -47,7 +47,7 @@ const EventMatches = () => {
       <main className="container mx-auto px-4 py-4 md:py-8 max-w-4xl">
         {/* Navigation Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-1 md:grid-cols-3 w-full bg-white border border-gray-200 p-1 rounded-lg mb-4 md:mb-8 gap-1 md:gap-0">
+          <TabsList className="grid grid-cols-1 md:grid-cols-3 w-full bg-white border border-gray-200 p-1 rounded-lg mb-6 md:mb-8 gap-1 md:gap-0">
             <TabsTrigger
               value="conexoes"
               className="flex items-center justify-center gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-md md:rounded-none text-sm py-3 md:py-2"
@@ -72,7 +72,7 @@ const EventMatches = () => {
           </TabsList>
 
           {/* Conexões Tab Content */}
-          <TabsContent value="conexoes" className="space-y-4 md:space-y-8">
+          <TabsContent value="conexoes" className="space-y-4 md:space-y-6 mt-4 md:mt-6">
             <div className="animate-fade-in-up">
               <h1 className="text-2xl md:text-4xl font-bold text-gray-900 uppercase mb-2">
                 CONEXÕES
