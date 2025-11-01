@@ -49,8 +49,9 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'header-scrolled' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
+        <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
           <img src={bridgeLogo} alt="Bridge Logo" className="h-12 w-auto" />
+          <span className="text-2xl font-bold text-primary">Bridge</span>
         </Link>
 
         {/* Desktop Navigation */}
