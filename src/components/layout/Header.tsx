@@ -117,7 +117,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 {/* User Menu - Desktop */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-primary/10">
                       <Avatar className="h-10 w-10 border-2 border-primary/20">
                         <AvatarFallback className="bg-primary/10 text-primary">
                           <User className="h-5 w-5" />
@@ -183,7 +183,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 {/* User Menu Mobile */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Button variant="ghost" className="relative h-10 w-10 rounded-full hover:bg-primary/10">
                       <Avatar className="h-10 w-10 border-2 border-primary/20">
                         <AvatarFallback className="bg-primary/10 text-primary">
                           <User className="h-5 w-5" />
