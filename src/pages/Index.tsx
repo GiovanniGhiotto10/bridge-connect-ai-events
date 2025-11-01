@@ -11,7 +11,7 @@ const Index = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-20 lg:py-32">
+        <section className="relative overflow-hidden py-20 lg:py-32 border-b border-card-border">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
               <h1 className="text-5xl lg:text-7xl font-bold text-gradient-primary mb-6 leading-tight">Conecte-se estrategicamente e impulsione o seu networking com a Bridge.</h1>
