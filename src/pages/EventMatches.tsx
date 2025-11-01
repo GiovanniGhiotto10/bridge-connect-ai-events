@@ -4,7 +4,9 @@ import Header from "@/components/layout/Header";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
-import { Users, Bell } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Users, Bell, Search } from "lucide-react";
 import bridgeLogo from "@/assets/logo-Bridge.svg";
 import ProfileDetailsModal from "@/components/modals/ProfileDetailsModal";
 
@@ -28,12 +30,84 @@ const mockMatches = [
   },
 ];
 
+// Mock participants data
+const mockParticipants = [
+  {
+    id: 1,
+    name: "dfsfsf",
+    company: "f",
+    position: "f",
+    avatar: "",
+    area: "Tecnologia",
+    connectionStatus: "connected",
+    whatOffers: "Experiência em programação e startup",
+    interests: "Tecnologia, Marketing, Saúde",
+    lookingFor: "Expandir networking",
+  },
+  {
+    id: 2,
+    name: "Guilherme dias",
+    company: "Volvo",
+    position: "CFO",
+    avatar: "",
+    area: "Finanças",
+    connectionStatus: "connected",
+    whatOffers: "Experiência em investimentos e mercado financeiro",
+    interests: "Tecnologia, Finanças, Saúde",
+    lookingFor: "Novas oportunidades de investimento",
+  },
+  {
+    id: 3,
+    name: "Felipe Jardim",
+    company: "Clarios",
+    position: "Estagiário TI",
+    avatar: "",
+    area: "Tecnologia",
+    connectionStatus: "connected",
+    whatOffers: "Conhecimento em TI e suporte técnico",
+    interests: "Tecnologia, Inovação",
+    lookingFor: "Aprender e crescer profissionalmente",
+  },
+  {
+    id: 4,
+    name: "Ana Silva",
+    company: "Tech Corp",
+    position: "Desenvolvedora",
+    avatar: "",
+    area: "Tecnologia",
+    connectionStatus: "pending",
+    whatOffers: "Desenvolvimento web e mobile",
+    interests: "Tecnologia, UX Design",
+    lookingFor: "Projetos inovadores",
+  },
+  {
+    id: 5,
+    name: "Carlos Santos",
+    company: "StartUp XYZ",
+    position: "CEO",
+    avatar: "",
+    area: "Empreendedorismo",
+    connectionStatus: "none",
+    whatOffers: "Visão estratégica de negócios",
+    interests: "Startups, Investimentos",
+    lookingFor: "Investidores e parceiros",
+  },
+];
+
 const EventMatches = () => {
   const [searchParams] = useSearchParams();
   const eventId = searchParams.get("event");
   const [activeTab, setActiveTab] = useState("conexoes");
-  const [selectedProfile, setSelectedProfile] = useState<typeof mockMatches[0] | null>(null);
+  const [selectedProfile, setSelectedProfile] = useState<any>(null);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  const filteredParticipants = mockParticipants.filter((participant) =>
+    participant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    participant.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    participant.position.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    participant.area.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleCardClick = (match: typeof mockMatches[0]) => {
     setSelectedProfile(match);
@@ -131,11 +205,82 @@ const EventMatches = () => {
                 PARTICIPANTES
               </h1>
               <p className="text-sm md:text-base text-gray-600">
-                Todos os participantes do evento
+                Conecte-se com profissionais do evento
               </p>
             </div>
-            <div className="text-center py-8 md:py-12 text-sm md:text-base text-gray-500">
-              Em breve: lista de todos os participantes
+
+            {/* Search Bar */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Buscar participantes..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
+              />
+            </div>
+
+            {/* Participant Cards */}
+            <div className="space-y-4 md:space-y-4 pb-8">
+              {filteredParticipants.map((participant) => (
+                <Card
+                  key={participant.id}
+                  className="p-4 md:p-6 bg-white border border-gray-200 hover:border-blue-400 transition-colors cursor-pointer"
+                  onClick={() => {
+                    setSelectedProfile(participant);
+                    setIsProfileModalOpen(true);
+                  }}
+                >
+                  {/* User Info Section */}
+                  <div className="flex items-start gap-3 md:gap-4 mb-4">
+                    <Avatar className="h-12 w-12 md:h-14 md:w-14 flex-shrink-0">
+                      <AvatarImage src={participant.avatar} alt={participant.name} />
+                      <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold text-sm md:text-base">
+                        {participant.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .toUpperCase()
+                          .slice(0, 2)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-base md:text-lg font-bold text-gray-900 truncate">
+                        {participant.name}
+                      </h3>
+                      <p className="text-xs md:text-sm text-gray-600 truncate">
+                        {participant.position} @ {participant.company}
+                      </p>
+                      <p className="text-xs md:text-sm text-gray-600 truncate">
+                        {participant.area}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Status Button */}
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // Handle connection logic here
+                    }}
+                    className={`w-full ${
+                      participant.connectionStatus === "connected"
+                        ? "bg-green-600 hover:bg-green-700 text-white"
+                        : participant.connectionStatus === "pending"
+                        ? "bg-gray-200 text-gray-500 cursor-not-allowed hover:bg-gray-200"
+                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                    }`}
+                    disabled={participant.connectionStatus === "pending"}
+                  >
+                    {participant.connectionStatus === "connected"
+                      ? "Conectados"
+                      : participant.connectionStatus === "pending"
+                      ? "Solicitação Enviada"
+                      : "Conectar"}
+                  </Button>
+                </Card>
+              ))}
             </div>
           </TabsContent>
 
