@@ -51,19 +51,22 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          {navigationLinks.map(link => (
-            <Link 
-              key={link.path} 
-              to={link.path} 
-              onClick={link.onClick} 
-              className={`text-sm font-medium transition-colors hover:text-primary flex items-center space-x-1 ${
-                isActive(link.path) ? "text-primary" : "text-muted-foreground"
-              }`}
-            >
-              {link.icon && <link.icon className="h-4 w-4" />}
-              <span>{link.label}</span>
-            </Link>
-          ))}
+          {navigationLinks.map(link => {
+            const Icon = link.icon;
+            return (
+              <Link 
+                key={link.path} 
+                to={link.path} 
+                onClick={link.onClick} 
+                className={`text-sm font-medium transition-colors hover:text-primary flex items-center space-x-1 ${
+                  isActive(link.path) ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
+                {Icon && <Icon className="h-4 w-4" />}
+                <span>{link.label}</span>
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Mobile Menu Button (for logged in users) */}
@@ -211,22 +214,25 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
       {isMobileMenuOpen && !isLoggedIn && (
         <div className="md:hidden border-t border-card-border bg-white backdrop-blur-sm">
           <div className="container mx-auto px-4 py-4 space-y-4">
-            {navigationLinks.map(link => (
-              <Link 
-                key={link.path} 
-                to={link.path} 
-                onClick={e => {
-                  if (link.onClick) {
-                    link.onClick(e);
-                  }
-                  setIsMobileMenuOpen(false);
-                }} 
-                className="block text-muted-foreground hover:text-primary transition-colors flex items-center space-x-2"
-              >
-                {link.icon && <link.icon className="h-4 w-4" />}
-                <span>{link.label}</span>
-              </Link>
-            ))}
+            {navigationLinks.map(link => {
+              const Icon = link.icon;
+              return (
+                <Link 
+                  key={link.path} 
+                  to={link.path} 
+                  onClick={e => {
+                    if (link.onClick) {
+                      link.onClick(e);
+                    }
+                    setIsMobileMenuOpen(false);
+                  }} 
+                  className="block text-muted-foreground hover:text-primary transition-colors flex items-center space-x-2"
+                >
+                  {Icon && <Icon className="h-4 w-4" />}
+                  <span>{link.label}</span>
+                </Link>
+              );
+            })}
             <div className="flex flex-col space-y-2 pt-4 border-t border-card-border">
               <Button variant="outline" className="btn-bridge-outline w-full" asChild>
                 <Link to="/cadastro">Cadastre-se</Link>
@@ -243,19 +249,22 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
       {isMobileMenuOpen && isLoggedIn && (
         <div className="md:hidden border-t border-card-border bg-white backdrop-blur-sm">
           <div className="container mx-auto px-4 py-4 space-y-3">
-            {navigationLinks.map(link => (
-              <Link 
-                key={link.path} 
-                to={link.path} 
-                onClick={() => setIsMobileMenuOpen(false)} 
-                className={`block transition-colors flex items-center space-x-2 p-2 rounded ${
-                  isActive(link.path) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-primary"
-                }`}
-              >
-                {link.icon && <link.icon className="h-5 w-5" />}
-                <span className="font-medium">{link.label}</span>
-              </Link>
-            ))}
+            {navigationLinks.map(link => {
+              const Icon = link.icon;
+              return (
+                <Link 
+                  key={link.path} 
+                  to={link.path} 
+                  onClick={() => setIsMobileMenuOpen(false)} 
+                  className={`block transition-colors flex items-center space-x-2 p-2 rounded ${
+                    isActive(link.path) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-primary"
+                  }`}
+                >
+                  {Icon && <Icon className="h-5 w-5" />}
+                  <span className="font-medium">{link.label}</span>
+                </Link>
+              );
+            })}
             
             <div className="pt-3 border-t border-card-border">
               <Button variant="outline" asChild className="w-full justify-start text-black border-primary hover:bg-primary hover:text-white">
