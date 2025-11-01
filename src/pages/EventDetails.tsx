@@ -307,9 +307,6 @@ const EventDetails = () => {
                         alt={match.name}
                         className="w-20 h-20 rounded-full mx-auto object-cover"
                       />
-                      <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded-full">
-                        {match.compatibility}
-                      </div>
                     </div>
                     <h3 className="font-semibold text-black group-hover:text-primary transition-colors">
                       {match.name}
