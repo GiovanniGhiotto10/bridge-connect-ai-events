@@ -231,7 +231,7 @@ const DiscoverEvents = () => {
 
           {/* Ver Todos Button */}
           <div className="text-center">
-            <Button variant="outline" className="btn-bridge-outline px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base" asChild>
+            <Button variant="outline" className="btn-bridge-outline border-2 border-primary px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base" asChild>
               <Link to="/todos-eventos">
                 Ver todos
                 <ChevronRight className="h-4 w-4 ml-2" />
