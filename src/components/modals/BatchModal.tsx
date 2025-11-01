@@ -93,7 +93,7 @@ const BatchModal = ({ isOpen, onClose, batches, onSave }: BatchModalProps) => {
                     value={batch.quantity}
                     onChange={(e) => updateBatch(batch.id, 'quantity', parseInt(e.target.value) || 0)}
                     placeholder="Ex: 100"
-                    className="bg-white border-gray-300 text-foreground"
+                    className="bg-white border-gray-300 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary"
                   />
                 </div>
                 
@@ -104,7 +104,7 @@ const BatchModal = ({ isOpen, onClose, batches, onSave }: BatchModalProps) => {
                     value={batch.price}
                     onChange={(e) => updateBatch(batch.id, 'price', parseFloat(formatCurrency(e.target.value)) || 0)}
                     placeholder="Ex: 50,00"
-                    className="bg-white border-gray-300 text-foreground"
+                    className="bg-white border-gray-300 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary"
                   />
                 </div>
               </div>

@@ -88,7 +88,7 @@ const TicketModal = ({ isOpen, onClose, isFree, ticketPrice, onSave }: TicketMod
                   value={price}
                   onChange={(e) => setPrice(formatCurrency(e.target.value))}
                   placeholder="50,00"
-                  className="bg-white border-gray-300 text-foreground"
+                  className="bg-white border-gray-300 text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary"
                 />
               </div>
             </div>
