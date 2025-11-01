@@ -11,7 +11,7 @@ const Footer = () => {
               <img src={bridgeLogo} alt="Bridge Logo" className="h-8 w-auto" />
               <span className="text-xl font-bold text-gradient-primary">Bridge</span>
             </div>
-            <p className="text-sm text-muted-foreground max-w-sm">A plataforma que transforma eventos em oportunidades.A plataforma que transforma eventos em oportunidades.</p>
+            <p className="text-sm text-muted-foreground max-w-sm">A plataforma que transforma eventos em oportunidades.</p>
             <p className="text-xs text-muted-foreground">
               © 2025 Bridge. Todos os direitos reservados.
             </p>
