@@ -49,9 +49,16 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
     }
   };
 
+  const handleMeusEventosClick = (e: React.MouseEvent) => {
+    if (location.pathname === "/meus-eventos") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const navigationLinks: NavigationLink[] = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos", icon: Search, onClick: handleDescobrirClick },
-    { label: "Meus Eventos", path: "/meus-eventos", icon: Ticket }
+    { label: "Meus Eventos", path: "/meus-eventos", icon: Ticket, onClick: handleMeusEventosClick }
   ] : [];
 
   return (
