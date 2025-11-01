@@ -18,7 +18,7 @@ const Index = () => {
               
               
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 mt-12">
                 <Button size="lg" className="btn-bridge-primary px-8 py-6 text-lg font-semibold" asChild>
                   <Link to="/criar-evento">
                     Criar um Evento
