@@ -122,7 +122,7 @@ const BatchModal = ({ isOpen, onClose, batches, onSave }: BatchModalProps) => {
         </div>
 
         <div className="flex justify-end gap-3 pt-4">
-          <Button variant="outline" onClick={onClose} className="border-gray-300 hover:bg-gray-100">
+          <Button variant="outline" onClick={onClose} className="border-gray-300 hover:bg-gray-100 hover:text-foreground">
             Cancelar
           </Button>
           <Button onClick={handleSave} className="bg-primary hover:bg-primary/90">

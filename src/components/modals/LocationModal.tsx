@@ -61,7 +61,7 @@ const LocationModal = ({ isOpen, onClose, type, value, onSave }: LocationModalPr
           <Button 
             variant="outline" 
             onClick={onClose} 
-            className="border-gray-300 hover:bg-gray-100"
+            className="border-gray-300 hover:bg-gray-100 hover:text-foreground"
           >
             Cancelar
           </Button>
