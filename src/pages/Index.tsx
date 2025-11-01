@@ -46,23 +46,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Social Proof Section */}
-        <section className="py-16 bg-card/30 border-y border-card-border">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12 animate-fade-in-up">
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                A Ponte para Conexões de Valor
-              </h2>
-            </div>
-            
-            <div className="max-w-4xl mx-auto">
-              <div className="animate-fade-in-up">
-                <img src="/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png" alt="Networking inteligente em eventos" className="w-full h-auto rounded-lg shadow-card" />
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* How It Works Section */}
         <section className="py-20" id="como-funciona">
           <div className="container mx-auto px-4">
@@ -131,6 +114,23 @@ const Index = () => {
                     Envie convites, agende reuniões e construa relacionamentos que geram valor se conectando com as pessoas certas.
                   </p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Social Proof Section */}
+        <section className="py-16 bg-card/30 border-y border-card-border">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12 animate-fade-in-up">
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                A Ponte para Conexões de Valor
+              </h2>
+            </div>
+            
+            <div className="max-w-4xl mx-auto">
+              <div className="animate-fade-in-up">
+                <img src="/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png" alt="Networking inteligente em eventos" className="w-full h-auto rounded-lg shadow-card" />
               </div>
             </div>
           </div>
