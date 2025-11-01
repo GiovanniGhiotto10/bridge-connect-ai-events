@@ -201,7 +201,7 @@ const DiscoverEvents = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
             {allEvents.map(event => <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
                 <div className="relative aspect-square overflow-hidden">
-                  <img src={event.image} alt={event.title} className="w-full h-[180px] object-cover group-hover:scale-110 transition-transform duration-300" />
+                  <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 
                 <CardContent className="p-3 md:p-4">
