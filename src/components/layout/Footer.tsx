@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Linkedin, Instagram } from "lucide-react";
+import bridgeLogo from "@/assets/logo-Bridge.svg";
 
 const Footer = () => {
   return (
@@ -9,9 +10,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">B</span>
-              </div>
+              <img src={bridgeLogo} alt="Bridge Logo" className="h-8 w-auto" />
               <span className="text-xl font-bold text-gradient-primary">Bridge</span>
             </div>
             <p className="text-sm text-muted-foreground max-w-sm">
