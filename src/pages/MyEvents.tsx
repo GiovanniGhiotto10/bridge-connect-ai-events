@@ -42,7 +42,7 @@ const MyEvents = () => {
           {userEvents.map((event) => (
             <Card key={event.id} className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
               <CardContent className="p-0">
-                <div className="aspect-square w-full overflow-hidden rounded-t-lg">
+                <div className="w-full h-80 overflow-hidden rounded-t-lg">
                   <img 
                     src={event.image} 
                     alt={event.title}
