@@ -120,7 +120,7 @@ const Index = () => {
         </section>
 
         {/* Social Proof Section */}
-        <section className="py-16 bg-card/30 border-y border-card-border">
+        <section className="py-16 bg-transparent">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12 animate-fade-in-up">
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
@@ -128,9 +128,9 @@ const Index = () => {
               </h2>
             </div>
             
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <div className="animate-fade-in-up">
-                <img src="/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png" alt="Networking inteligente em eventos" className="w-full h-auto rounded-lg shadow-card" />
+                <img src="/lovable-uploads/8a9f4ef8-de41-4a07-b941-952b39e77564.png" alt="Networking inteligente em eventos" className="w-full h-auto" />
               </div>
             </div>
           </div>
