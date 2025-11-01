@@ -69,7 +69,7 @@ const MyEvents = () => {
               <CardFooter className="p-3 md:p-4 pt-0 flex flex-col gap-2">
                 <Button 
                   variant="outline" 
-                  className="w-full btn-bridge-outline text-xs md:text-sm"
+                  className="w-full btn-bridge-outline border-2 border-primary text-xs md:text-sm"
                   asChild
                 >
                   <Link to={`/evento/${event.id}`}>Página do Evento</Link>
