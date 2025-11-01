@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import bridgeLogo from "@/assets/logo-Bridge.svg";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Settings, LogOut, Menu, X, Calendar, Search, Plus, Bell } from "lucide-react";
+import { User, Settings, LogOut, Menu, X, Ticket, Search, Plus, Bell } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 interface HeaderProps {
@@ -44,7 +44,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
 
   const navigationLinks: NavigationLink[] = isLoggedIn ? [
     { label: "Descobrir", path: "/eventos", icon: Search },
-    { label: "Meus Eventos", path: "/meus-eventos", icon: Calendar }
+    { label: "Meus Eventos", path: "/meus-eventos", icon: Ticket }
   ] : [];
 
   return (
@@ -116,7 +116,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link to="/meus-eventos" className="flex items-center cursor-pointer">
-                        <Calendar className="mr-2 h-4 w-4" />
+                        <Ticket className="mr-2 h-4 w-4" />
                         Meus Eventos
                       </Link>
                     </DropdownMenuItem>
@@ -182,7 +182,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link to="/meus-eventos" className="flex items-center cursor-pointer">
-                        <Calendar className="mr-2 h-4 w-4" />
+                        <Ticket className="mr-2 h-4 w-4" />
                         Meus Eventos
                       </Link>
                     </DropdownMenuItem>
