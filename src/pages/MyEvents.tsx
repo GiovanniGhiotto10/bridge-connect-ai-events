@@ -67,8 +67,8 @@ const MyEvents = () => {
               variant="ghost"
               className={`rounded-full px-6 py-2 transition-all ${
                 activeTab === "proximos" 
-                  ? "bg-foreground text-background hover:bg-foreground/90" 
-                  : "bg-transparent text-foreground hover:bg-muted"
+                  ? "bg-foreground text-background hover:bg-foreground hover:text-background" 
+                  : "bg-transparent text-foreground/60 hover:bg-transparent hover:text-foreground"
               }`}
               onClick={() => setActiveTab("proximos")}
             >
@@ -78,8 +78,8 @@ const MyEvents = () => {
               variant="ghost"
               className={`rounded-full px-6 py-2 transition-all ${
                 activeTab === "passados" 
-                  ? "bg-foreground text-background hover:bg-foreground/90" 
-                  : "bg-transparent text-foreground hover:bg-muted"
+                  ? "bg-foreground text-background hover:bg-foreground hover:text-background" 
+                  : "bg-transparent text-foreground/60 hover:bg-transparent hover:text-foreground"
               }`}
               onClick={() => setActiveTab("passados")}
             >
