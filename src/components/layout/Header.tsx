@@ -98,7 +98,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
               {/* Desktop Icons */}
               <div className="hidden md:flex items-center space-x-2">
                 {/* Create Event Button */}
-                <Button variant="ghost" asChild className="text-black hover:bg-primary/20 flex items-center space-x-1">
+                <Button variant="ghost" asChild className="text-black hover:bg-primary/20 hover:text-black flex items-center space-x-1">
                   <Link to="/criar-evento">
                     <Plus className="h-4 w-4" />
                     <span>Criar Evento</span>
