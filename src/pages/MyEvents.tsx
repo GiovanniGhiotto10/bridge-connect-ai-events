@@ -57,24 +57,35 @@ const MyEvents = () => {
       <Header isLoggedIn={true} />
       
       <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-gradient-primary mb-8">Meus Eventos</h1>
-        
-        {/* Botões de Filtro */}
-        <div className="flex gap-4 mb-8">
-          <Button
-            variant={activeTab === "proximos" ? "default" : "outline"}
-            className={activeTab === "proximos" ? "btn-bridge-primary" : "btn-bridge-outline border-2 border-primary"}
-            onClick={() => setActiveTab("proximos")}
-          >
-            Próximos
-          </Button>
-          <Button
-            variant={activeTab === "passados" ? "default" : "outline"}
-            className={activeTab === "passados" ? "btn-bridge-primary" : "btn-bridge-outline border-2 border-primary"}
-            onClick={() => setActiveTab("passados")}
-          >
-            Passados
-          </Button>
+        {/* Título e Filtros na mesma linha */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <h1 className="text-4xl font-bold text-gradient-primary">Meus Eventos</h1>
+          
+          {/* Botões de Filtro */}
+          <div className="inline-flex gap-2 bg-muted/30 p-1 rounded-full">
+            <Button
+              variant="ghost"
+              className={`rounded-full px-6 py-2 transition-all ${
+                activeTab === "proximos" 
+                  ? "bg-foreground text-background hover:bg-foreground/90" 
+                  : "bg-transparent text-foreground hover:bg-muted"
+              }`}
+              onClick={() => setActiveTab("proximos")}
+            >
+              Próximos
+            </Button>
+            <Button
+              variant="ghost"
+              className={`rounded-full px-6 py-2 transition-all ${
+                activeTab === "passados" 
+                  ? "bg-foreground text-background hover:bg-foreground/90" 
+                  : "bg-transparent text-foreground hover:bg-muted"
+              }`}
+              onClick={() => setActiveTab("passados")}
+            >
+              Passado
+            </Button>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
