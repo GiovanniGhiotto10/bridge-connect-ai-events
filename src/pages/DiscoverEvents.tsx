@@ -199,38 +199,34 @@ const DiscoverEvents = () => {
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
-            {allEvents.map(event => <Card key={event.id} className="card-bridge-interactive overflow-hidden group">
-                <div className="relative aspect-square overflow-hidden">
-                  <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
-                </div>
-                
-                <CardContent className="p-3 md:p-4">
-                  <h3 className="text-sm md:text-base font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">
-                    {event.title}
-                  </h3>
-                  
-                  <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-3 line-clamp-1">
-                    {event.description}
-                  </p>
-                  
-                  <div className="space-y-1 mb-2 md:mb-3">
-                    <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
-                      <Calendar className="h-3 w-3 flex-shrink-0" />
-                      <span className="truncate">{formatDate(event.date)}</span>
-                    </div>
-                    <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
-                      <MapPin className="h-3 w-3 flex-shrink-0" />
-                      <span className="truncate">{event.location}</span>
-                    </div>
+            {allEvents.map(event => <Link key={event.id} to={`/evento/${event.id}`} className="block">
+                <Card className="card-bridge-interactive overflow-hidden group cursor-pointer h-full">
+                  <div className="relative aspect-square overflow-hidden">
+                    <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
                   </div>
-
-                  <Button className="btn-bridge-primary w-full text-xs md:text-sm py-1.5 md:py-2" size="sm" asChild>
-                    <Link to={`/evento/${event.id}`}>
-                      Ver Detalhes
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>)}
+                  
+                  <CardContent className="p-3 md:p-4">
+                    <h3 className="text-sm md:text-base font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-2">
+                      {event.title}
+                    </h3>
+                    
+                    <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-3 line-clamp-1">
+                      {event.description}
+                    </p>
+                    
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
+                        <Calendar className="h-3 w-3 flex-shrink-0" />
+                        <span className="truncate">{formatDate(event.date)}</span>
+                      </div>
+                      <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
+                        <MapPin className="h-3 w-3 flex-shrink-0" />
+                        <span className="truncate">{event.location}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>)}
           </div>
 
           {/* Ver Todos Button */}
