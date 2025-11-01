@@ -301,11 +301,6 @@ const AllEvents = () => {
                       alt={event.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
-                    <div className="absolute top-3 left-3">
-                      <Badge variant="secondary" className="bg-card/80 text-card-foreground text-xs">
-                        {event.price}
-                      </Badge>
-                    </div>
                   </div>
                   
                   <CardContent className="p-4">
