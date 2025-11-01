@@ -141,7 +141,7 @@ const EventDetails = () => {
   } : {};
 
   return (
-    <div className="min-h-screen" style={pageStyle.background ? { background: pageStyle.background } : { backgroundColor: '#FFFFFF' }}>
+    <div className="min-h-screen bg-background">
       <Header isLoggedIn={true} />
       
       {/* Hero Section */}
@@ -156,7 +156,7 @@ const EventDetails = () => {
         </div>
         <div className="relative container mx-auto px-4 h-full flex items-end pb-12">
           <div className="max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 text-shadow-lg">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               {event.title || event.name}
             </h1>
           </div>
