@@ -52,7 +52,7 @@ const LocationModal = ({ isOpen, onClose, type, value, onSave }: LocationModalPr
               value={currentValue}
               onChange={(e) => setCurrentValue(e.target.value)}
               placeholder={getPlaceholder()}
-              className="bg-white border-gray-300 text-foreground focus:border-primary"
+              className="bg-white border-gray-300 text-foreground"
             />
           </div>
         </div>

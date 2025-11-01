@@ -35,7 +35,7 @@ const CapacityModal = ({ isOpen, onClose, capacity, onSave }: CapacityModalProps
               value={currentCapacity}
               onChange={(e) => setCurrentCapacity(e.target.value)}
               placeholder="Ex: 100"
-              className="bg-white border-gray-300 text-foreground focus:border-primary"
+              className="bg-white border-gray-300 text-foreground"
             />
             <p className="text-sm text-muted-foreground">
               Deixe em branco para capacidade ilimitada

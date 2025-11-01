@@ -41,7 +41,7 @@ const DescriptionModal = ({ isOpen, onClose, description, onSave }: DescriptionM
             placeholder="Descreva seu evento, objetivos, agenda e o que os participantes podem esperar..."
             value={currentDescription}
             onChange={(e) => setCurrentDescription(e.target.value)}
-            className="min-h-[200px] bg-white border-gray-300 text-foreground resize-none focus:border-primary"
+            className="min-h-[200px] bg-white border-gray-300 text-foreground resize-none"
           />
 
           <div className="flex justify-between">
