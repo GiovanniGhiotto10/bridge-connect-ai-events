@@ -32,49 +32,53 @@ const userEvents = [
 
 const MyEvents = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen bg-background">
       <Header isLoggedIn={true} />
       
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-black mb-8">Meus Eventos</h1>
+      <main className="container mx-auto px-4 py-12">
+        <h1 className="text-4xl font-bold text-gradient-primary mb-8">Meus Eventos</h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {userEvents.map((event) => (
-            <Card key={event.id} className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-              <CardContent className="p-0">
-                <div className="w-full h-80 overflow-hidden rounded-t-lg">
-                  <img 
-                    src={event.image} 
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold text-black mb-2">{event.title}</h3>
-                  <div className="flex items-center text-gray-600 text-sm mb-1">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    <span>{event.date}</span>
+            <Card key={event.id} className="card-bridge-interactive overflow-hidden group cursor-pointer h-full flex flex-col">
+              <div className="relative aspect-square overflow-hidden">
+                <img 
+                  src={event.image} 
+                  alt={event.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              
+              <CardContent className="p-3 md:p-4 flex-1">
+                <h3 className="text-sm md:text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                  {event.title}
+                </h3>
+                
+                <div className="space-y-1">
+                  <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
+                    <Calendar className="h-3 w-3 flex-shrink-0" />
+                    <span className="truncate">{event.date}</span>
                   </div>
-                  <div className="flex items-center text-gray-600 text-sm">
-                    <MapPin className="h-4 w-4 mr-2" />
-                    <span>{event.location}</span>
+                  <div className="flex items-center gap-1 md:gap-2 text-xs text-muted-foreground">
+                    <MapPin className="h-3 w-3 flex-shrink-0" />
+                    <span className="truncate">{event.location}</span>
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="p-4 pt-0 flex gap-2">
+              
+              <CardFooter className="p-3 md:p-4 pt-0 flex flex-col gap-2">
                 <Button 
                   variant="outline" 
-                  className="flex-1 border-black text-black hover:bg-gray-100"
+                  className="w-full btn-bridge-outline text-xs md:text-sm"
                   asChild
                 >
-                  <Link to={`/evento/${event.id}`}>Pagina do Evento</Link>
+                  <Link to={`/evento/${event.id}`}>Página do Evento</Link>
                 </Button>
                 <Button 
-                  variant="default" 
-                  className="flex-1 bg-black text-white hover:bg-gray-800"
+                  className="w-full btn-bridge-primary text-xs md:text-sm"
                   asChild
                 >
-                  <Link to={`/matches?event=${event.id}`}>Conexoes</Link>
+                  <Link to={`/matches?event=${event.id}`}>Conexões</Link>
                 </Button>
               </CardFooter>
             </Card>
