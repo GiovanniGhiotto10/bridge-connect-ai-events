@@ -177,7 +177,7 @@ const DiscoverEvents = () => {
         {/* Page Header */}
         <div className="text-center mb-8 md:mb-12 animate-fade-in-up">
           <h1 className="text-2xl md:text-4xl font-bold text-gradient-primary mb-3 md:mb-4">
-            Descubra Eventos com Conexões Reais
+            DESCUBRA EVENTOS
           </h1>
           
         </div>
