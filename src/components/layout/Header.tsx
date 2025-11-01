@@ -110,7 +110,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 </Button>
                 
                 {/* Notifications Icon */}
-                <Button variant="ghost" size="icon" className="text-black hover:bg-primary/20">
+                <Button variant="ghost" size="icon" className="text-black hover:bg-primary/20 hover:text-black">
                   <Bell className="h-5 w-5" />
                 </Button>
                 
@@ -176,7 +176,7 @@ const Header = ({ isLoggedIn = false }: HeaderProps) => {
                 })}
                 
                 {/* Notifications Icon */}
-                <Button variant="ghost" size="icon" className="text-black hover:bg-primary/20">
+                <Button variant="ghost" size="icon" className="text-black hover:bg-primary/20 hover:text-black">
                   <Bell className="h-5 w-5" />
                 </Button>
                 
