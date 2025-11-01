@@ -47,27 +47,27 @@ const EventMatches = () => {
       <main className="container mx-auto px-4 py-4 md:py-8 max-w-4xl">
         {/* Navigation Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-3 w-full bg-white border border-gray-200 p-1 rounded-lg mb-4 md:mb-8">
+          <TabsList className="grid grid-cols-1 md:grid-cols-3 w-full bg-white border border-gray-200 p-1 rounded-lg mb-4 md:mb-8 gap-1 md:gap-0">
             <TabsTrigger
               value="conexoes"
-              className="flex items-center justify-center gap-1 md:gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none text-xs md:text-sm"
+              className="flex items-center justify-center gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-md md:rounded-none text-sm py-3 md:py-2"
             >
-              <img src={bridgeLogo} alt="Bridge" className="w-5 h-5 md:w-8 md:h-8" />
-              <span className="hidden sm:inline">Conexões</span>
+              <img src={bridgeLogo} alt="Bridge" className="w-6 h-6 md:w-8 md:h-8" />
+              <span>Conexões</span>
             </TabsTrigger>
             <TabsTrigger
               value="participantes"
-              className="flex items-center justify-center gap-1 md:gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none text-xs md:text-sm"
+              className="flex items-center justify-center gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-md md:rounded-none text-sm py-3 md:py-2"
             >
               <Users className="w-4 h-4" />
-              <span className="hidden sm:inline">Participantes</span>
+              <span>Participantes</span>
             </TabsTrigger>
             <TabsTrigger
               value="solicitacoes"
-              className="flex items-center justify-center gap-1 md:gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none text-xs md:text-sm"
+              className="flex items-center justify-center gap-2 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-l-4 md:data-[state=active]:border-l-0 md:data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-md md:rounded-none text-sm py-3 md:py-2"
             >
               <Bell className="w-4 h-4" />
-              <span className="hidden sm:inline">Solicitações</span>
+              <span>Solicitações</span>
             </TabsTrigger>
           </TabsList>
 
