@@ -6,7 +6,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Users, Bell, Search } from "lucide-react";
+import { Users, Bell, Search, Check, X } from "lucide-react";
 import bridgeLogo from "@/assets/logo-Bridge.svg";
 import ProfileDetailsModal from "@/components/modals/ProfileDetailsModal";
 
@@ -91,6 +91,32 @@ const mockParticipants = [
     whatOffers: "Visão estratégica de negócios",
     interests: "Startups, Investimentos",
     lookingFor: "Investidores e parceiros",
+  },
+];
+
+// Mock connection requests data
+const mockConnectionRequests = [
+  {
+    id: 1,
+    name: "jorge",
+    company: "colegio objetivo",
+    position: "professor",
+    avatar: "",
+    area: "Agro",
+    whatOffers: "Experiência em educação e metodologias de ensino",
+    interests: "Educação, Tecnologia, Agronegócio",
+    lookingFor: "Expandir network no setor educacional",
+  },
+  {
+    id: 2,
+    name: "Maria Silva",
+    company: "Tech Solutions",
+    position: "Gerente de Projetos",
+    avatar: "",
+    area: "Tecnologia",
+    whatOffers: "Gestão de projetos ágeis e transformação digital",
+    interests: "Tecnologia, Inovação, Gestão",
+    lookingFor: "Parcerias estratégicas",
   },
 ];
 
@@ -291,11 +317,80 @@ const EventMatches = () => {
                 SOLICITAÇÕES
               </h1>
               <p className="text-sm md:text-base text-gray-600">
-                Gerencie suas solicitações de conexão
+                Gerencie pedidos de conexão
               </p>
             </div>
-            <div className="text-center py-8 md:py-12 text-sm md:text-base text-gray-500">
-              Em breve: suas solicitações de conexão
+
+            {/* Connection Request Cards */}
+            <div className="space-y-4 md:space-y-4 pb-8">
+              {mockConnectionRequests.length === 0 ? (
+                <div className="text-center py-8 md:py-12 text-sm md:text-base text-gray-500">
+                  Nenhuma solicitação pendente
+                </div>
+              ) : (
+                mockConnectionRequests.map((request) => (
+                  <Card
+                    key={request.id}
+                    className="p-4 md:p-6 bg-white border border-gray-200"
+                  >
+                    {/* User Info Section - Clickable */}
+                    <div 
+                      className="flex items-start gap-3 md:gap-4 mb-4 cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() => {
+                        setSelectedProfile(request);
+                        setIsProfileModalOpen(true);
+                      }}
+                    >
+                      <Avatar className="h-12 w-12 md:h-14 md:w-14 flex-shrink-0">
+                        <AvatarImage src={request.avatar} alt={request.name} />
+                        <AvatarFallback className="bg-blue-100 text-blue-700 font-semibold text-sm md:text-base">
+                          {request.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")
+                            .toUpperCase()
+                            .slice(0, 2)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-base md:text-lg font-bold text-gray-900 truncate">
+                          {request.name}
+                        </h3>
+                        <p className="text-xs md:text-sm text-gray-600 truncate">
+                          {request.position} @ {request.company}
+                        </p>
+                        <p className="text-xs md:text-sm text-gray-600 truncate">
+                          {request.area}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-2 md:gap-3">
+                      <Button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Handle accept logic here
+                        }}
+                        className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                      >
+                        <Check className="w-4 h-4 mr-1" />
+                        Aceitar
+                      </Button>
+                      <Button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Handle reject logic here
+                        }}
+                        className="flex-1 bg-red-600 hover:bg-red-700 text-white"
+                      >
+                        <X className="w-4 h-4 mr-1" />
+                        Recusar
+                      </Button>
+                    </div>
+                  </Card>
+                ))
+              )}
             </div>
           </TabsContent>
         </Tabs>
