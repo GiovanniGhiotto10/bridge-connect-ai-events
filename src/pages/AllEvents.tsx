@@ -162,6 +162,11 @@ const AllEvents = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 8;
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   // Initialize category filter from URL params
   useEffect(() => {
     const categoryParam = searchParams.get('categoria');
