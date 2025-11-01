@@ -44,7 +44,7 @@ const EventMatches = () => {
               value="conexoes"
               className="flex-1 data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:border-b-2 data-[state=active]:border-blue-600 rounded-none"
             >
-              <img src={bridgeLogo} alt="Bridge" className="w-6 h-6 mr-2" />
+              <img src={bridgeLogo} alt="Bridge" className="w-8 h-8 mr-2" />
               Conexões
             </TabsTrigger>
             <TabsTrigger
