@@ -61,7 +61,7 @@ const Signup = () => {
             {/* Título */}
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold text-black mb-2">
-                Cadastre-se na Bridge
+                BEM-VINDO(A) À BRIDGE
               </h1>
               <p className="text-gray-600 text-sm">
                 Crie sua conta para começar.
